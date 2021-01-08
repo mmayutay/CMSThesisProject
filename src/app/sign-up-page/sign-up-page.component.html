@@ -1,0 +1,10 @@
+<div>
+    <input placeholder="Full Name" type="text" [(ngModel)]="userData.Name"><br>
+    <input placeholder="Age" type="number" [(ngModel)]="userData.Age"><br>
+    <input placeholder="Email" type="text" [(ngModel)]="userData.Email"><br>
+    <input placeholder="Member Status" type="text" [(ngModel)]="userData.Member_status"><br>
+    <input placeholder="Leader" type="text" [(ngModel)]="userData.Leader"><br>
+    <input placeholder="Password" type="text" [(ngModel)]="userData.Password"><br>
+    <button (click)="signUp()">Submit</button>
+    Go to <u routerLink="/login">Log-in</u>
+</div>

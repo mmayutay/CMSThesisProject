@@ -1,0 +1,10 @@
+<button (click)="getAllProfileData()">View Profile</button>
+<button (click)="logout()">Log-out</button>
+<div *ngFor="let value of userProfile">
+    <h1>Name:</h1> <p>{{ value.name }}</p>
+    <h1>Leader:</h1> <p>{{ value.leader }}</p>
+    <h1>Email:</h1> <p>{{ value.email }}</p>
+    <h1>Member Status:</h1> <p>{{ value.member_status }}</p>
+    <h1>Age:</h1><p>{{ value.age }}</p>
+    <h1>Password:</h1><p>{{ value.password }}</p>
+</div>

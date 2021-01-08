@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "CMSThesisProject": {
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "CMSThesisProject"
+    }
+  },
+  "defaultProject": "CMSThesisProject",
+  "cli": {
+    "analytics": "e20cfaeb-7f2b-49d8-8060-640edadb66d8"
+  }
 }
