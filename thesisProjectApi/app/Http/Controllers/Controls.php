@@ -13,7 +13,8 @@ use App\Models\cms_accounts;
 class Controls extends Controller
 {
     public function list() {
-        return cms_users::all();
+        
+        return "cms_users::all()";
     }
     public function allAccount() {
         return cms_accounts::all();
