@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class cms_members extends Model
 {
     use HasFactory;
+
+
+    
 }
