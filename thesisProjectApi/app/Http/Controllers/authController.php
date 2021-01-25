@@ -32,7 +32,6 @@ class authController extends Controller
         $user = new cms_users;
         $newAccountCreate = new cms_accounts;
 
-        return $request;
         $user->lastname = $request->newUser["Lastname"];
         $user->firstname = $request->newUser["Firstname"];
         $user->birthday = $request->newUser["Birthday"];
