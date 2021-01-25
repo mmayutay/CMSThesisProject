@@ -27,3 +27,8 @@ Route::post('login', 'App\Http\Controllers\authController@login');
 Route::post('sign-up', 'App\Http\Controllers\authController@signUp');
 
 Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
+
+
+//This is for the logged users matter
+
+Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser');
