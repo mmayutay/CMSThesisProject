@@ -21,10 +21,10 @@ class UserDisplayController extends Controller
         return view('welcome')->with(compact('users',$users));
     }
 
-    public function getUsers(){
-        
-        return cms_users::all();
-        return view('welcome');
+    public function getUsers(Request $request){
+        $userRequest = cms_users::where('id', $request->input('userID'))
+        ->get();
+        return $userRequest;
         
     }
 
