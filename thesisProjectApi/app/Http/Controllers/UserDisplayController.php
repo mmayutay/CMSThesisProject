@@ -21,13 +21,6 @@ class UserDisplayController extends Controller
         return view('welcome')->with(compact('users',$users));
     }
 
-    public function getUsers(){
-        
-        return cms_users::all();
-        return view('welcome');
-        
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -48,6 +41,25 @@ class UserDisplayController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'lastname' => 'required',
+            'firstname' => 'required',
+            'birthday' => 'required',
+            'age' => 'required',
+            'address' => 'required',
+            'marital_status' => 'required',
+            'email' => 'required',
+            'contact_number' => 'required',
+            'facebook' => '',
+            'instagram' => '',
+            'twitter' => '',
+            'leader' => 'required',
+            'category' => 'required',
+            'isCGVIP' => 'true',
+            'isSCVIP' => 'true',
+            'auxilliary' => 'required',
+            'ministries' => 'required',
+        ]);
     }
 
     /**
@@ -59,6 +71,12 @@ class UserDisplayController extends Controller
     public function show($id)
     {
         //
+
+        $info = cms_users::find($id);
+
+        return view('edit')->with(compact('info', $info));
+        
+
     }
 
     /**
@@ -70,6 +88,8 @@ class UserDisplayController extends Controller
     public function edit($id)
     {
         //
+        $info = cms_users::find($id);
+        return view('edit')->with(compact('info', $info));
     }
 
     /**
