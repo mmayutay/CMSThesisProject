@@ -111,15 +111,15 @@ class UserDisplayController extends Controller
             'marital_status' => 'required',
             'email' => 'required',
             'contact_number' => 'required',
-            // 'facebook' => '',
-            // 'instagram' => '',
-            // 'twitter' => '',
-            // 'leader' => 'required',
-            // 'category' => 'required',
-            // 'isCGVIP' => 'true',
-            // 'isSCVIP' => 'true',
-            // 'auxilliary' => 'required',
-            // 'ministries' => 'required',
+            'facebook' => '',
+            'instagram' => '',
+            'twitter' => '',
+            'leader' => 'required',
+            'category' => 'required',
+            'isCGVIP' => 'required',
+            'isSCVIP' => 'required',
+            'auxilliary' => 'required',
+            'ministries' => 'required',
         ]);
 
         $info = cms_users::find($id);
@@ -131,6 +131,15 @@ class UserDisplayController extends Controller
         $info->marital_status = $request->input('marital_status');
         $info->email = $request->input('email');
         $info->contact_number = $request->input('contact_number');
+        $info->facebook = $request->input('facebook');
+        $info->instagram = $request->input('instagram');
+        $nfo->twitter = $request->input('twitter');
+        $info->leader = $request->input('leader');
+        $info->category = $request-> input('category');
+        $info->isCGVIP = $request->input('isCGVIP');
+        $info->isSCVIP = $request->input('isSCVIP');
+        $info->auxilliary = $request->input('auxilliary');
+        $info->ministries = $reques->input('ministries');
         $info->save();
 
         return redirect('/info')->with('success', 'Post updated');

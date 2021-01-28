@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return "welcome";
 });
-Route::get('/info','UserDisplayController@index');
+// Route::get('/info','UserDisplayController@index');
 
 Route::get('/edit/{id}', 'UserDisplayController@edit');
 

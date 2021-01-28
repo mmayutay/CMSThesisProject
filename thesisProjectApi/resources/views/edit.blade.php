@@ -33,6 +33,43 @@
         {{Form::label('contact_number', 'Contact No.' )}}
         {{Form::text('contact_number', $info->contact_number, ['class' => 'form-control', 'placeholder' => 'Mobile No.'])}}
     </div>
+    <div class="form-group">
+        {{Form::label('facebook', 'Facebook' )}}
+        {{Form::text('facebook', $info->facebook, ['class' => 'form-control', 'placeholder' => 'facebook'])}}
+    </div>
+    <div class="form-group">
+        {{Form::label('instagram', 'Instagram' )}}
+        {{Form::text('instagram', $info->instagram, ['class' => 'form-control', 'placeholder' => 'instagram'])}}
+    </div>
+    <div class="form-group">
+        {{Form::label('twitter', 'Twitter' )}}
+        {{Form::text('twitter', $info->twitter, ['class' => 'form-control', 'placeholder' => 'twitter'])}}
+    </div>
+    <div class="form-group">
+        {{Form::label('leader', 'Leader' )}}
+        {{Form::text('leader', $info->leader, ['class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => 'leader'])}}
+    </div>
+    <div class="form-group">
+        {{Form::label('category', 'Category' )}}
+        {{Form::text('category', $info->category, ['class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => 'category'])}}
+    </div>
+    <div class="form-group">
+        {{Form::label('isCGVIP', 'isCGVIP' )}}
+        {{Form::text('isCGVIP', $info->isCGVIP, ['class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => 'isCGVIP'])}}
+    </div>
+    <div class="form-group">
+        {{Form::label('isSCVIP', 'isSCVIP' )}}
+        {{Form::text('isSCVIP', $info->isSCVIP, ['class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => 'isSCVIP'])}}
+    </div>
+    <div class="form-group">
+        {{Form::label('auxilliary', 'Auxilliary' )}}
+        {{Form::text('auxilliary', $info->Auxilliary, ['class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => 'auxilliary'])}}
+    </div>
+    <div class="form-group">
+        {{Form::label('ministries', 'Ministried' )}}
+        {{Form::text('ministries', $info->ministries, ['class' => 'form-control', 'disabled' => 'disabled', 'placeholder' => 'ministries'])}}
+    </div>
+
     {{ Form::hidden('_method', 'PUT') }}
     {{ Form::submit('Submit', ['class'=>'btn btn-primary'])}}
         

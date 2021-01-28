@@ -20,8 +20,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('list', 'App\Http\Controllers\Controls@list');
 
-Route::post('login', 'App\Http\Controllers\authController@login');
+Route::get('allAccounts', 'App\Http\Controllers\Controls@allAccount');
 
-Route::post('sign-up', 'App\Http\Controllers\authController@signUp');
+Route::post('login', 'authController@login');
+
+Route::post('/sign-up', 'authController@signUp');
 
 Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
+
+
+//This is for the logged users matter
+Route::post('/info','UserDisplayController@getUsers');
+
+Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser');
