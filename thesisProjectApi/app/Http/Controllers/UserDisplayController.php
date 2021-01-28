@@ -102,6 +102,38 @@ class UserDisplayController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'lastname' => 'required',
+            'firstname' => 'required',
+            'birthday' => 'required',
+            'age' => 'required',
+            'address' => 'required',
+            'marital_status' => 'required',
+            'email' => 'required',
+            'contact_number' => 'required',
+            // 'facebook' => '',
+            // 'instagram' => '',
+            // 'twitter' => '',
+            // 'leader' => 'required',
+            // 'category' => 'required',
+            // 'isCGVIP' => 'true',
+            // 'isSCVIP' => 'true',
+            // 'auxilliary' => 'required',
+            // 'ministries' => 'required',
+        ]);
+
+        $info = cms_users::find($id);
+        $info->lastname = $request->input('lastname');
+        $info->firstname = $request->input('firstname');
+        $info->birthday = $request->input('birthday');
+        $info->age = $request->input('age');
+        $info->address = $request->input('address');
+        $info->marital_status = $request->input('marital_status');
+        $info->email = $request->input('email');
+        $info->contact_number = $request->input('contact_number');
+        $info->save();
+
+        return redirect('/info')->with('success', 'Post updated');
     }
 
     /**

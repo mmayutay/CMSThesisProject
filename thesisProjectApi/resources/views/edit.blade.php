@@ -1,6 +1,6 @@
 <h1>Edit Profile</h1>
 
-{!! Form::open(['action' => ['UserDisplayController@index', $info->id], 'method' => 'POST']) !!}
+{!! Form::open(['action' => ['UserDisplayController@update', $info->id], 'method' => 'POST']) !!}
     <div class="form-group">
         {{Form::label('lastname', 'Lastname' )}}
         {{Form::text('lastname', $info->lastname, ['class' => 'form-control', 'placeholder' => 'Lastname'])}}
@@ -33,7 +33,7 @@
         {{Form::label('contact_number', 'Contact No.' )}}
         {{Form::text('contact_number', $info->contact_number, ['class' => 'form-control', 'placeholder' => 'Mobile No.'])}}
     </div>
-    {{ Form::hidden('_method', 'PUT')}}
+    {{ Form::hidden('_method', 'PUT') }}
     {{ Form::submit('Submit', ['class'=>'btn btn-primary'])}}
         
 {!! Form::close() !!}
