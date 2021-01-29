@@ -63,8 +63,8 @@ class authController extends Controller
         return $newAccountCreate;
     }
 
-    public function edit(Request $request){
-        return [$request, Auth::user()];
+    // public function edit(Request $request){
+    //     return [$request, Auth::user()];
 
-    }
+    // }
 }   

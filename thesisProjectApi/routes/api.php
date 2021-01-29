@@ -18,13 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('list', 'App\Http\Controllers\Controls@list');
+Route::get('list', 'Controls@list');
 
-Route::get('allAccounts', 'App\Http\Controllers\Controls@allAccount');
+Route::get('allAccounts', 'Controls@allAccount');
 
 Route::post('login', 'authController@login');
 
-Route::post('sign-up', 'authController@signUp');
+Route::post('/sign-up', 'authController@signUp');
 
 Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
 
@@ -34,6 +34,8 @@ Route::post('/info','UserDisplayController@getUsers');
 
 Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser');
 
-Route::any('edit/{id?}', 'authController@edit');
+Route::get('edit', 'UserDisplayController@edit');
+
+Route::post('updateUser', 'UserDisplayController@update');
 
 // Auth::routes();
