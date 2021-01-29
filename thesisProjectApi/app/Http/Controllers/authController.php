@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\cms_users;
 use App\Models\cms_leaders;
 use App\Models\cms_accounts;
+use Illuminate\Support\Facades\Auth;
 
 class authController extends Controller
 {
@@ -61,4 +62,9 @@ class authController extends Controller
         
         return $newAccountCreate;
     }
-}
+
+    public function edit(Request $request){
+        return [$request, Auth::user()];
+
+    }
+}   

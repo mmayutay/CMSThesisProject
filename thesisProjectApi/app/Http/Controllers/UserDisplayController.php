@@ -25,7 +25,6 @@ class UserDisplayController extends Controller
         $userRequest = cms_users::where('id', $request->input('userID'))
         ->get();
         return $userRequest;
-        
     }
 
     /**

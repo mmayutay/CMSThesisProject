@@ -33,3 +33,7 @@ Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
 Route::post('/info','UserDisplayController@getUsers');
 
 Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser');
+
+Route::any('edit/{id?}', 'authController@edit');
+
+// Auth::routes();
