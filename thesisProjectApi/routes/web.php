@@ -18,7 +18,3 @@ Route::get('/', function () {
     return "welcome";
 });
 // Route::get('/info','UserDisplayController@index');
-
-Route::get('/edit/{id}', 'UserDisplayController@edit');
-
-Route::put('/post/{id}', 'UserDisplayController@update');

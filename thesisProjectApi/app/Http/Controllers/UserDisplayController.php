@@ -8,11 +8,7 @@ use App\Http\Controllers\UserDisplayController;
 
 class UserDisplayController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         
@@ -21,28 +17,24 @@ class UserDisplayController extends Controller
         return view('welcome')->with(compact('users',$users));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     public function getUsers(Request $request){
         $userRequest = cms_users::where('id', $request->input('userID'))
         ->get();
         return $userRequest;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function create()
+    {
+        //
+    }
+
+    // public function getUsers(Request $request){
+    //     $userRequest = cms_users::where('id', $request->input('userID'))
+    //     ->get();
+    //     return $userRequest;
+    // }
+
+  
     public function store(Request $request)
     {
         //
@@ -67,95 +59,43 @@ class UserDisplayController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
-
         $info = cms_users::find($id);
 
-        return view('edit')->with(compact('info', $info));
-        
-
+        return $info;
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function editUserInfo($id)
     {
         //
         $info = cms_users::find($id);
         return view('edit')->with(compact('info', $info));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function updateUserInfo(Request $request, $id)
     {
-        //
-        $this->validate($request, [
-            'lastname' => 'required',
-            'firstname' => 'required',
-            'birthday' => 'required',
-            'age' => 'required',
-            'address' => 'required',
-            'marital_status' => 'required',
-            'email' => 'required',
-            'contact_number' => 'required',
-            'facebook' => '',
-            'instagram' => '',
-            'twitter' => '',
-            'leader' => 'required',
-            'category' => 'required',
-            'isCGVIP' => 'required',
-            'isSCVIP' => 'required',
-            'auxilliary' => 'required',
-            'ministries' => 'required',
-        ]);
+        $id = $request->newUser['id'];
 
         $info = cms_users::find($id);
-        $info->lastname = $request->input('lastname');
-        $info->firstname = $request->input('firstname');
-        $info->birthday = $request->input('birthday');
-        $info->age = $request->input('age');
-        $info->address = $request->input('address');
-        $info->marital_status = $request->input('marital_status');
-        $info->email = $request->input('email');
-        $info->contact_number = $request->input('contact_number');
-        $info->facebook = $request->input('facebook');
-        $info->instagram = $request->input('instagram');
-        $nfo->twitter = $request->input('twitter');
-        $info->leader = $request->input('leader');
-        $info->category = $request-> input('category');
-        $info->isCGVIP = $request->input('isCGVIP');
-        $info->isSCVIP = $request->input('isSCVIP');
-        $info->auxilliary = $request->input('auxilliary');
-        $info->ministries = $reques->input('ministries');
+        $info->lastname = $request->input('Lastname');
+        $info->firstname = $request->input('Firstname');
+        $info->birthday = $request->input('Birthday');
+        $info->age = $request->input('Age');
+        $info->address = $request->input('Address');
+        $info->marital_status = $request->input('Marital_status');
+        $info->email = $request->input('Email');
+        $info->contact_number = $request->input('Contact_number');
+        $info->facebook = $request->input('Facebook');
+        $info->instagram = $request->input('Instagram');
+        $info->twitter = $request->input('Twitter');
         $info->save();
 
-        return redirect('/info')->with('success', 'Post updated');
+        return $info;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         //

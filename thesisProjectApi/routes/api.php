@@ -18,9 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('list', 'App\Http\Controllers\Controls@list');
+Route::get('list', 'Controls@list');
 
-Route::get('allAccounts', 'App\Http\Controllers\Controls@allAccount');
+Route::get('allAccounts', 'Controls@allAccount');
 
 Route::post('login', 'authController@login');
 
@@ -37,3 +37,9 @@ Route::get('/info/edit', 'UserDisplayController@editUserInfo');
 Route::post('/info/update', 'UserDisplayController@updateUserInfo');
 
 Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser');
+
+Route::get('edit', 'UserDisplayController@edit');
+
+Route::post('updateUser', 'UserDisplayController@update');
+
+// Auth::routes();
