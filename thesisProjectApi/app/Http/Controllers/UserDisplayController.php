@@ -29,7 +29,12 @@ class UserDisplayController extends Controller
     public function create()
     {
         //
-        
+    }
+
+    public function getUsers(Request $request){
+        $userRequest = cms_users::where('id', $request->input('userID'))
+        ->get();
+        return $userRequest;
     }
 
     /**
@@ -85,7 +90,7 @@ class UserDisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editUserInfo($id)
     {
         //
         $info = cms_users::find($id);
@@ -99,7 +104,7 @@ class UserDisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateUserInfo(Request $request, $id)
     {
         //
         $this->validate($request, [

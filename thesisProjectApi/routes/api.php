@@ -24,12 +24,16 @@ Route::get('allAccounts', 'App\Http\Controllers\Controls@allAccount');
 
 Route::post('login', 'authController@login');
 
-Route::post('/sign-up', 'authController@signUp');
+Route::post('sign-up', 'authController@signUp');
 
 Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
 
 
 //This is for the logged users matter
 Route::post('/info','UserDisplayController@getUsers');
+
+Route::get('/info/edit', 'UserDisplayController@editUserInfo');
+
+Route::post('/info/update', 'UserDisplayController@updateUserInfo');
 
 Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser');
