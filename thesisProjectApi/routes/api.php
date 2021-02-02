@@ -38,6 +38,8 @@ Route::get('edit', 'UserDisplayController@edit');
 
 Route::post('updateUser', 'UserDisplayController@update');
 
+// Route::post('member', 'UserDisplayController@insert');
+
 Route::get('cellgroup', 'Controls@getCellGroup');
 
 // Auth::routes();

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\cms_users;
 use App\Models\cms_leaders;
 use App\Models\cms_accounts;
+use App\Models\cms_userroles;
 use Illuminate\Support\Facades\Auth;
 
 class authController extends Controller
@@ -32,6 +33,7 @@ class authController extends Controller
         $leader = new cms_leaders;
         $user = new cms_users;
         $newAccountCreate = new cms_accounts;
+        $userRole = new cms_userroles ;
 
         $user->lastname = $request->newUser["Lastname"];
         $user->firstname = $request->newUser["Firstname"];
@@ -52,13 +54,23 @@ class authController extends Controller
         $user->ministries = "Romeo's Ministry";
         $user->save();
 
-        $newUserId=$user->id;
+        $userRole->roles = $request->role["code"];
+        $userRole->firstname = $request->newUser["Firstname"];
+        $userRole->lastname = $request->newUser["Lastname"];
+        $userRole->description = $request->newUser["Description"];
+
+        $userRole->save();
+
+        $newUserId=$userRole->id;
 
         $newAccountCreate->userid = $newUserId;
         $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $newUserId;
-        $newAccountCreate->password =  Crypt::encryptString(substr($request->newUser["Lastname"],0,5) . 'Member' . $newUserId);
-        $newAccountCreate->roles = $request->role["code"];
+        $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $newUserId);
+        // $newAccountCreate->roles = $request->role["code"];
+        $newAccountCreate->roles = $newUserId;
         $newAccountCreate->save();
+
+        
         
         return $newAccountCreate;
     }

@@ -8,18 +8,17 @@ use App\Models\DataRequests;
 use App\Models\cms_members;
 use App\Models\cms_users;
 use App\Models\cms_accounts;
+use App\Models\cms_userroles;
 
 
 class Controls extends Controller
 {
     public function list() {
-        
         return cms_users::all();
     }
-    public function allAccount() {
-        return cms_accounts::all();
+    public function cell(){
+        return cms_userroles::all();
     }
-
     public function getUserInfo(Request $request) {
         $email = $request->input('Email');
         $userInfo = cms_members::where('Email', $email)
@@ -27,9 +26,14 @@ class Controls extends Controller
         return $userInfo;
     }
 
-    public function getCellGroup(Request $request) {
-        $role = $request->input('Leader');
-        dd($roles);
+    public function getCellGroup() {
         
+        $role = cms_userroles::where('roles', "Leader")->get();
+
+        return $role;
+
+
     }
+
+                             
 }

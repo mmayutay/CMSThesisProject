@@ -9,9 +9,9 @@ class cms_users extends Model
 {
     use HasFactory;
     //table name
-    protected $users = 'cms_users';
+    // protected $users = 'cms_users';
 
-    public $primaryKey = 'id';
+    // public $primaryKey = 'id';
 
-    public $timestamp = true;
+    // public $timestamp = true;
 }
