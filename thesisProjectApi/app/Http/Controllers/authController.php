@@ -56,15 +56,10 @@ class authController extends Controller
 
         $newAccountCreate->userid = $newUserId;
         $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $newUserId;
-        $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $newUserId);
+        $newAccountCreate->password =  Crypt::encryptString(substr($request->newUser["Lastname"],0,5) . 'Member' . $newUserId);
         $newAccountCreate->roles = $request->role["code"];
         $newAccountCreate->save();
         
         return $newAccountCreate;
     }
-
-    // public function edit(Request $request){
-    //     return [$request, Auth::user()];
-
-    // }
 }   

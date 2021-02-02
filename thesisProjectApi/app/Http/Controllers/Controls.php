@@ -26,4 +26,10 @@ class Controls extends Controller
         ->get();
         return $userInfo;
     }
+
+    public function getCellGroup(Request $request) {
+        $role = $request->input('Leader');
+        dd($roles);
+        
+    }
 }
