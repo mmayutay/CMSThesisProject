@@ -18,3 +18,5 @@ Route::get('/', function () {
     return "welcome";
 });
 // Route::get('/info','UserDisplayController@index');
+
+// Route::get('profile/auxiliary', 'AuxiliaryController@index');

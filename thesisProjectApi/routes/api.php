@@ -43,3 +43,7 @@ Route::get('edit', 'UserDisplayController@edit');
 Route::post('updateUser', 'UserDisplayController@update');
 
 // Auth::routes();
+
+
+//This is for Auxiliary
+Route::post('profile/auxiliary', 'AuxiliaryController@index');

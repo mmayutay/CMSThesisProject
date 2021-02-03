@@ -2,24 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\cms_users;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Input;
+// use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
-class AuxilliaryController extends Controller
+class AuxiliaryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $holder = cms_users::query();
-        $value = $request->get('auxiliary');
+        $value = $request->input('auxi');
 
-        if($value === "Kids") {
-            $holder->where('age', );
+        error_log($value);
+        
+        if($value === "Kids") 
+        {
+            $holder = cms_users::where('age', 21)->get();
+            error_log($holder);
+            return $holder;
+        }
+        if($value === "Youth" )
+        {
+            $holder->where('age', '>=', '13');
+            return $holder;
         }
 
     }
