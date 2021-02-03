@@ -72,12 +72,13 @@ class authController extends Controller
         $newAccountCreate->roles = $newUserId;
         // $newAccountCreate->save();
 
-        $leaderId= $request->id
+        // $leaderId= $request->id
 
-        $leader->$userid = $leaderid;
+        // $leader->$userid = $leaderid;
         return $leader;
         
         
         return $newAccountCreate;
     }
+    
 }   

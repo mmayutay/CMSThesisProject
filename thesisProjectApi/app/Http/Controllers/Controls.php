@@ -26,17 +26,17 @@ class Controls extends Controller
         return $userInfo;
     }
 
-    public function getLeader() {
+    public function getLeader(Request $request) {
         
-        $role = cms_userroles::where('roles', "Leader")->get();
-
+        $role = cms_users::where('leader', $request->input('leaderid'))->get();
         return $role;
     }
 
-    public function getMember() {
-        $cell = cms_userroles::where('roles', "Member")->get();
+    public function getNetwork(Request $request) {
+        $network = cms_userroles::where('roles', $request->input('role'))->get();
 
-        return $cell;
+        return $network;
     }
+
                              
 }
