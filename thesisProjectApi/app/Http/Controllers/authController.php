@@ -8,6 +8,7 @@ use App\Models\cms_users;
 use App\Models\cms_leaders;
 use App\Models\cms_accounts;
 use App\Models\cms_userroles;
+use App\Models\cms_members;
 use Illuminate\Support\Facades\Auth;
 
 class authController extends Controller
@@ -31,6 +32,7 @@ class authController extends Controller
     }
     public function signUp(Request $request) {
         $leader = new cms_leaders;
+        $member = new cms_members;
         $user = new cms_users;
         $newAccountCreate = new cms_accounts;
         $userRole = new cms_userroles ;
@@ -52,14 +54,14 @@ class authController extends Controller
         $user->isSCVIP = true;
         $user->auxilliary = "Romeo's Group";
         $user->ministries = "Romeo's Ministry";
-        $user->save();
+        // $user->save();
 
         $userRole->roles = $request->role["code"];
         $userRole->firstname = $request->newUser["Firstname"];
         $userRole->lastname = $request->newUser["Lastname"];
         $userRole->description = $request->newUser["Description"];
 
-        $userRole->save();
+        // $userRole->save();
 
         $newUserId=$userRole->id;
 
@@ -67,10 +69,15 @@ class authController extends Controller
         $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $newUserId;
         $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $newUserId);
         $newAccountCreate->roles = $newUserId;
-        $newAccountCreate->save();
+        // $newAccountCreate->save();
 
+        // $leaderId= $request->id
+
+        // $leader->$userid = $leaderid;
+        return $leader;
         
         
         return $newAccountCreate;
     }
+    
 }   
