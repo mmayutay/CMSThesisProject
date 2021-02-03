@@ -26,7 +26,7 @@ class Controls extends Controller
         return $userInfo;
     }
 
-    public function getLeader(Request $request) {
+    public function getCell(Request $request) {
         
         $role = cms_users::where('leader', $request->input('leaderid'))->get();
         return $role;
@@ -36,6 +36,12 @@ class Controls extends Controller
         $network = cms_userroles::where('roles', $request->input('role'))->get();
 
         return $network;
+    }
+
+    public function getId(Request $request) {
+        $id = cms_userroles::where('id', $request->input('id'))->get();
+
+        return $id;
     }
 
                              

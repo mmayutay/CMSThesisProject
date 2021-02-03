@@ -40,9 +40,11 @@ Route::post('updateUser', 'UserDisplayController@update');
 
 // Route::post('member', 'UserDisplayController@insert');
 
-Route::post('leader', 'Controls@getLeader');
+Route::post('cell', 'Controls@getLeader');
 
-Route::post('member', 'Controls@getnetwork');
+Route::post('network', 'Controls@getnetwork');
+
+Route::post('userId', 'Controls@getId');
 
 
 // Auth::routes();
