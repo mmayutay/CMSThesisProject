@@ -54,22 +54,22 @@ class authController extends Controller
         $user->isSCVIP = true;
         $user->auxilliary = "Romeo's Group";
         $user->ministries = "Romeo's Ministry";
-        // $user->save();
+        $user->save();
 
         $userRole->roles = $request->role["code"];
         $userRole->firstname = $request->newUser["Firstname"];
         $userRole->lastname = $request->newUser["Lastname"];
         $userRole->description = $request->newUser["Description"];
 
-        // $userRole->save();
+        $userRole->save();
 
         $newUserId=$userRole->id;
 
         $newAccountCreate->userid = $user->id;
-        $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $newUserId;
-        $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $newUserId);
+        $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $user->id;
+        $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $user->id);
         $newAccountCreate->roles = $newUserId;
-        // $newAccountCreate->save();
+        $newAccountCreate->save();
 
         // $leaderId= $request->id
 
