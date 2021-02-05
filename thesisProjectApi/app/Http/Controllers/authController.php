@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\cms_users;
 use App\Models\cms_leaders;
 use App\Models\cms_accounts;
+use App\Models\cms_userroles;
+use App\Models\cms_members;
+use Illuminate\Support\Facades\Auth;
 
 class authController extends Controller
 {
@@ -29,8 +32,10 @@ class authController extends Controller
     }
     public function signUp(Request $request) {
         $leader = new cms_leaders;
+        $member = new cms_members;
         $user = new cms_users;
         $newAccountCreate = new cms_accounts;
+        $userRole = new cms_userroles ;
 
         $user->lastname = $request->newUser["Lastname"];
         $user->firstname = $request->newUser["Firstname"];
@@ -51,43 +56,28 @@ class authController extends Controller
         $user->ministries = "Romeo's Ministry";
         $user->save();
 
-        $newUserId=$user->id;
+        $userRole->roles = $request->role["code"];
+        $userRole->firstname = $request->newUser["Firstname"];
+        $userRole->lastname = $request->newUser["Lastname"];
+        $userRole->description = $request->newUser["Description"];
 
-        $newAccountCreate->userid = $newUserId;
-        $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $newUserId;
-        $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $newUserId);
-        $newAccountCreate->roles = $request->role["code"];
+        $userRole->save();
+
+        $newUserId=$userRole->id;
+
+        $newAccountCreate->userid = $user->id;
+        $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $user->id;
+        $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $user->id);
+        $newAccountCreate->roles = $newUserId;
         $newAccountCreate->save();
 
+        // $leaderId= $request->id
+
+        // $leader->$userid = $leaderid;
+        return $leader;
+        
         
         return $newAccountCreate;
     }
-}
-
-// {
-//     "newUser": 
-//         {
-//             "Lastname": "Lenizo",
-//             "Firstname": "Romeo",
-//             "Birthday": "March 11, 1999",
-//             "Age": 21,
-//             "Address": "Dugyan",
-//             "Marital_status": "Single",
-//             "Email": "romeo@gmail.com",
-//             "Contact_number": "09959525960",
-//             "Facebook": "Romeo Lenizo",
-//             "Instagram": "null",
-//             "Twitter": "null"
-//         },
-//     "groupBelong": {
-//         "Leader": "Raymond Yorong"
-//     },
-//     "role" : {
-//             "code" : "member"
-//         },
-//     "newUserAccount" : {
-//         "username": "bai roms",
-//         "password": "123"
-//     }
-
-// }
+    
+}   

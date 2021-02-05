@@ -25,7 +25,6 @@ class UserDisplayController extends Controller
         $userRequest = cms_users::where('id', $request->input('userID'))
         ->get();
         return $userRequest;
-        
     }
 
     /**
@@ -48,6 +47,25 @@ class UserDisplayController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'lastname' => 'required',
+            'firstname' => 'required',
+            'birthday' => 'required',
+            'age' => 'required',
+            'address' => 'required',
+            'marital_status' => 'required',
+            'email' => 'required',
+            'contact_number' => 'required',
+            'facebook' => '',
+            'instagram' => '',
+            'twitter' => '',
+            'leader' => 'required',
+            'category' => 'required',
+            'isCGVIP' => 'true',
+            'isSCVIP' => 'true',
+            'auxilliary' => 'required',
+            'ministries' => 'required',
+        ]);
     }
 
     /**
@@ -59,6 +77,10 @@ class UserDisplayController extends Controller
     public function show($id)
     {
         //
+
+        $info = cms_users::find($id);
+
+        return $info;
     }
 
     /**
@@ -70,6 +92,8 @@ class UserDisplayController extends Controller
     public function edit($id)
     {
         //
+        $info = cms_users::find($id);
+        return view('edit')->with(compact('info', $info));
     }
 
     /**
@@ -79,9 +103,40 @@ class UserDisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $id = $request->newUser['id'];
+
+        $info = cms_users::find($id);
+        $info->lastname = $request->input('Lastname');
+        $info->firstname = $request->input('Firstname');
+        $info->birthday = $request->input('Birthday');
+        $info->age = $request->input('Age');
+        $info->address = $request->input('Address');
+        $info->marital_status = $request->input('Marital_status');
+        $info->email = $request->input('Email');
+        $info->contact_number = $request->input('Contact_number');
+        $info->facebook = $request->input('Facebook');
+        $info->instagram = $request->input('Instagram');
+        $info->twitter = $request->input('Twitter');
+        $info->save();
+
+        return $info;
+    }
+
+    public function insert(Request $request)
+    {
+        $id = $request->newUser['id'];
+
+        $cell = cms_members::find($id);
+        $cell->name =  $request->input('Name');
+        $cell->email = $request->input('Email');
+        $cell->leader = $request->input('Leader');
+        $cell->age = $request->input('Age');
+        $cell->member_status = $request->input('Member_status');
+        $cell->save();
+
+        return $cell;
     }
 
     /**
@@ -94,4 +149,6 @@ class UserDisplayController extends Controller
     {
         //
     }
+
+    
 }

@@ -8,26 +8,41 @@ use App\Models\DataRequests;
 use App\Models\cms_members;
 use App\Models\cms_users;
 use App\Models\cms_accounts;
+use App\Models\cms_userroles;
 
 
 class Controls extends Controller
 {
     public function list() {
-        
         return cms_users::all();
     }
-    public function allAccount() {
-        return cms_accounts::all();
+    public function cell(){
+        return cms_userroles::all();
     }
-
     public function getUserInfo(Request $request) {
         $email = $request->input('Email');
         $userInfo = cms_members::where('Email', $email)
         ->get();
         return $userInfo;
     }
-    public function getAllUsers() {
-        $allUsers = cms_users::all();
-        return $allUsers;
+
+    public function getCell(Request $request) {
+        
+        $role = cms_users::where('leader', $request->input('leaderid'))->get();
+        return $role;
     }
+
+    public function getNetwork(Request $request) {
+        $network = cms_userroles::where('roles', $request->input('role'))->get();
+
+        return $network;
+    }
+
+    public function getId(Request $request) {
+        $id = cms_userroles::where('id', $request->input('id'))->get();
+
+        return $id;
+    }
+
+                             
 }
