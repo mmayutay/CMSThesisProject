@@ -40,11 +40,13 @@ Route::post('updateUser', 'UserDisplayController@update');
 
 // Route::post('member', 'UserDisplayController@insert');
 
-Route::post('cell', 'Controls@getLeader');
+Route::post('leader', 'Controls@getCell');
 
-Route::post('network', 'Controls@getnetwork');
+Route::post('network', 'Controls@getNetwork');
 
-Route::post('userId', 'Controls@getId');
+Route::post('currentUserRole', 'Controls@getRolesById');
+
+Route::get('getAllUserRoles', 'Controls@cell');
 
 
 // Auth::routes();

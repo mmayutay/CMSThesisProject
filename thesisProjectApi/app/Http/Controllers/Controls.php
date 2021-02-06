@@ -38,7 +38,7 @@ class Controls extends Controller
         return $network;
     }
 
-    public function getId(Request $request) {
+    public function getRolesById(Request $request) {
         $id = cms_userroles::where('id', $request->input('id'))->get();
 
         return $id;

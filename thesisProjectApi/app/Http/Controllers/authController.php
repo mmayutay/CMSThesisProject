@@ -26,7 +26,7 @@ class authController extends Controller
             $password=Crypt::decryptString($partialPassword[0]);
             if($password == $pass) {
                 return $userRequest;
-            }
+            }   
             return false;
         }
     }
@@ -71,9 +71,6 @@ class authController extends Controller
         $newAccountCreate->roles = $newUserId;
         $newAccountCreate->save();
 
-        // $leaderId= $request->id
-
-        // $leader->$userid = $leaderid;
         return $leader;
         
         
