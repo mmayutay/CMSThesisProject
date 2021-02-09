@@ -38,13 +38,15 @@ Route::get('edit', 'UserDisplayController@edit');
 
 Route::post('updateUser', 'UserDisplayController@update');
 
-// Route::post('member', 'UserDisplayController@insert');
-
 Route::post('cell', 'Controls@getLeader');
 
 Route::post('network', 'Controls@getnetwork');
 
 Route::post('userId', 'Controls@getId');
+
+Route::get('users', 'Controls@cell');
+
+Route::get('day', 'Controls@getDay');
 
 
 // Auth::routes();
