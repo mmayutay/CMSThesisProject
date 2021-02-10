@@ -56,5 +56,13 @@ class DatabaseSeeder extends Seeder
                 'ministries' => 'asdfghjkl'
             )
             ));
+            DB::table('cms_attendances')->insert(array(
+                array(
+                    'leader' => 'Mars',
+                    'member' => 'Lyn',
+                    'type' => 'SC',
+                    'date' => 'Sunday February 7, 2021'
+                )
+                ));
     }
 }

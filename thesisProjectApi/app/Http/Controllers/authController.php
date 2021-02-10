@@ -35,7 +35,8 @@ class authController extends Controller
         $member = new cms_members;
         $user = new cms_users;
         $newAccountCreate = new cms_accounts;
-        $userRole = new cms_userroles ;
+        $userRole = new cms_userroles;
+        $vipUsers = new cms_vip_users;
 
         $user->lastname = $request->newUser["Lastname"];
         $user->firstname = $request->newUser["Firstname"];
@@ -60,8 +61,13 @@ class authController extends Controller
         $userRole->firstname = $request->newUser["Firstname"];
         $userRole->lastname = $request->newUser["Lastname"];
         $userRole->description = $request->newUser["Description"];
-
         $userRole->save();
+
+
+        $vipUsers->leaderId = $userRole->id;
+        $vipUsers->userId = $user->id;
+        $vipUsers->attendanceCounter = 0;
+        $vipUsers->save();
 
         $newUserId=$userRole->id;
 

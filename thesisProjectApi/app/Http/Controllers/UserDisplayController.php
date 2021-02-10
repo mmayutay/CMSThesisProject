@@ -124,20 +124,20 @@ class UserDisplayController extends Controller
         return $info;
     }
 
-    public function insert(Request $request)
-    {
-        $id = $request->newUser['id'];
+    // public function insert(Request $request)
+    // {
+    //     $id = $request->newUser['id'];
 
-        $cell = cms_members::find($id);
-        $cell->name =  $request->input('Name');
-        $cell->email = $request->input('Email');
-        $cell->leader = $request->input('Leader');
-        $cell->age = $request->input('Age');
-        $cell->member_status = $request->input('Member_status');
-        $cell->save();
+    //     $cell = cms_members::find($id);
+    //     $cell->name =  $request->input('Name');
+    //     $cell->email = $request->input('Email');
+    //     $cell->leader = $request->input('Leader');
+    //     $cell->age = $request->input('Age');
+    //     $cell->member_status = $request->input('Member_status');
+    //     $cell->save();
 
-        return $cell;
-    }
+    //     return $cell;
+    // }
 
     /**
      * Remove the specified resource from storage.
