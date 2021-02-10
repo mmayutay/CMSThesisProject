@@ -48,9 +48,11 @@ class Controls extends Controller
     }
 
     public function getDay(Request $request) {
-        $date = \Carbon\Carbon::now();
+        $mytime = \Carbon\Carbon::now();
         // return now()->previous('Sunday')
-        return $date->toRfc850String();
+        $date=$mytime->toRfc850String();
+        $today= substr($date, 0, strrpos($date, ","));
+        return $today;
         // $userAttendance = new cms_attendance;
         // if ($request->date["date"] == now()->previous('Sunday')){
         //     $userAttendance->leader = $request->newUser["leader"];
