@@ -41,6 +41,7 @@ Route::post('updateUser', 'UserDisplayController@update');
 // Route::post('member', 'UserDisplayController@insert');
 
 Route::post('leader', 'Controls@getCell');
+
 Route::post('cell', 'Controls@getLeader');
 
 Route::post('network', 'Controls@getNetwork');
@@ -51,7 +52,7 @@ Route::get('getAllUserRoles', 'Controls@cell');
 
 Route::get('users', 'Controls@cell');
 
-Route::post('day', 'Controls@getDay');
+Route::post('attendance', 'Controls@getDay');
 
 
 // Auth::routes();

@@ -48,28 +48,19 @@ class Controls extends Controller
     }
 
     public function getDay(Request $request) {
+        $userAttendance = new cms_attendance;
         $mytime = \Carbon\Carbon::now();
-        // return now()->previous('Sunday')
-        $date=$mytime->toRfc850String();
-        $today= substr($date, 0, strrpos($date, ","));
-        return $today;
-        // $userAttendance = new cms_attendance;
-        // if ($request->date["date"] == now()->previous('Sunday')){
-        //     $userAttendance->leader = $request->newUser["leader"];
-        //     $userAttendance->member = $request->newUser["member"];
-        //     $userAttendance->type = $request->newUser["type"];
-        //     $userAttendance->date = $request->newUser["date"];
-            // $userAttendance->save();
-        //     return $userAttendance;
-        // }else{
-        //     return false;
-        // }
-        // $date = cms_attendances::where('date', now()->previous('Sunday'))->get();
-
-        $mytime = \Carbon\Carbon::now();
-        // return now()->previous('Sunday');
-        return $mytime->toDateTimeString();
-        // return $date;
+        $today= substr($mytime->toRfc850String(), 0, strrpos($mytime->toRfc850String(), ","));
+        if ($today == 'Sunday'){
+            $userAttendance->leader = $request->newUser["leader"];
+            $userAttendance->member = $request->newUser["member"];
+            $userAttendance->type = $request->newUser["type"];
+            $userAttendance->date = $mytime->toRfc850String();
+            $userAttendance->save();
+            return $userAttendance;
+        }else{
+            return 'false';
+        }
     }
 
     public function attendanceCounter(Request $request) {
