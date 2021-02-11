@@ -66,6 +66,9 @@ class authController extends Controller
         $vipUsers->leaderId = $userRole->id;
         $vipUsers->userId = $user->id;
         $vipUsers->attendanceCounter = 0;
+        // $vipUsers->save();
+
+        return $vipUsers;
 
         $newUserId=$userRole->id;
 
