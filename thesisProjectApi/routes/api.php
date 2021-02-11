@@ -52,7 +52,13 @@ Route::get('getAllUserRoles', 'Controls@cell');
 
 Route::get('users', 'Controls@cell');
 
-Route::post('attendance', 'Controls@getDay');
+Route::post('attendance', 'attendanceController@getDay');
+
+Route::get('vip-users', 'returnVipUsers@retrieveAllVipUsers');
+
+Route::get('vip-user-with-leader', 'returnVipUsers@retrieveVipUsersWithLeader');
+
+Route::get('all-new-unvip-members', 'returnVipUsers@allRecordedNewMember');
 
 
 // Auth::routes();

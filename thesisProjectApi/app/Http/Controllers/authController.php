@@ -10,6 +10,7 @@ use App\Models\cms_accounts;
 use App\Models\cms_userroles;
 use App\Models\cms_members;
 use Illuminate\Support\Facades\Auth;
+use App\Models\cmsVipUsers;
 
 class authController extends Controller
 {
@@ -36,7 +37,7 @@ class authController extends Controller
         $user = new cms_users;
         $newAccountCreate = new cms_accounts;
         $userRole = new cms_userroles;
-        $vipUsers = new cms_vip_users;
+        $vipUsers = new cmsVipUsers;
 
         $user->lastname = $request->newUser["Lastname"];
         $user->firstname = $request->newUser["Firstname"];
@@ -64,7 +65,7 @@ class authController extends Controller
         $userRole->save();
 
 
-        $vipUsers->leaderId = $userRole->id;
+        $vipUsers->leaderId = $request->groupBelong["Leader"];
         $vipUsers->userId = $user->id;
         $vipUsers->attendanceCounter = 0;
         $vipUsers->save();
@@ -76,9 +77,6 @@ class authController extends Controller
         $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $user->id);
         $newAccountCreate->roles = $newUserId;
         $newAccountCreate->save();
-
-        return $leader;
-        
         
         return $newAccountCreate;
     }

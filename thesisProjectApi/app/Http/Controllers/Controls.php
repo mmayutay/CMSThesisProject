@@ -10,7 +10,6 @@ use App\Models\cms_users;
 use App\Models\cms_accounts;
 use App\Models\cms_userroles;
 use App\Models\cms_attendance;
-use App\Models\cms_vip_users;
 
 class Controls extends Controller
 {
@@ -45,28 +44,6 @@ class Controls extends Controller
         $id = cms_userroles::where('id', $request->input('id'))->get();
 
         return $id;
-    }
-
-    public function getDay(Request $request) {
-        $userAttendance = new cms_attendance;
-        $mytime = \Carbon\Carbon::now();
-        $today= substr($mytime->toRfc850String(), 0, strrpos($mytime->toRfc850String(), ","));
-        if ($today == 'Sunday'){
-            $userAttendance->leader = $request->newUser["leader"];
-            $userAttendance->member = $request->newUser["member"];
-            $userAttendance->type = $request->newUser["type"];
-            $userAttendance->date = $mytime->toRfc850String();
-            $userAttendance->save();
-            return $userAttendance;
-        }else{
-            return 'false';
-        }
-    }
-
-    public function attendanceCounter(Request $request) {
-        $attendance = cms_vip_users::where('attendanceCounter', now()->previous('Sunday') == 4);
-
-        return $attendance;
     }
                              
 }
