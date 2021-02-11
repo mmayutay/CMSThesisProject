@@ -10,6 +10,7 @@ use App\Models\cms_accounts;
 use App\Models\cms_userroles;
 use App\Models\cms_members;
 use Illuminate\Support\Facades\Auth;
+use App\Models\cmsVipUsers;
 
 class authController extends Controller
 {
@@ -26,7 +27,7 @@ class authController extends Controller
             $password=Crypt::decryptString($partialPassword[0]);
             if($password == $pass) {
                 return $userRequest;
-            }
+            }   
             return false;
         }
     }
@@ -35,7 +36,8 @@ class authController extends Controller
         $member = new cms_members;
         $user = new cms_users;
         $newAccountCreate = new cms_accounts;
-        $userRole = new cms_userroles ;
+        $userRole = new cms_userroles;
+        $vipUsers = new cmsVipUsers;
 
         $user->lastname = $request->newUser["Lastname"];
         $user->firstname = $request->newUser["Firstname"];
@@ -60,8 +62,13 @@ class authController extends Controller
         $userRole->firstname = $request->newUser["Firstname"];
         $userRole->lastname = $request->newUser["Lastname"];
         $userRole->description = $request->newUser["Description"];
-
         $userRole->save();
+
+
+        $vipUsers->leaderId = $request->groupBelong["Leader"];
+        $vipUsers->userId = $user->id;
+        $vipUsers->attendanceCounter = 0;
+        $vipUsers->save();
 
         $newUserId=$userRole->id;
 
@@ -70,12 +77,6 @@ class authController extends Controller
         $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $user->id);
         $newAccountCreate->roles = $newUserId;
         $newAccountCreate->save();
-
-        // $leaderId= $request->id
-
-        // $leader->$userid = $leaderid;
-        return $leader;
-        
         
         return $newAccountCreate;
     }

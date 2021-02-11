@@ -40,11 +40,25 @@ Route::post('updateUser', 'UserDisplayController@update');
 
 // Route::post('member', 'UserDisplayController@insert');
 
+Route::post('leader', 'Controls@getCell');
+
 Route::post('cell', 'Controls@getLeader');
 
-Route::post('network', 'Controls@getnetwork');
+Route::post('network', 'Controls@getNetwork');
 
-Route::post('userId', 'Controls@getId');
+Route::post('currentUserRole', 'Controls@getRolesById');
+
+Route::get('getAllUserRoles', 'Controls@cell');
+
+Route::get('users', 'Controls@cell');
+
+Route::post('attendance', 'attendanceController@getDay');
+
+Route::get('vip-users', 'returnVipUsers@retrieveAllVipUsers');
+
+Route::get('vip-user-with-leader', 'returnVipUsers@retrieveVipUsersWithLeader');
+
+Route::get('all-new-unvip-members', 'returnVipUsers@allRecordedNewMember');
 
 
 // Auth::routes();

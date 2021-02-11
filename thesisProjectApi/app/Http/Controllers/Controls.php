@@ -9,15 +9,17 @@ use App\Models\cms_members;
 use App\Models\cms_users;
 use App\Models\cms_accounts;
 use App\Models\cms_userroles;
-
+use App\Models\cms_attendance;
 
 class Controls extends Controller
 {
     public function list() {
         return cms_users::all();
+        
     }
     public function cell(){
         return cms_userroles::all();
+
     }
     public function getUserInfo(Request $request) {
         $email = $request->input('Email');
@@ -38,11 +40,10 @@ class Controls extends Controller
         return $network;
     }
 
-    public function getId(Request $request) {
+    public function getRolesById(Request $request) {
         $id = cms_userroles::where('id', $request->input('id'))->get();
 
         return $id;
     }
-
                              
 }
