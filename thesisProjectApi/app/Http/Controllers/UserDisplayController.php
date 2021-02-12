@@ -28,12 +28,6 @@ class UserDisplayController extends Controller
         //
     }
 
-    // public function getUsers(Request $request){
-    //     $userRequest = cms_users::where('id', $request->input('userID'))
-    //     ->get();
-    //     return $userRequest;
-    // }
-
   
     public function store(Request $request)
     {
@@ -60,20 +54,6 @@ class UserDisplayController extends Controller
         ]);
     }
 
-    public function show($id)
-    {
-        //
-        $info = cms_users::find($id);
-
-        return $info;
-    }
-    
-    // public function edit($id)
-    // {
-    //     //
-    //     $info = cms_users::find($id);
-    //     return view('edit')->with(compact('info', $info));
-    // }
  
     public function update(Request $request)
     {
