@@ -29,6 +29,7 @@ class authController extends Controller
             return false;
         }
     }
+    
     public function signUp(Request $request) {
         $leader = new cms_leaders;
         $user = new cms_users;
@@ -70,8 +71,6 @@ class authController extends Controller
         $newAccountCreate->roles = $newUserId;
         $newAccountCreate->save();
 
-        
-        
         return $newAccountCreate;
     }
 }   
