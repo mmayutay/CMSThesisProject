@@ -18,18 +18,51 @@ class AuxiliaryController extends Controller
     public function index(Request $request)
     {
         $value = $request->input('auxi');
-
-        error_log($value);
-        
+        //Filtering the users who are 13 yrs old and below
         if($value === "Kids") 
         {
-            $holder = cms_users::where('age', 21)->get();
+            $holder = cms_users::where('age','<', 14)->get();
             error_log($holder);
             return $holder;
         }
+        //Filtering the users who are 14 and above but lesser than 22
         if($value === "Youth" )
         {
-            $holder->where('age', '>=', '13');
+            $holder = cms_users::select('*')
+                            ->where('age', '>', 13)
+                            ->where('age','<', 22)
+                            ->get();
+            // dd($holder);
+            // error_log($holder->age);
+            return $holder;
+        }
+        //Filtering the users that are single in marital_status
+        if($value === "Single")
+        {
+            $holder = cms_users::select('*')
+                            ->where('marital_status', 'Single')
+                            ->where('age', '>', 21)
+                            ->get();
+            return $holder;
+        }
+        //Filtering the users that are married men
+        if($value === "Mmen")
+        {
+            $holder = cms_users::select('*')
+                            ->where('marital_status', 'Married')
+                            ->where('gender', 'Male')
+                            ->get();
+
+            return $holder;
+        }
+        //Filtering the users that are married women
+        if($value === "Mwomen")
+        {
+            $holder = cms_users::select('*')
+                            ->where('marital_status', "Married")
+                            ->where('gender', 'Female')
+                            ->get();
+
             return $holder;
         }
 

@@ -32,15 +32,19 @@ Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
 //This is for the logged users matter
 Route::post('/info','UserDisplayController@getUsers');
 
-Route::get('/info/edit', 'UserDisplayController@editUserInfo');
+// Route::get('/info/edit', 'UserDisplayController@editUserInfo');
 
-Route::post('/info/update', 'UserDisplayController@updateUserInfo');
+// Route::post('/info/update', 'UserDisplayController@updateUserInfo');
 
 Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser');
 
 Route::get('edit', 'UserDisplayController@edit');
 
 Route::post('updateUser', 'UserDisplayController@update');
+
+// Route::post('member', 'UserDisplayController@insert');
+
+Route::get('cellgroup', 'Controls@getCellGroup');
 
 // Auth::routes();
 

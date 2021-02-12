@@ -43,6 +43,7 @@ class UserDisplayController extends Controller
             'firstname' => 'required',
             'birthday' => 'required',
             'age' => 'required',
+            'gender' => '',
             'address' => 'required',
             'marital_status' => 'required',
             'email' => 'required',
@@ -67,14 +68,14 @@ class UserDisplayController extends Controller
         return $info;
     }
     
-    public function editUserInfo($id)
-    {
-        //
-        $info = cms_users::find($id);
-        return view('edit')->with(compact('info', $info));
-    }
+    // public function edit($id)
+    // {
+    //     //
+    //     $info = cms_users::find($id);
+    //     return view('edit')->with(compact('info', $info));
+    // }
  
-    public function updateUserInfo(Request $request, $id)
+    public function update(Request $request)
     {
         $id = $request->newUser['id'];
 
@@ -83,6 +84,7 @@ class UserDisplayController extends Controller
         $info->firstname = $request->input('Firstname');
         $info->birthday = $request->input('Birthday');
         $info->age = $request->input('Age');
+        $info->gender = $request->input('Gender');
         $info->address = $request->input('Address');
         $info->marital_status = $request->input('Marital_status');
         $info->email = $request->input('Email');
@@ -95,9 +97,31 @@ class UserDisplayController extends Controller
         return $info;
     }
 
-    
+    public function insert(Request $request)
+    {
+        $id = $request->newUser['id'];
+
+        $cell = cms_members::find($id);
+        $cell->name =  $request->input('Name');
+        $cell->email = $request->input('Email');
+        $cell->leader = $request->input('Leader');
+        $cell->age = $request->input('Age');
+        $cell->member_status = $request->input('Member_status');
+        $cell->save();
+
+        return $cell;
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         //
     }
+
+    
 }
