@@ -10,6 +10,7 @@ use App\Models\cms_accounts;
 use App\Models\cms_userroles;
 use App\Models\cms_members;
 use Illuminate\Support\Facades\Auth;
+use App\Models\cmsVipUsers;
 
 class authController extends Controller
 {
@@ -26,7 +27,7 @@ class authController extends Controller
             $password=Crypt::decryptString($partialPassword[0]);
             if($password == $pass) {
                 return $userRequest;
-            }
+            }   
             return false;
         }
     }
@@ -36,7 +37,7 @@ class authController extends Controller
         $user = new cms_users;
         $newAccountCreate = new cms_accounts;
         $userRole = new cms_userroles;
-        $vipUsers = new cms_vip_users;
+        $vipUsers = new cmsVipUsers;
 
         $user->lastname = $request->newUser["Lastname"];
         $user->firstname = $request->newUser["Firstname"];
@@ -55,35 +56,27 @@ class authController extends Controller
         $user->isSCVIP = true;
         $user->auxilliary = "Romeo's Group";
         $user->ministries = "Romeo's Ministry";
-        // $user->save();
+        $user->save();
 
         $userRole->roles = $request->role["code"];
         $userRole->firstname = $request->newUser["Firstname"];
         $userRole->lastname = $request->newUser["Lastname"];
         $userRole->description = $request->newUser["Description"];
+        $userRole->save();
 
 
-        $vipUsers->leaderId = $userRole->id;
+        $vipUsers->leaderId = $request->groupBelong["Leader"];
         $vipUsers->userId = $user->id;
         $vipUsers->attendanceCounter = 0;
-        // $vipUsers->save();
-
-        return $vipUsers;
+        $vipUsers->save();
 
         $newUserId=$userRole->id;
 
         $newAccountCreate->userid = $user->id;
-        $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $newUserId;
-        $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $newUserId);
-        // $newAccountCreate->roles = $request->role["code"];
+        $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $user->id;
+        $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $user->id);
         $newAccountCreate->roles = $newUserId;
-        // $newAccountCreate->save();
-
-        // $leaderId= $request->id
-
-        // $leader->$userid = $leaderid;
-        return $leader;
-        
+        $newAccountCreate->save();
         
         return $newAccountCreate;
     }

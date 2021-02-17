@@ -14,7 +14,7 @@ class CreateCmsVipUsersTable extends Migration
     public function up()
     {
         Schema::create('cms_vip_users', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string('userId');
             $table->string('leaderId');
             $table->integer('attendanceCounter');
