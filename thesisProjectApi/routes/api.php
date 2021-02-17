@@ -60,5 +60,7 @@ Route::get('vip-user-with-leader', 'returnVipUsers@retrieveVipUsersWithLeader');
 
 Route::get('all-new-unvip-members', 'returnVipUsers@allRecordedNewMember');
 
+Route::post('get-user-attendance', 'attendanceController@viewAttendance');
+
 
 // Auth::routes();

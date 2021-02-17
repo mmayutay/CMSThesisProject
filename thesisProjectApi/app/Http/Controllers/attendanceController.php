@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\cms_attendance;
+use App\Models\cms_users;
+
 
 class attendanceController extends Controller
 {
@@ -26,5 +29,18 @@ class attendanceController extends Controller
         $attendance = cms_vip_users::where('attendanceCounter', now()->previous('Sunday') == 4);
 
         return $attendance;
+    }
+
+    public function viewAttendance(Request $request) {
+        $arrayOfAttendance = array();
+
+        $viewUserAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+        $currentUserData = cms_users::where('id', $request->input('currentUserId'))->get();
+        $currentUsersLeader = cms_users::where('id', $viewUserAttendance->pluck('leader')[0])->get();
+
+        array_push($arrayOfAttendance, array('currentUserAttendance' => $viewUserAttendance->pluck('date'), 'currentUserData' => $currentUserData, 'currentUsersLeader' => $currentUsersLeader));
+
+
+        return $arrayOfAttendance;
     }
 }
