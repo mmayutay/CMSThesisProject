@@ -17,7 +17,7 @@ class attendanceController extends Controller
             $userAttendance->leader = $request->newUser["leader"];
             $userAttendance->member = $request->newUser["member"];
             $userAttendance->type = $request->newUser["type"];
-            $userAttendance->date = $mytime->toRfc850String();
+            $userAttendance->date = $request->newUser["date"];
             $userAttendance->save();
             return $userAttendance;
         }else{
@@ -42,5 +42,11 @@ class attendanceController extends Controller
 
 
         return $arrayOfAttendance;
+    }
+
+    public function returnCurrentUserAttendance(Request $request) {
+        $currentUserAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+
+        return $currentUserAttendance->pluck('date');
     }
 }

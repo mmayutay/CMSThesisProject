@@ -62,5 +62,7 @@ Route::get('all-new-unvip-members', 'returnVipUsers@allRecordedNewMember');
 
 Route::post('get-user-attendance', 'attendanceController@viewAttendance');
 
+Route::post('current-user-attendance', 'attendanceController@returnCurrentUserAttendance');
+
 
 // Auth::routes();
