@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\cms_attendance;
+use App\Models\cms_users;
+use App\Models\eventsAttendance;
+
 
 class attendanceController extends Controller
 {
@@ -14,7 +18,7 @@ class attendanceController extends Controller
             $userAttendance->leader = $request->newUser["leader"];
             $userAttendance->member = $request->newUser["member"];
             $userAttendance->type = $request->newUser["type"];
-            $userAttendance->date = $mytime->toRfc850String();
+            $userAttendance->date = $request->newUser["date"];
             $userAttendance->save();
             return $userAttendance;
         }else{
@@ -29,10 +33,31 @@ class attendanceController extends Controller
     }
 
     public function viewAttendance(Request $request) {
-        $array = array();
+        $arrayOfAttendance = array();
 
-        $getAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+        $viewUserAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+        $currentUserData = cms_users::where('id', $request->input('currentUserId'))->get();
+        $currentUsersLeader = cms_users::where('id', $viewUserAttendance->pluck('leader')[0])->get();
 
-        return $getAttendance;
+        array_push($arrayOfAttendance, array('currentUserAttendance' => $viewUserAttendance->pluck('date'), 'currentUserData' => $currentUserData, 'currentUsersLeader' => $currentUsersLeader));
+
+
+        return $arrayOfAttendance;
+    }
+
+    public function viewAttendanceSCandEvents(Request $request) {
+        $arrayOfSCandEvents = array();
+
+        $viewAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+        $viewEventsAttendance = eventsAttendance::where('member', $request->input('currentUserId'))->get();
+        array_push($arrayOfSCandEvents, array('currentUserAttendance' => $viewAttendance, 'currentEventsAttendance' => $viewEventsAttendance));
+
+        return $arrayOfSCandEvents;
+    }
+
+    public function returnCurrentUserAttendance(Request $request) {
+        $currentUserAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+
+        return $currentUserAttendance->pluck('date');
     }
 }
