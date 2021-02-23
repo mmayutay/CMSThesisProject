@@ -45,8 +45,14 @@ class attendanceController extends Controller
     }
 
     public function returnCurrentUserAttendance(Request $request) {
+        $arrayOfYourThisMonthsAttendance = array();
         $currentUserAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+        foreach ($currentUserAttendance->pluck('date') as $key => $value) {
+            if(\str_contains($value, $request->input('month'))) {
+                array_push($arrayOfYourThisMonthsAttendance, $value);
+            }
+        }
 
-        return $currentUserAttendance->pluck('date');
+        return $arrayOfYourThisMonthsAttendance;
     }
 }
