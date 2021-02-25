@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
                 'isCGVIP' => 'yes',
                 'isSCVIP' => 'no',
                 'auxilliary' => 'gsjgs',
-                'ministries' => 'dgfsdgr'
+                'ministries' => 'PraiseAndWorship'
             ),
             array(
                 'lastname' => 'Bustamante',
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
                 'isCGVIP' => 'no',
                 'isSCVIP' => 'yes',
                 'auxilliary' => 'hehehe',
-                'ministries' => 'asdfghjkl'
+                'ministries' => 'Multimedia'
             )
             ));
             DB::table('cms_attendances')->insert(array(
