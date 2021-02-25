@@ -66,5 +66,7 @@ Route::post('current-user-attendance', 'attendanceController@returnCurrentUserAt
 
 Route::post('user-attendance-year-selected', 'attendanceController@currentUsersAttendanceYear');
 
+Route::post('viewAttendancesOfSCandEvents', 'attendanceController@viewAttendanceSCandEvents');
+
 
 // Auth::routes();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\cms_attendance;
 use App\Models\cms_users;
+use App\Models\eventsAttendance;
 
 
 class attendanceController extends Controller
@@ -42,6 +43,16 @@ class attendanceController extends Controller
 
 
         return $arrayOfAttendance;
+    }
+
+    public function viewAttendanceSCandEvents(Request $request) {
+        $arrayOfSCandEvents = array();
+
+        $viewAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+        $viewEventsAttendance = eventsAttendance::where('member', $request->input('currentUserId'))->get();
+        array_push($arrayOfSCandEvents, array('currentUserAttendance' => $viewAttendance, 'currentEventsAttendance' => $viewEventsAttendance));
+
+        return $arrayOfSCandEvents;
     }
 
     public function returnCurrentUserAttendance(Request $request) {
