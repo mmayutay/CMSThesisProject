@@ -20,7 +20,7 @@ class MinistriesController extends Controller
         if($value === "PraiseAndWorship")
         {
             $holder = cms_users::where('ministries', $value)->get();
-            error_log($holder);
+            // error_log($holder);
             return $holder;
 
         }
@@ -28,34 +28,33 @@ class MinistriesController extends Controller
         if($value === "Multimedia")
         {
             $holder = cms_users::where('ministries', $value)->get();
-            error_log($holder);
+            // error_log($holder);
             return $holder;
         }
         //
         if($value === "Hospitality")
         {
             $holder = cms_users::where('hospitality', $value)->get();
-            error_log($holder);
+            // error_log($holder);
             return $holder;
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+
     public function createMinistry()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
+    public function ministryList()
+    {
+        $list = cms_users::all();
+
+        // error_log($list);
+        return $list;
+    }
     public function store(Request $request)
     {
         //
@@ -69,23 +68,24 @@ class MinistriesController extends Controller
 
     }
 
-    public function searchUser() {
-        $search = Input::get('search');
-        if( $search != "") 
-        {
-            $user = cms_users::where('firstname', 'LIKE', '%' . $search . '%')
-                            ->orWhere('lastname', 'LIKE', '%' . $search . ' %')
-                            ->get()
-                            ->paginate(10);
+    // public function searchUser(Request $request) {
+    //     $search = $request->get('search');
+    //     error_log($search);
+    //     if( $search != "") 
+    //     {
+    //         $user = cms_users::where('firstname', 'LIKE', '%' . $search . '%')
+    //                         ->orWhere('lastname', 'LIKE', '%' . $search . ' %')
+    //                         ->get()
+    //                         ->paginate(10);
                         
-            if(count($user) > 0)
-            {
-                return view('welcome')->withDetails($user)->withQuery($search);
-            }
-        }
-        return view('welcome')->withMessage("No users found.");
+    //         if(count($user) > 0)
+    //         {
+    //             return $user;
+    //         }
+    //     }
+    //     return "No users found.";
         
-    }
+    // }
 
     /**
      * Display the specified resource.
