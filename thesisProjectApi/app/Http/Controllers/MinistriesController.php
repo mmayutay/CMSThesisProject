@@ -34,7 +34,7 @@ class MinistriesController extends Controller
         //
         if($value === "Hospitality")
         {
-            $holder = cms_users::where('hospitality', $value)->get();
+            $holder = cms_users::where('ministries', $value)->get();
             error_log($holder);
             return $holder;
         }
@@ -69,7 +69,7 @@ class MinistriesController extends Controller
 
     }
 
-    public function searchUser() {
+    public function searchUser(Request $request) {
         $search = Input::get('search');
         if( $search != "") 
         {
