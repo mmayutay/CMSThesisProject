@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\cms_users;
+use App\Models\cms_ministries;
 
 class MinistriesController extends Controller
 {
@@ -11,9 +13,31 @@ class MinistriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $value = $request->input('ministries');
         //
+        if($value === "PraiseAndWorship")
+        {
+            $holder = cms_users::where('ministries', $value)->get();
+            error_log($holder);
+            return $holder;
+
+        }
+        //
+        if($value === "Multimedia")
+        {
+            $holder = cms_users::where('ministries', $value)->get();
+            error_log($holder);
+            return $holder;
+        }
+        //
+        if($value === "Hospitality")
+        {
+            $holder = cms_users::where('hospitality', $value)->get();
+            error_log($holder);
+            return $holder;
+        }
     }
 
     /**
@@ -21,7 +45,7 @@ class MinistriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createMinistry()
     {
         //
     }
@@ -35,6 +59,32 @@ class MinistriesController extends Controller
     public function store(Request $request)
     {
         //
+        $ministries = new cms_ministries;
+
+        $ministries->ministry = $request->ministry;
+        $ministries->firsname = $request->firstname;
+        $ministries->lastname = $request->lastname;
+        $ministries->save();
+        return $ministries;
+
+    }
+
+    public function searchUser() {
+        $search = Input::get('search');
+        if( $search != "") 
+        {
+            $user = cms_users::where('firstname', 'LIKE', '%' . $search . '%')
+                            ->orWhere('lastname', 'LIKE', '%' . $search . ' %')
+                            ->get()
+                            ->paginate(10);
+                        
+            if(count($user) > 0)
+            {
+                return view('welcome')->withDetails($user)->withQuery($search);
+            }
+        }
+        return view('welcome')->withMessage("No users found.");
+        
     }
 
     /**

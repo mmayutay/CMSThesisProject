@@ -40,7 +40,7 @@ class AuxiliaryController extends Controller
         if($value === "Single")
         {
             $holder = cms_users::select('*')
-                            ->where('marital_status', 'Single')
+                            ->where('marital_status', $value)
                             ->where('age', '>', 21)
                             ->get();
             return $holder;

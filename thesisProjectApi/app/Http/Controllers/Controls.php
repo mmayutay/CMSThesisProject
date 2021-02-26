@@ -10,6 +10,7 @@ use App\Models\cms_users;
 use App\Models\cms_accounts;
 use App\Models\cms_userroles;
 use App\Models\cms_attendance;
+use App\Models\userrolesIDs;
 
 class Controls extends Controller
 {
@@ -41,9 +42,11 @@ class Controls extends Controller
     }
 
     public function getRolesById(Request $request) {
-        $id = cms_userroles::where('id', $request->input('id'))->get();
+        // $id = cms_userroles::where('roleId', $request->input('id'))->get();
 
-        return $id;
+        $userRoleFind = userrolesIDs::where('id', $request->input('id'))->get();
+        return $userRoleFind;
+        // return $id;
     }
                              
 }

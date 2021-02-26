@@ -64,9 +64,14 @@ Route::get('vip-user-with-leader', 'returnVipUsers@retrieveVipUsersWithLeader');
 
 Route::get('all-new-unvip-members', 'returnVipUsers@allRecordedNewMember');
 
+Route::post('get-user-attendance', 'attendanceController@viewAttendance');
+
+Route::post('current-user-attendance', 'attendanceController@returnCurrentUserAttendance');
+
 
 // Auth::routes();
 
 
 //This is for Auxiliary
 Route::post('profile/auxiliary', 'AuxiliaryController@index');
+Route::post('profile/ministries', 'MinistriesController@index');

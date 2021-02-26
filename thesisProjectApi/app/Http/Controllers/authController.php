@@ -11,6 +11,7 @@ use App\Models\cms_userroles;
 use App\Models\cms_members;
 use Illuminate\Support\Facades\Auth;
 use App\Models\cmsVipUsers;
+use App\Models\userrolesIDs;
 
 class authController extends Controller
 {
@@ -39,6 +40,7 @@ class authController extends Controller
         $newAccountCreate = new cms_accounts;
         $userRole = new cms_userroles;
         $vipUsers = new cmsVipUsers;
+        $userRolesId = new userrolesIDs;
 
         $user->lastname = $request->newUser["Lastname"];
         $user->firstname = $request->newUser["Firstname"];
@@ -67,18 +69,27 @@ class authController extends Controller
 
         $userRole->save();
 
+        $roleIds = userrolesIDs::all();
+        foreach ($roleIds as $key => $value) {
+            if($request->role["code"] == $value->roles){
+                $userRole->id = $value->id;   
+                $userRole->roles = $request->role["code"];
+                $userRole->firstname = $request->newUser["Firstname"];
+                $userRole->lastname = $request->newUser["Lastname"];
+                $userRole->description = $request->newUser["description"];
+                $userRole->save();  
+            }
+        }
 
         $vipUsers->leaderId = $request->groupBelong["Leader"];
         $vipUsers->userId = $user->id;
         $vipUsers->attendanceCounter = 0;
         $vipUsers->save();
 
-        $newUserId=$userRole->id;
-
         $newAccountCreate->userid = $user->id;
         $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $user->id;
         $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $user->id);
-        $newAccountCreate->roles = $newUserId;
+        $newAccountCreate->roles = $userRole->id;
         $newAccountCreate->save();
         return $newAccountCreate;
     }
