@@ -31,6 +31,7 @@ class authController extends Controller
             return false;
         }
     }
+    
     public function signUp(Request $request) {
         $leader = new cms_leaders;
         $member = new cms_members;
@@ -43,6 +44,7 @@ class authController extends Controller
         $user->firstname = $request->newUser["Firstname"];
         $user->birthday = $request->newUser["Birthday"];
         $user->age = $request->newUser["Age"];
+        $user->gender = $request->newUser["Gender"];
         $user->address = $request->newUser["Address"];
         $user->marital_status = $request->newUser["Marital_status"];
         $user->email = $request->newUser["Email"];
@@ -61,7 +63,8 @@ class authController extends Controller
         $userRole->roles = $request->role["code"];
         $userRole->firstname = $request->newUser["Firstname"];
         $userRole->lastname = $request->newUser["Lastname"];
-        $userRole->description = $request->newUser["Description"];
+        $userRole->description = $request->newUser["description"];
+
         $userRole->save();
 
 
@@ -77,7 +80,6 @@ class authController extends Controller
         $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $user->id);
         $newAccountCreate->roles = $newUserId;
         $newAccountCreate->save();
-        
         return $newAccountCreate;
     }
     

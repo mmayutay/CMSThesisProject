@@ -19,8 +19,8 @@ class Controls extends Controller
     }
     public function cell(){
         return cms_userroles::all();
-
     }
+    
     public function getUserInfo(Request $request) {
         $email = $request->input('Email');
         $userInfo = cms_members::where('Email', $email)
