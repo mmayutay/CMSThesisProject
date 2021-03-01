@@ -26,7 +26,7 @@ class AuxiliaryController extends Controller
             return $holder;
         }
         //Filtering the users who are 14 and above but lesser than 22
-        if($value === "Youth" )
+        if($value === "Blessed Youth" )
         {
             $holder = cms_users::select('*')
                             ->where('age', '>', 13)
