@@ -60,4 +60,16 @@ class attendanceController extends Controller
 
         return $currentUserAttendance->pluck('date');
     }
+
+    public function attendanceCellGroup(Request $request) {
+        $attendaceArray = array();
+
+        $cellAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+
+        for ($i=0; $i < count($cellAttendance); $i++) { 
+            array_push($attendaceArray, $i);
+        }
+
+        return $attendaceArray;
+    }
 }

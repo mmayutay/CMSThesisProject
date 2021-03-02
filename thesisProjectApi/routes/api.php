@@ -66,5 +66,7 @@ Route::post('current-user-attendance', 'attendanceController@returnCurrentUserAt
 
 Route::post('viewAttendancesOfSCandEvents', 'attendanceController@viewAttendanceSCandEvents');
 
+Route::post('get-attendance', 'attendanceController@attendanceCellGroup');
+
 
 // Auth::routes();

@@ -63,7 +63,6 @@ class authController extends Controller
         $roleIds = userrolesIDs::all();
         foreach ($roleIds as $key => $value) {
             if($request->role["code"] == $value->roles){
-                $userRole->roleId = $value->id;   
                 $userRole->roles = $request->role["code"];
                 $userRole->firstname = $request->newUser["Firstname"];
                 $userRole->lastname = $request->newUser["Lastname"];
@@ -80,7 +79,7 @@ class authController extends Controller
         $newAccountCreate->userid = $user->id;
         $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $user->id;
         $newAccountCreate->password =  Crypt::encryptString($request->newUser["Lastname"] . 'Member' . $user->id);
-        $newAccountCreate->roles = $userRole->roleId;
+        $newAccountCreate->roles = $userRole->id;
         $newAccountCreate->save();
         
         return $newAccountCreate;
