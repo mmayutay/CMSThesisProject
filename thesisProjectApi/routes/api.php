@@ -74,5 +74,12 @@ Route::post('current-user-attendance', 'attendanceController@returnCurrentUserAt
 
 //This is for Auxiliary
 Route::post('profile/auxiliary', 'AuxiliaryController@index');
+
+//This is for Ministries
 Route::post('profile/ministries', 'MinistriesController@index');
+
+Route::get('ministries', 'MinistriesController@getMinistry');
+
 Route::get('ministries/list', 'MinistriesController@ministryList');
+
+Route::post('ministries/add/{id}', 'MinistriesController@store');
