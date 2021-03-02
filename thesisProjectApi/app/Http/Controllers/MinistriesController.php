@@ -40,11 +40,12 @@ class MinistriesController extends Controller
         }
     }
 
-    
-
-    public function createMinistry()
+    public function getMinistry(Request $request)
     {
         //
+        $value = $request->input('ministries');
+        error_log("Ministry: ",$value);
+        return $value;
     }
 
    
@@ -55,16 +56,20 @@ class MinistriesController extends Controller
         // error_log($list);
         return $list;
     }
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
-        $ministries = new cms_ministries;
+        //        
+        $value = $request->input('ministries');
 
-        $ministries->ministry = $request->ministry;
-        $ministries->firsname = $request->firstname;
-        $ministries->lastname = $request->lastname;
-        $ministries->save();
-        return $ministries;
+        $user = cms_users::find($id);
+        
+        // $user->find($id);
+        
+        $user->ministries = $value;
+
+        $user->save();
+
+        return $user;
 
     }
 
