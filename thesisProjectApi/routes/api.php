@@ -72,6 +72,8 @@ Route::post('user-attendance-year-selected', 'attendanceController@currentUsersA
 
 Route::post('viewAttendancesOfSCandEvents', 'attendanceController@viewAttendanceSCandEvents');
 
+Route::post('viewAttendancesOfCellGroup', 'attendanceController@viewCellAttendance');
+
 
 // Auth::routes();
 

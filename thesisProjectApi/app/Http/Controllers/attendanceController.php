@@ -79,4 +79,18 @@ class attendanceController extends Controller
         }
         return $arrayForaSelectedYearAttendance;
     }
+
+    public function viewCellAttendance(Request $request) {
+        $arrayCellAttendance = array();
+        $cellMember = cms_users::where('leader', $request->input('currentUserId'))->get()->count();
+        $cellAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get()->count();
+        return $cellAttendance;
+        // return $cellMember;
+        // $cellAttendanceCount = $totalCellAttendance/$cellAttendance;
+
+
+        for ($cellAttendance=0; $cellAttendance < $count; $cellAttendance++) { 
+            # code...
+        }
+    }
 }
