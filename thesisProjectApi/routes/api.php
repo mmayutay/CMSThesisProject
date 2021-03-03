@@ -18,7 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('list', 'Controls@list');
+//This is for looking who is active and inactive users
+Route::get('allMemberUsers', 'findActiveAndInactiveUsers@returnAllMembers');
+
+Route::post('addInactiveUser', 'findActiveAndInactiveUsers@userInactive');
+
+//This is for creating account and for logging in
+Route::get('list', 'Controls@allUsersFromAdminToMember');
 
 Route::get('allAccounts', 'Controls@allAccount');
 

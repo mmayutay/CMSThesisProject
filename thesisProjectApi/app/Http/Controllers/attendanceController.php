@@ -81,16 +81,26 @@ class attendanceController extends Controller
     }
 
     public function viewCellAttendance(Request $request) {
+        $selectDate = $request->input('dateOption');
+        $arrayOfDate = array();
         $arrayCellAttendance = array();
         $cellMember = cms_users::where('leader', $request->input('currentUserId'))->get()->count();
-        $cellAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get()->count();
-        return $cellAttendance;
-        // return $cellMember;
-        // $cellAttendanceCount = $totalCellAttendance/$cellAttendance;
 
-
-        for ($cellAttendance=0; $cellAttendance < $count; $cellAttendance++) { 
-            # code...
+        $dateAttendance = cms_attendance::where('leader', $request->input('currentUserId'))->get();
+        $count = count($dateAttendance);
+        $holder = [];
+        // return $count;
+        // return $dateAttendance;
+        
+        // return $arrayCellAttendance;
+        for ($i=0; $i < $count ; $i++) {
+            $holder = $dateAttendance[$i];
+            $dateAttendance[$i+1];
+            return $holder;
         }
+        // foreach ($dateAttendance as $key => $value) {
+        //     return $value;
+            
+        // }
     }
 }
