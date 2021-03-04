@@ -82,6 +82,8 @@ Route::post('viewAttendancesOfCellGroup', 'attendanceController@viewCellAttendan
 
 Route::get('regular-members', 'attendanceController@returnRegularMembers');
 
+Route::post('leader-sc-cg', 'attendanceController@returnEventsandSC');
+
 
 // Auth::routes();
 
@@ -97,3 +99,5 @@ Route::get('ministries', 'MinistriesController@getMinistry');
 Route::get('ministries/list', 'MinistriesController@ministryList');
 
 Route::post('ministries/add/{id}', 'MinistriesController@store');
+
+

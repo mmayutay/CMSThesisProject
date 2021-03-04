@@ -129,4 +129,15 @@ class attendanceController extends Controller
         }
         return $arrayOfRegularUsers;
     }
+
+    public function returnEventsandSC(Request $request){
+        
+        $arrayOfSCandEvents = array();
+
+        $viewAttendance = cms_attendance::where('leader', $request->input('currentUserId'))->get();
+        $viewEventsAttendance = eventsAttendance::where('leader', $request->input('currentUserId'))->get();
+        array_push($arrayOfSCandEvents, array('currentUserAttendance' => $viewAttendance, 'currentEventsAttendance' => $viewEventsAttendance));
+
+        return $arrayOfSCandEvents;
+    }
 }
