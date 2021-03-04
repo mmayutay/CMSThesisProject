@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\cms_attendance;
 use App\Models\cms_users;
+use App\Models\cms_accounts;
 
 
 class attendanceController extends Controller
@@ -48,5 +49,18 @@ class attendanceController extends Controller
         $currentUserAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
 
         return $currentUserAttendance->pluck('date');
+    }
+
+    public function returnRegularMembers() {
+
+        $roles = cms_accounts::where('roles', 4)->get()->pluck('userid');
+
+        $member = cms_users::select('*')
+                                ->where("id", $roles)
+                                ->where("isCGVIP", 0)
+                                ->where("isSCVIP", 0)
+                                ->get();
+
+        return $member;
     }
 }

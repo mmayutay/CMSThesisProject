@@ -68,6 +68,8 @@ Route::post('get-user-attendance', 'attendanceController@viewAttendance');
 
 Route::post('current-user-attendance', 'attendanceController@returnCurrentUserAttendance');
 
+Route::get('regular-members', 'attendanceController@returnRegularMembers');
+
 
 // Auth::routes();
 
