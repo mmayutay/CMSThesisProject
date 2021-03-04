@@ -30,13 +30,17 @@ Route::get('allAccounts', 'Controls@allAccount');
 
 Route::post('login', 'authController@login');
 
-Route::post('/sign-up', 'authController@signUp');
+Route::post('sign-up', 'authController@signUp');
 
 Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
 
 
 //This is for the logged users matter
 Route::post('/info','UserDisplayController@getUsers');
+
+// Route::get('/info/edit', 'UserDisplayController@editUserInfo');
+
+// Route::post('/info/update', 'UserDisplayController@updateUserInfo');
 
 Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser');
 
@@ -76,5 +80,20 @@ Route::post('viewAttendancesOfSCandEvents', 'attendanceController@viewAttendance
 
 Route::post('viewAttendancesOfCellGroup', 'attendanceController@viewCellAttendance');
 
+Route::get('regular-members', 'attendanceController@returnRegularMembers');
+
 
 // Auth::routes();
+
+
+//This is for Auxiliary
+Route::post('profile/auxiliary', 'AuxiliaryController@index');
+
+//This is for Ministries
+Route::post('profile/ministries', 'MinistriesController@index');
+
+Route::get('ministries', 'MinistriesController@getMinistry');
+
+Route::get('ministries/list', 'MinistriesController@ministryList');
+
+Route::post('ministries/add/{id}', 'MinistriesController@store');

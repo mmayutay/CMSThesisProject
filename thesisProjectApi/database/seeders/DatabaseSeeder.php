@@ -18,12 +18,13 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         DB::table('cms_users')->insert(array(
             array(
-                'lastname' => 'Niere',
-                'firstname' => 'Marichu',
-                'birthday' => '09/30/1999',
-                'age' => '21',
+                'lastname' => 'Chu',
+                'firstname' => 'Machuy',
+                'birthday' => '11/03/2004',
+                'age' => '20',
+                'gender' => 'Female',
                 'address' => 'Talamban',
-                'marital_status' => 'COMPLICATED',
+                'marital_status' => 'Single',
                 'email' => 'goddess@gg.ph',
                 'contact_number' => '09110101110',
                 'facebook' => 'chu@face.book',
@@ -34,15 +35,16 @@ class DatabaseSeeder extends Seeder
                 'isCGVIP' => 'yes',
                 'isSCVIP' => 'no',
                 'auxilliary' => 'gsjgs',
-                'ministries' => 'dgfsdgr'
+                'ministries' => 'PraiseAndWorship'
             ),
             array(
                 'lastname' => 'Bustamante',
                 'firstname' => 'Cristina',
                 'birthday' => '11/24/1999',
                 'age' => '21',
+                'gender' => 'Female',
                 'address' => 'Talamban',
-                'marital_status' => 'COMPLICATED',
+                'marital_status' => 'Single',
                 'email' => 'pretty@gmail.com',
                 'contact_number' => '09000000001',
                 'facebook' => 'tinay@face.book',
@@ -53,7 +55,7 @@ class DatabaseSeeder extends Seeder
                 'isCGVIP' => 'no',
                 'isSCVIP' => 'yes',
                 'auxilliary' => 'hehehe',
-                'ministries' => 'asdfghjkl'
+                'ministries' => 'Multimedia'
             )
             ));
             DB::table('cms_attendances')->insert(array(

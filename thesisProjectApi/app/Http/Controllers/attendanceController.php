@@ -2,37 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\cms_accounts;
 use App\Models\cms_attendance;
 use App\Models\cms_users;
 use App\Models\eventsAttendance;
-
+use Illuminate\Http\Request;
 
 class attendanceController extends Controller
 {
-    public function getDay(Request $request) {
+    public function getDay(Request $request)
+    {
         $userAttendance = new cms_attendance;
         $mytime = \Carbon\Carbon::now();
-        $today= substr($mytime->toRfc850String(), 0, strrpos($mytime->toRfc850String(), ","));
-        if ($today == 'Sunday'){
+        $today = substr($mytime->toRfc850String(), 0, strrpos($mytime->toRfc850String(), ","));
+        if ($today == 'Sunday') {
             $userAttendance->leader = $request->newUser["leader"];
             $userAttendance->member = $request->newUser["member"];
             $userAttendance->type = $request->newUser["type"];
             $userAttendance->date = $request->newUser["date"];
             $userAttendance->save();
             return $userAttendance;
-        }else{
+        } else {
             return 'false';
         }
     }
 
-    public function attendanceCounter(Request $request) {
+    public function attendanceCounter(Request $request)
+    {
         $attendance = cms_vip_users::where('attendanceCounter', now()->previous('Sunday') == 4);
 
         return $attendance;
     }
 
-    public function viewAttendance(Request $request) {
+    public function viewAttendance(Request $request)
+    {
         $arrayOfAttendance = array();
 
         $viewUserAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
@@ -41,11 +44,11 @@ class attendanceController extends Controller
 
         array_push($arrayOfAttendance, array('currentUserAttendance' => $viewUserAttendance->pluck('date'), 'currentUserData' => $currentUserData, 'currentUsersLeader' => $currentUsersLeader));
 
-
         return $arrayOfAttendance;
     }
 
-    public function viewAttendanceSCandEvents(Request $request) {
+    public function viewAttendanceSCandEvents(Request $request)
+    {
         $arrayOfSCandEvents = array();
 
         $viewAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
@@ -55,11 +58,12 @@ class attendanceController extends Controller
         return $arrayOfSCandEvents;
     }
 
-    public function returnCurrentUserAttendance(Request $request) {
+    public function returnCurrentUserAttendance(Request $request)
+    {
         $arrayOfYourThisMonthsAttendance = array();
         $currentUserAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
         foreach ($currentUserAttendance->pluck('date') as $key => $value) {
-            if(\str_contains($value, $request->input('month'))) {
+            if (\str_contains($value, $request->input('month'))) {
                 array_push($arrayOfYourThisMonthsAttendance, $value);
             }
         }
@@ -67,12 +71,13 @@ class attendanceController extends Controller
         return $arrayOfYourThisMonthsAttendance;
     }
 
-    public function currentUsersAttendanceYear(Request $request) {
+    public function currentUsersAttendanceYear(Request $request)
+    {
         $arrayForaSelectedYearAttendance = array();
         $currentUserAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
         foreach ($currentUserAttendance->pluck('date') as $key => $value) {
             if (\str_contains($value, $request->input('year'))) {
-                if(\str_contains($value, $request->input('month'))) {
+                if (\str_contains($value, $request->input('month'))) {
                     array_push($arrayForaSelectedYearAttendance, $value);
                 }
             }
@@ -80,7 +85,8 @@ class attendanceController extends Controller
         return $arrayForaSelectedYearAttendance;
     }
 
-    public function viewCellAttendance(Request $request) {
+    public function viewCellAttendance(Request $request)
+    {
         $selectDate = $request->input('dateOption');
         $arrayOfDate = array();
         $arrayCellAttendance = array();
@@ -91,16 +97,36 @@ class attendanceController extends Controller
         $holder = [];
         // return $count;
         // return $dateAttendance;
-        
+
         // return $arrayCellAttendance;
-        for ($i=0; $i < $count ; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $holder = $dateAttendance[$i];
-            $dateAttendance[$i+1];
+            $dateAttendance[$i + 1];
             return $holder;
         }
         // foreach ($dateAttendance as $key => $value) {
         //     return $value;
-            
+
         // }
+    }
+
+    public function returnRegularMembers()
+    {
+        $arrayOfRegularUsers = array();
+
+        $roles = cms_accounts::where('roles', 4)->get()->pluck('userid');
+        foreach ($roles as $key => $value) {
+            $member = cms_users::select('*')
+                ->where("id", $value)
+                ->where("isCGVIP", 0)
+                ->where("isSCVIP", 0)
+                ->get();
+
+            if(count($member) != 0) {
+                array_push($arrayOfRegularUsers, $member[0]);
+            }
+
+        }
+        return $arrayOfRegularUsers;
     }
 }
