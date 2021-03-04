@@ -14,9 +14,8 @@ use App\Models\userrolesIDs;
 
 class Controls extends Controller
 {
-    public function list() {
+    public function allUsersFromAdminToMember() {
         return cms_users::all();
-        
     }
     public function cell(){
         return cms_userroles::all();
