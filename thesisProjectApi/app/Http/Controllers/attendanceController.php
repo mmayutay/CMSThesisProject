@@ -144,17 +144,58 @@ class attendanceController extends Controller
     public function returnWeeklyAttendance(Request $request) {
         $arrayWeeklyAttendance = array();
         $arrayYearlyAttendance = array();
+        $arrayCGandSC = array();
+        $arrayQuarterlyAttendance = array();
 
-        $weeklyAttendance = cms_attendance::where('leader', $request->input('currentUserId'))->get();
-        foreach ($weeklyAttendance->pluck('date') as $key => $value) {
-            if (\str_contains($value, $request->input('month'))) {
-                array_push($arrayWeeklyAttendance, $value);
-                return $arrayWeeklyAttendance;
+        $sundayAttendance = cms_attendance::where('leader', $request->input('currentUserId'))->get();
+        $eventsAttendance = eventsAttendance::where('leader', $request->input('currentUserId'))->get();
+        //Sunday Celebration
+        foreach ($sundayAttendance->pluck('date') as $key => $value) 
+            $choice = $request->input("choice");
+            if($choice == "month") {
+                if (\str_contains($value, $request->input('month'))) {
+                    array_push($arrayWeeklyAttendance, $value);
+                    return $arrayWeeklyAttendance;
+                }
             }
-            if (\str_contains($value, $request->input('year'))) {
-                array_push($arrayYearlyAttendance, $value);
-                return $arrayYearlyAttendance;
+            
+            if($choice == "yearly") {
+                if (\str_contains($value, $request->input('year'))) {
+                    array_push($arrayYearlyAttendance, $value);
+                    return $arrayYearlyAttendance;
+                }
             }
-        }
+
+            if($choice == "quarterly") {
+                if(\str_contains($value, $request->input('1','2','3','4'))) {
+                    array_push($arrayQuarterlyAttendance, $value);
+                    return $arrayQuarterlyAttendance;
+            }
+        } 
+        //Events Attendance
+        foreach ($eventsAttendance->pluck('date') as $key => $value) 
+            $choice = $request->input("choice");
+            if($choice == "month") {
+                if (\str_contains($value, $request->input('month'))) {
+                    array_push($arrayWeeklyAttendance, $value);
+                    return $arrayWeeklyAttendance;
+                }
+            }
+            
+            if($choice == "yearly") {
+                if (\str_contains($value, $request->input('year'))) {
+                    array_push($arrayYearlyAttendance, $value);
+                    return $arrayYearlyAttendance;
+                }
+            }
+
+            if($choice == "quarterly") {
+                if(\str_contains($value, $request->input('1','2','3','4'))) {
+                    array_push($arrayQuarterlyAttendance, $value);
+                    return $arrayQuarterlyAttendance;
+            }
+        } 
+        array_push($arrayCGandSC, array('SundayCelebration' => $sundayAttendance, 'EventsAttendance' => $eventsAttendance));
+        return $arrayCGandSC;
     }
 }
