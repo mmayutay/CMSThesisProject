@@ -140,4 +140,21 @@ class attendanceController extends Controller
 
         return $arrayOfSCandEvents;
     }
+
+    public function returnWeeklyAttendance(Request $request) {
+        $arrayWeeklyAttendance = array();
+        $arrayYearlyAttendance = array();
+
+        $weeklyAttendance = cms_attendance::where('leader', $request->input('currentUserId'))->get();
+        foreach ($weeklyAttendance->pluck('date') as $key => $value) {
+            if (\str_contains($value, $request->input('month'))) {
+                array_push($arrayWeeklyAttendance, $value);
+                return $arrayWeeklyAttendance;
+            }
+            if (\str_contains($value, $request->input('year'))) {
+                array_push($arrayYearlyAttendance, $value);
+                return $arrayYearlyAttendance;
+            }
+        }
+    }
 }

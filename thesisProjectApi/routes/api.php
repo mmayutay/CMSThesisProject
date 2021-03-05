@@ -100,4 +100,6 @@ Route::get('ministries/list', 'MinistriesController@ministryList');
 
 Route::post('ministries/add/{id}', 'MinistriesController@store');
 
+Route::post('return-weekly-attendance', 'attendanceController@returnWeeklyAttendance');
+
 
