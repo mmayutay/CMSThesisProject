@@ -102,6 +102,9 @@ Route::post('ministries/add/{id}', 'MinistriesController@store');
 
 Route::post('return-weekly-attendance', 'attendanceController@returnWeeklyAttendance');
 
+//This function will return all the members of a certain group by the ID of a leader
+Route::post('return-members-group', 'Controls@returnMembersOfAGroup');
+
 // Route::get('add-role-to-collection', 'findActiveAndInactiveUsers@insertDataForUserRoles');
 
 

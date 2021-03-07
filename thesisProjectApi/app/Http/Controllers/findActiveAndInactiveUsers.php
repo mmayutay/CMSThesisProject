@@ -26,7 +26,6 @@ class findActiveAndInactiveUsers extends Controller
             return $userInactive;
         }else {
             $findMemberExist->active = $request->input('active');
-            // $findMemberExist->save();
             return $findMemberExist;
         }
 
