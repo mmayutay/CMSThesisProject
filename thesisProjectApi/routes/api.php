@@ -102,4 +102,6 @@ Route::post('ministries/add/{id}', 'MinistriesController@store');
 
 Route::post('return-weekly-attendance', 'attendanceController@returnWeeklyAttendance');
 
+// Route::get('add-role-to-collection', 'findActiveAndInactiveUsers@insertDataForUserRoles');
+
 
