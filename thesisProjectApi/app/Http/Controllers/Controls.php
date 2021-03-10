@@ -41,11 +41,13 @@ class Controls extends Controller
     }
 
     public function getRolesById(Request $request) {
-        // $id = cms_userroles::where('roleId', $request->input('id'))->get();
-
         $userRoleFind = userrolesIDs::where('id', $request->input('id'))->get();
         return $userRoleFind;
-        // return $id;
+    }
+
+    public function returnMembersOfAGroup(Request $request) {
+        $memberUsers = cms_users::where('leader', $request->input('leaderID'))->get();
+        return $memberUsers;
     }
 
     
