@@ -20,4 +20,30 @@ class eventAndAnnouncementControl extends Controller
         $addedEvent->save();
         return $addedEvent;
     }
+
+    public function returnAllEventsAndAnnouncement() {
+        $returnEvents = eventsAndAnnouncements::all();
+
+        return $returnEvents;
+    }
+
+    public function updateEventsAndAnnouncement(Request $request, $id) {
+        
+        $updateEvents = eventsAndAnnouncements::find($id);
+        $updateEvents->title = $request->input('Title');
+        $updateEvents->description = $request->input('Description');
+        $updateEvents->start_date = $request->input('Start_date');
+        $updateEvents->end_date = $request->input('End_date');
+        $updateEvents->start_time = $request->input('Start_time');
+        $updateEvents->end_time = $request->input('End_time');
+        $updateEvents->location = $request->input('Location');
+        $updateEvents->save();
+
+        return $updateEvents;
+    }
+
+    public function deleteEventsAndAnnouncement($id) {
+
+        eventsAndAnnouncements::where('id', $id)->delete();
+    }
 }

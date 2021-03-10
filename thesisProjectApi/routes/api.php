@@ -110,4 +110,8 @@ Route::post('add-event-announcement', 'eventAndAnnouncementControl@addEventOrAnn
 
 // Route::get('add-role-to-collection', 'findActiveAndInactiveUsers@insertDataForUserRoles');
 
+Route::get('add-event-announcement/display', 'eventAndAnnouncementControl@returnAllEventsAndAnnouncement');
 
+Route::post('add-event-announcement/update/{id}', 'eventAndAnnouncementControl@updateEventsAndAnnouncement');
+
+Route::delete('add-event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
