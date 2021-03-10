@@ -104,10 +104,6 @@ class attendanceController extends Controller
             $dateAttendance[$i + 1];
             return $holder;
         }
-        // foreach ($dateAttendance as $key => $value) {
-        //     return $value;
-
-        // }
     }
 
     public function returnRegularMembers()

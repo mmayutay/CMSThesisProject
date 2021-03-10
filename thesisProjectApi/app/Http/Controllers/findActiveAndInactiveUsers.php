@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\cms_users;
 use App\Models\cms_accounts;
 use App\Models\activeOrInactiveUsers;
+use App\Models\userrolesIDs;
 
 class findActiveAndInactiveUsers extends Controller
 {
@@ -25,9 +26,17 @@ class findActiveAndInactiveUsers extends Controller
             return $userInactive;
         }else {
             $findMemberExist->active = $request->input('active');
-            // $findMemberExist->save();
             return $findMemberExist;
         }
 
     } 
+
+    // public function insertDataForUserRoles() {
+    //     $useRoles = new userrolesIDs;
+
+    //     $useRoles->roles = "Member";
+    //     $useRoles->save();
+    //     return $useRoles;
+        
+    // }
 }
