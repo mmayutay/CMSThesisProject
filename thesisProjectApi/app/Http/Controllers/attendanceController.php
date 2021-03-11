@@ -145,53 +145,60 @@ class attendanceController extends Controller
 
         $sundayAttendance = cms_attendance::where('leader', $request->input('currentUserId'))->get();
         $eventsAttendance = eventsAttendance::where('leader', $request->input('currentUserId'))->get();
+
+
         //Sunday Celebration
-        foreach ($sundayAttendance->pluck('date') as $key => $value) 
-            $choice = $request->input("choice");
-            if($choice == "month") {
-                if (\str_contains($value, $request->input('month'))) {
+        foreach ($sundayAttendance->pluck('date') as $key => $value) {
+            // if ($today == 'Sunday'){
+                $choice = $request->input("choice");
+                if($choice == "monthly") {
+                    if (\str_contains($value, $request->input('month'))) {
                     array_push($arrayWeeklyAttendance, $value);
                     return $arrayWeeklyAttendance;
+                    }
                 }
-            }
             
-            if($choice == "yearly") {
-                if (\str_contains($value, $request->input('year'))) {
-                    array_push($arrayYearlyAttendance, $value);
-                    return $arrayYearlyAttendance;
+                if($choice == "yearly") {
+                    if (\str_contains($value, $request->input('year'))) {
+                        array_push($arrayYearlyAttendance, $value);
+                        return $arrayYearlyAttendance;
+                    }
                 }
-            }
 
-            if($choice == "quarterly") {
-                if(\str_contains($value, $request->input('1','2','3','4'))) {
-                    array_push($arrayQuarterlyAttendance, $value);
-                    return $arrayQuarterlyAttendance;
-            }
-        } 
+                if($choice == "quarterly") {
+                    if(\str_contains($value, $request->input('1','2','3','4'))) {
+                        array_push($arrayQuarterlyAttendance, $value);
+                        return $arrayQuarterlyAttendance;
+                    }
+                } 
+            // }
+        }
+         
         //Events Attendance
-        foreach ($eventsAttendance->pluck('date') as $key => $value) 
-            $choice = $request->input("choice");
-            if($choice == "month") {
-                if (\str_contains($value, $request->input('month'))) {
-                    array_push($arrayWeeklyAttendance, $value);
-                    return $arrayWeeklyAttendance;
+        foreach ($eventsAttendance->pluck('date') as $key => $value) {
+                $choice = $request->input("choice");
+                if($choice == "monthly") {
+                    if (\str_contains($value, $request->input('month'))) {
+                        array_push($arrayWeeklyAttendance, $value);
+                        return $arrayWeeklyAttendance;
+                    }
                 }
-            }
-            
-            if($choice == "yearly") {
-                if (\str_contains($value, $request->input('year'))) {
-                    array_push($arrayYearlyAttendance, $value);
-                    return $arrayYearlyAttendance;
+                
+                if($choice == "yearly") {
+                    if (\str_contains($value, $request->input('year'))) {
+                        array_push($arrayYearlyAttendance, $value);
+                        return $arrayYearlyAttendance;
+                    }
                 }
-            }
 
-            if($choice == "quarterly") {
-                if(\str_contains($value, $request->input('1','2','3','4'))) {
-                    array_push($arrayQuarterlyAttendance, $value);
-                    return $arrayQuarterlyAttendance;
-            }
-        } 
-        array_push($arrayCGandSC, array('SundayCelebration' => $sundayAttendance, 'EventsAttendance' => $eventsAttendance));
-        return $arrayCGandSC;
+                if($choice == "quarterly") {
+                    if(\str_contains($value, $request->input('1','2','3','4'))) {
+                        array_push($arrayQuarterlyAttendance, $value);
+                        return $arrayQuarterlyAttendance;
+                    }
+                }
+        }  
+        // array_push($arrayCGandSC, array('SundayCelebration' => $sundayAttendance, 'EventsAttendance' => $eventsAttendance));
+        // return $arrayCGandSC;
     }
 }

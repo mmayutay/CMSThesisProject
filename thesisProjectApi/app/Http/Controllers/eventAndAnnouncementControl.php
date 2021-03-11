@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\eventsAndAnnouncements;
-
+use App\Models\cms_accounts;
 
 class eventAndAnnouncementControl extends Controller
 {
     public function addEventOrAnnouncement(Request $request) {
         $addedEvent = new eventsAndAnnouncements;
+        $userid = new cms_accounts;
+        return $userid;
+        $addedEvent->id = $userid;
         $addedEvent->title = $request->newEvents['Title'];
         $addedEvent->description = $request->newEvents['Description'];
         $addedEvent->start_date = $request->newEvents['Start_date'];
