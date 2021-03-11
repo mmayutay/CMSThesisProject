@@ -31,13 +31,13 @@ class eventAndAnnouncementControl extends Controller
     public function updateEventsAndAnnouncement(Request $request, $id) {
         
         $updateEvents = eventsAndAnnouncements::find($id);
-        $updateEvents->title = $request->input('Title');
-        $updateEvents->description = $request->input('Description');
-        $updateEvents->start_date = $request->input('Start_date');
-        $updateEvents->end_date = $request->input('End_date');
-        $updateEvents->start_time = $request->input('Start_time');
-        $updateEvents->end_time = $request->input('End_time');
-        $updateEvents->location = $request->input('Location');
+        $updateEvents->title = $request->input('title');
+        $updateEvents->description = $request->input('description');
+        $updateEvents->start_date = $request->input('start_date');
+        $updateEvents->end_date = $request->input('end_date');
+        $updateEvents->start_time = $request->input('start_time');
+        $updateEvents->end_time = $request->input('end_time');
+        $updateEvents->location = $request->input('location');
         $updateEvents->save();
 
         return $updateEvents;
@@ -45,7 +45,7 @@ class eventAndAnnouncementControl extends Controller
 
     public function deleteEventsAndAnnouncement($id) {
 
-        eventsAndAnnouncements::where('id', $id)->delete();
+        return eventsAndAnnouncements::where('id', $id)->delete();
     }
 
     public function eventOwner($eventOwnerId) {
@@ -55,8 +55,7 @@ class eventAndAnnouncementControl extends Controller
     }
 
     public function returnEvent($id) {
-
-        $returnEventsById = eventsAndAnnouncements::find($id)->get();
+        $returnEventsById = eventsAndAnnouncements::find($id);
 
         return $returnEventsById;
     }
