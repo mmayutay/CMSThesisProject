@@ -115,3 +115,5 @@ Route::get('add-event-announcement/display', 'eventAndAnnouncementControl@return
 Route::post('add-event-announcement/update/{id}', 'eventAndAnnouncementControl@updateEventsAndAnnouncement');
 
 Route::delete('add-event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
+
+Route::get('event-owner/{id}','eventAndAnnouncementControl@eventOwner');

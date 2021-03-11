@@ -47,4 +47,10 @@ class eventAndAnnouncementControl extends Controller
 
         eventsAndAnnouncements::where('id', $id)->delete();
     }
+
+    public function eventOwner($eventOwnerId) {
+        $eventOwnerDisplay = eventsAndAnnouncements::where('eventOwner', $eventOwnerId)->get();
+
+        return $eventOwnerDisplay;
+    }
 }
