@@ -53,4 +53,11 @@ class eventAndAnnouncementControl extends Controller
 
         return $eventOwnerDisplay;
     }
+
+    public function returnEvent($id) {
+
+        $returnEventsById = eventsAndAnnouncements::find($id)->get();
+
+        return $returnEventsById;
+    }
 }
