@@ -17,6 +17,7 @@ class eventAndAnnouncementControl extends Controller
         $addedEvent->start_time = $request->newEvents['Start_time'];
         $addedEvent->end_time = $request->newEvents['End_time'];
         $addedEvent->location = $request->newEvents['Location'];
+        $addedEvent->eventOwner = $request->currentUser['userID'];
         $addedEvent->save();
         return $addedEvent;
     }
