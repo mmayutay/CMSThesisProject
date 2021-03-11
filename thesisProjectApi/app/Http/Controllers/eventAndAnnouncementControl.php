@@ -10,9 +10,6 @@ class eventAndAnnouncementControl extends Controller
 {
     public function addEventOrAnnouncement(Request $request) {
         $addedEvent = new eventsAndAnnouncements;
-        $userid = new cms_accounts;
-        return $userid;
-        $addedEvent->id = $userid;
         $addedEvent->title = $request->newEvents['Title'];
         $addedEvent->description = $request->newEvents['Description'];
         $addedEvent->start_date = $request->newEvents['Start_date'];
@@ -20,6 +17,7 @@ class eventAndAnnouncementControl extends Controller
         $addedEvent->start_time = $request->newEvents['Start_time'];
         $addedEvent->end_time = $request->newEvents['End_time'];
         $addedEvent->location = $request->newEvents['Location'];
+        $addedEvent->eventOwner = $request->currentUser['userID'];
         $addedEvent->save();
         return $addedEvent;
     }
