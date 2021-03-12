@@ -105,9 +105,17 @@ Route::post('return-weekly-attendance', 'attendanceController@returnWeeklyAttend
 //This function will return all the members of a certain group by the ID of a leader
 Route::post('return-members-group', 'Controls@returnMembersOfAGroup');
 
+// Route::get('add-role-to-collection', 'findActiveAndInactiveUsers@insertDataForUserRoles');
+
 //This function is for the user to add an event and announcement
 Route::post('add-event-announcement', 'eventAndAnnouncementControl@addEventOrAnnouncement');
 
-// Route::get('add-role-to-collection', 'findActiveAndInactiveUsers@insertDataForUserRoles');
+Route::get('add-event-announcement/display', 'eventAndAnnouncementControl@returnAllEventsAndAnnouncement');
 
+Route::post('add-event-announcement/update/{id}', 'eventAndAnnouncementControl@updateEventsAndAnnouncement');
 
+Route::delete('add-event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
+
+Route::get('event-owner/{id}','eventAndAnnouncementControl@eventOwner');
+
+Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');

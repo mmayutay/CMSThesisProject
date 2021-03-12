@@ -15,6 +15,7 @@ class CreateEventsAndAnnouncementsTable extends Migration
     {
         Schema::create('events_and_announcements', function (Blueprint $table) {
             $table->id()->autoIncrement();
+            $table->string('eventOwner');
             $table->string('title');
             $table->string('description');
             $table->string('start_date');
