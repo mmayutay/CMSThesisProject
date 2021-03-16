@@ -56,9 +56,59 @@ class attendanceController extends Controller
     }
 
     public function returnCurrentUserAttendance(Request $request) {
+        $arrayOfYourThisMonthsAttendance = array();
         $currentUserAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+        foreach ($currentUserAttendance->pluck('date') as $key => $value) {
+            if(\str_contains($value, $request->input('month'))) {
+                array_push($arrayOfYourThisMonthsAttendance, $value);
+            }
+        }
 
-        return $currentUserAttendance->pluck('date');
+        return $arrayOfYourThisMonthsAttendance;
+    }
+
+    public function currentUsersAttendanceYear(Request $request) {
+        $arrayForaSelectedYearAttendance = array();
+        $currentUserAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+        foreach ($currentUserAttendance->pluck('date') as $key => $value) {
+            if (\str_contains($value, $request->input('year'))) {
+                if(\str_contains($value, $request->input('month'))) {
+                    array_push($arrayForaSelectedYearAttendance, $value);
+                }
+            }
+        }
+        return $arrayForaSelectedYearAttendance;
+    }
+
+    public function viewCellAttendance(Request $request) {
+
+        $dateSelect = $request->input("dateOption");
+
+        $arrayCellAttendance = array();
+        $cellMember = cms_users::where('leader', $request->input('currentUserId'))->get()->count();
+        // $cellAttendance = cms_attendance::select(*)
+        //                                     ->where('leader', $request->input('currentUserId'))
+        //                                     ->where('date',  )
+        //                                     ->get();
+        
+        $dateAttendance = cms_attendance::pluck('date');
+        // foreach ($dateAttendance as $key => $value) {
+        //     if(){
+        //     }
+        // }
+
+
+        
+
+        // foreach ($variable as $key => $value) {
+        //     if()
+        // }
+        // return $cellAttendance;
+        // return $cellMember;
+        // $cellAttendanceCount = $totalCellAttendance/$cellAttendance;
+
+
+        
     }
 
     public function attendanceCellGroup(Request $request) {
@@ -72,4 +122,5 @@ class attendanceController extends Controller
 
         return $attendaceArray;
     }
+
 }
