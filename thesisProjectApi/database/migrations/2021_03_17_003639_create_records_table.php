@@ -18,6 +18,10 @@ class CreateRecordsTable extends Migration
             $table->foreign('trainings_id')->references('id')->on('trainings');
             $table->foreign('classes_id')->references('id')->on('classes');
             $table->foreign('students_id')->references('id')->on('students');
+            $table->string('type');
+            $table->integer('score');
+            $table->integer('over_all');
+            $table->string('remarks');
             $table->timestamps();
         });
     }
