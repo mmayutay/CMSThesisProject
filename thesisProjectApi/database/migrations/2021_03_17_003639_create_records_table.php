@@ -15,6 +15,9 @@ class CreateRecordsTable extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->id()->autoIncrement();
+            $table->unsignedBigInteger('trainings_id');
+            $table->unsignedBigInteger('classes_id');
+            $table->unsignedBigInteger('students_id');
             $table->foreign('trainings_id')->references('id')->on('trainings');
             $table->foreign('classes_id')->references('id')->on('classes');
             $table->foreign('students_id')->references('id')->on('students');
