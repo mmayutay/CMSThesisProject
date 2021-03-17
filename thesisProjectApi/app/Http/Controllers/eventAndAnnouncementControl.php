@@ -56,7 +56,7 @@ class eventAndAnnouncementControl extends Controller
 
     public function returnEvent($id) {
 
-        $returnEventsById = eventsAndAnnouncements::find($id)->get();
+        $returnEventsById = eventsAndAnnouncements::find($id);
 
         return $returnEventsById;
     }

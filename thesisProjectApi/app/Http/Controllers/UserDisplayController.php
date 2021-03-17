@@ -27,33 +27,6 @@ class UserDisplayController extends Controller
     {
         //
     }
-
-  
-    public function store(Request $request)
-    {
-        //
-        $this->validate($request, [
-            'lastname' => 'required',
-            'firstname' => 'required',
-            'birthday' => 'required',
-            'age' => 'required',
-            'gender' => '',
-            'address' => 'required',
-            'marital_status' => 'required',
-            'email' => 'required',
-            'contact_number' => 'required',
-            'facebook' => '',
-            'instagram' => '',
-            'twitter' => '',
-            'leader' => 'required',
-            'category' => 'required',
-            'isCGVIP' => 'true',
-            'isSCVIP' => 'true',
-            'auxilliary' => 'required',
-            'ministries' => 'required',
-        ]);
-    }
-
  
     public function update(Request $request)
     {
