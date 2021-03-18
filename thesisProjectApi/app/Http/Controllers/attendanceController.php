@@ -143,6 +143,7 @@ class attendanceController extends Controller
                 ->where("isCGVIP", 0)
                 ->where("isSCVIP", 0)
                 ->get();
+                error_log($value);
 
             if(count($member) != 0) {
                 array_push($arrayOfRegularUsers, $member[0]);

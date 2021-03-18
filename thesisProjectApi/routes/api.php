@@ -121,3 +121,13 @@ Route::delete('add-event-announcement/delete/{id}', 'eventAndAnnouncementControl
 Route::get('event-owner/{id}','eventAndAnnouncementControl@eventOwner');
 
 Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
+
+
+// This routes is for the trainings and classes
+Route::get('trainings-by-instructor/{id}', 'trainingsAndClasses@returnTrainingsLeader');
+
+Route::post('trainings-by-instructor/get-selected-class', 'trainingsAndClasses@getSelectedClassOrTrainings');
+
+Route::post('trainings-by-instructor/get-student-of-a-class-training', 'trainingsAndClasses@getStudentsOfACertainClassOrTrainings');
+
+Route::post('trainings-by-instructor/add', 'trainingsAndClasses@addATrainingOrClass');
