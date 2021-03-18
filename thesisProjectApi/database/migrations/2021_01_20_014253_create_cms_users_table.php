@@ -19,6 +19,7 @@ class CreateCmsUsersTable extends Migration
             $table->string('firstname');
             $table->string('birthday');
             $table->string('age');
+            $table->string('gender');
             $table->string('address');
             $table->string('marital_status');
             $table->string('email');

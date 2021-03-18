@@ -8,11 +8,7 @@ use App\Http\Controllers\UserDisplayController;
 
 class UserDisplayController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         
@@ -27,23 +23,12 @@ class UserDisplayController extends Controller
         return $userRequest;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
-        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
         //
@@ -52,6 +37,7 @@ class UserDisplayController extends Controller
             'firstname' => 'required',
             'birthday' => 'required',
             'age' => 'required',
+            'gender' => '',
             'address' => 'required',
             'marital_status' => 'required',
             'email' => 'required',
@@ -68,41 +54,7 @@ class UserDisplayController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-
-        $info = cms_users::find($id);
-
-        return $info;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-        $info = cms_users::find($id);
-        return view('edit')->with(compact('info', $info));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function update(Request $request)
     {
         $id = $request->newUser['id'];
@@ -112,6 +64,7 @@ class UserDisplayController extends Controller
         $info->firstname = $request->input('Firstname');
         $info->birthday = $request->input('Birthday');
         $info->age = $request->input('Age');
+        $info->gender = $request->input('Gender');
         $info->address = $request->input('Address');
         $info->marital_status = $request->input('Marital_status');
         $info->email = $request->input('Email');

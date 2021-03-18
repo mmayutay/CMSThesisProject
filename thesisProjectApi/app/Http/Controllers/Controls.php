@@ -14,9 +14,8 @@ use App\Models\userrolesIDs;
 
 class Controls extends Controller
 {
-    public function list() {
+    public function allUsersFromAdminToMember() {
         return cms_users::all();
-        
     }
     public function cell(){
         return cms_userroles::all();
@@ -42,11 +41,15 @@ class Controls extends Controller
     }
 
     public function getRolesById(Request $request) {
-        // $id = cms_userroles::where('roleId', $request->input('id'))->get();
-
         $userRoleFind = userrolesIDs::where('id', $request->input('id'))->get();
         return $userRoleFind;
-        // return $id;
     }
+
+    public function returnMembersOfAGroup(Request $request) {
+        $memberUsers = cms_users::where('leader', $request->input('leaderID'))->get();
+        return $memberUsers;
+    }
+
+    
                              
 }
