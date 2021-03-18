@@ -129,3 +129,12 @@ Route::post('trainings-by-instructor/get-selected-class', 'trainingsAndClasses@g
 Route::post('trainings-by-instructor/get-student-of-a-class-training', 'trainingsAndClasses@getStudentsOfACertainClassOrTrainings');
 
 Route::post('trainings-by-instructor/add', 'trainingsAndClasses@addATrainingOrClass');
+
+Route::post('trainings-by-instructor/update-training-or-class/{id}', 'trainingsAndClasses@updateSelectedClassOrTrainings');
+
+Route::post('trainings-by-instructor/delete-training-or-class/{id}', 'trainingsAndClasses@deleteSelectedClassOrTraining');
+
+// This routes are for adding students to records
+Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStudentToRecords');
+
+Route::get('student-trainings-or-class/get-student/{id}', 'TrainingsRecords@getStudentFromCMS_UserTable');

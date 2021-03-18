@@ -13,8 +13,8 @@ class trainingsAndClasses extends Controller
     // This function is to return the trainings made by a certain leader 
     public function returnTrainingsLeader($id) {
         $arrayClassAndTrainings = array();
-        $trainingsByInstructor = trainings::where('instructor', $id)->get();
-        $classByInstructor = classes::where('instructor', $id)->get();
+        $trainingsByInstructor = trainings::all();
+        $classByInstructor = classes::all();
         $trainAndClass = array('trainings' => $trainingsByInstructor, 'classes' => $classByInstructor);
 
         return $trainAndClass;
@@ -58,7 +58,7 @@ class trainingsAndClasses extends Controller
     }
 
     public function getStudentsOfACertainClassOrTrainings(Request $request) {
-        if($request->input('typeSelected') == 'Training') {
+        if($request->input('typeSelected') == 'Trainings') {
             $studentForTrainings = records::select('*')
             ->where('trainings_id', $request->input('training'))
             ->get();
@@ -72,7 +72,7 @@ class trainingsAndClasses extends Controller
     }
 //To update the selected Training or Class
     public function updateSelectedClassOrTrainings(Request $request, $id) {
-        if($request->input('typeSelected') == 'Training') {
+        if($request->input('typeSelected') == 'Trainings') {
             $updateTraining = trainings::find($id);
             $updateTraining->instructor = $request->input("Instructor");
             $updateTraining->name = $request->input("Name");
@@ -98,8 +98,8 @@ class trainingsAndClasses extends Controller
     }
 //To delete the selected Training or Class
     public function deleteSelectedClassOrTraining(Request $request, $id) {
-        if($request->input('typeSelected') == 'Training') {
-            return training::where('id',$id)->delete();
+        if($request->input('typeSelected') == 'Trainings') {
+            return trainings::where('id',$id)->delete();
         }else{
             return classes::where('id',$id)->delete();
         }
