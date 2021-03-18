@@ -70,4 +70,41 @@ class trainingsAndClasses extends Controller
             return $studentForClass;
         }
     }
+//To update the selected Training or Class
+    public function updateSelectedClassOrTrainings(Request $request, $id) {
+        if($request->input('typeSelected') == 'Training') {
+            $updateTraining = trainings::find($id);
+            $updateTraining->instructor = $request->input("Instructor");
+            $updateTraining->name = $request->input("Name");
+            $updateTraining->lesson = $request->input("Lesson");
+            $updateTraining->title = $request->input("Title");
+            $updateTraining->description = $request->input("Description");
+            $updateTraining->total = $request->input("Total");
+            $updateTraining->save();
+
+            return $updateTraining;
+        }else {
+            $updateClass = classes::find($id);
+            $updateClass->instructor = $request->input("Instructor");
+            $updateClass->name = $request->input("Name");
+            $updateClass->lesson = $request->input("Lesson");
+            $updateClass->title = $request->input("Title");
+            $updateClass->description = $request->input("Description");
+            $updateClass->total = $request->input("Total");
+            $updateClass->save();
+
+            return $updateClass;
+        }
+    }
+//To delete the selected Training or Class
+    public function deleteSelectedClassOrTraining(Request $request, $id) {
+        if($request->input('typeSelected') == 'Training') {
+            return training::where('id',$id)->delete();
+        }else{
+            return classes::where('id',$id)->delete();
+        }
+    }
 }
+
+
+    
