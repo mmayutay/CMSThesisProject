@@ -29,18 +29,21 @@ class TrainingsRecords extends Controller
             $newRecord->save();
             return $newRecord;
         }else {
-            return $searchIfExist[0];
-            $recordExist = records::where('');
+            $recordExist = records::where('students_id', $searchIfExist[0]->id)->get();
+            
+            if($request->input('classes') == null) {
+                $recordExist[0]->trainings_id = $request->input('trainings');
+            }if($request->input('trainings') == null) {
+                $recordExist[0]->classes_id = $request->input('classes');
+            }
 
-
-            $searchIfExist[0]->trainings_id = $request->input('trainings');
-            $searchIfExist[0]->classes_id = $request->input('classes');
-            $searchIfExist[0]->type = $request->input('type');
-            $searchIfExist[0]->score = $request->input('score');
-            $searchIfExist[0]->over_all = $request->input('over_all');
-            $searchIfExist[0]->remarks = $request->input('remarks');
-            $searchIfExist[0]->save();
-            return $searchIfExist;
+            $recordExist[0]->classes_id = $request->input('classes');
+            $recordExist[0]->type = $request->input('type');
+            $recordExist[0]->score = $request->input('score');
+            $recordExist[0]->over_all = $request->input('over_all');
+            $recordExist[0]->remarks = $request->input('remarks');
+            $recordExist[0]->save();
+            return $recordExist;
         }
     }
 
@@ -50,15 +53,3 @@ class TrainingsRecords extends Controller
         return $studentInCMS_Users;
     }
 }
-
-// $table->foreign('user_id')->references('id')->on('cms_users');
-// $table->string('level');
-// $table->string('isAttended');
-
-// trainings: null,
-// classes: null,
-// students: '',
-// type: '',
-// score: 0,
-// over_all: 0,
-// remarks: 'Add a note!'
