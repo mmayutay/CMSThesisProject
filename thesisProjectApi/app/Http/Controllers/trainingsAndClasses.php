@@ -98,11 +98,14 @@ class trainingsAndClasses extends Controller
     }
 //To delete the selected Training or Class
     public function deleteSelectedClassOrTraining(Request $request, $id) {
-        if($request->input('typeSelected') == 'Trainings') {
-            return trainings::where('id',$id)->delete();
-        }else{
-            return classes::where('id',$id)->delete();
-        }
+        // if($request->input('typeSelected') == 'Trainings') {
+        //     return trainings::where('id',$id)->delete();
+        // }else{
+        //     return classes::where('id',$id)->delete();
+        // }
+        $deleteTraining = records::where('trainings_id', $id)->get();
+
+        return $deleteTraining;
     }
 }
 

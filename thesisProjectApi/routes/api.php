@@ -139,4 +139,6 @@ Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStud
 
 Route::get('student-trainings-or-class/get-student/{id}', 'TrainingsRecords@getStudentFromCMS_UserTable');
 
-Route::post('student-trainings-or-class/delete-record/{id}', 'TrainingsRecords@deleteStudent');
+Route::post('student-trainings-or-class/delete-record/{id}', 'TrainingsRecords@deleteRecord');
+
+Route::post('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@deleteStudent');
