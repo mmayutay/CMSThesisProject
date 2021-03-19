@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\trainings;
 use App\Models\classes;
 use App\Models\records;
+use App\Models\students;
 
 class trainingsAndClasses extends Controller
 {
@@ -99,9 +100,33 @@ class trainingsAndClasses extends Controller
 //To delete the selected Training or Class
     public function deleteSelectedClassOrTraining(Request $request, $id) {
         if($request->input('typeSelected') == 'Trainings') {
-            return trainings::where('id',$id)->delete();
+            $searchStudents = records::where('trainings_id', $id)->get();
+            foreach ($searchStudents as $key => $value) {
+                if($value->classes_id == null) {
+                    records::where('id', $value->id)->delete();
+                    students::where('id', $value->students_id)->delete();
+                    trainings::where('id', $id)->delete();
+                }else {
+                    $findTheStudent = records::where('trainings_id', $id)->get();
+                    $findTheStudent[0]->trainings_id = null;
+                    $findTheStudent[0]->save();
+                }
+            }
+            return $searchStudents;
         }else{
-            return classes::where('id',$id)->delete();
+            $searchStudents = records::where('classes_id', $id)->get();
+            foreach ($searchStudents as $key => $value) {
+                if($value->trainings_id == null) {
+                    records::where('id', $value->id)->delete();
+                    students::where('id', $value->students_id)->delete();
+                    classes::where('id', $id)->delete();
+                }else {
+                    $findTheStudent = records::where('classes_id', $id)->get();
+                    $findTheStudent[0]->classes_id = null;
+                    $findTheStudent[0]->save();
+                }
+            }
+            return $searchStudents;
         }
     }
 }
