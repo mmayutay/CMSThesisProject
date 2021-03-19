@@ -52,4 +52,14 @@ class TrainingsRecords extends Controller
         $studentInCMS_Users = cms_users::where('id', $studentsData[0]->user_id)->get();
         return $studentInCMS_Users;
     }
+
+    // This is a function to delete multiple student
+    public function multipleStudentDelete(Request $request) {
+        foreach ($request->input('studentsId') as $key => $value) {
+            $studentsData = students::where('user_id', $value)->get();
+            records::where('students_id', $studentsData[0]->id)->delete();
+            students::where('user_id', $value)->delete();
+        }
+        return 'true';
+    }
 }
