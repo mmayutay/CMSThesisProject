@@ -47,9 +47,41 @@ class TrainingsRecords extends Controller
         }
     }
 
-    public function getStudentFromCMS_UserTable($id) {
+    public function getStudentFromCMS_UserTable(Request $request, $id) {
         $studentsData = students::where('id', $id)->get();
         $studentInCMS_Users = cms_users::where('id', $studentsData[0]->user_id)->get();
         return $studentInCMS_Users;
     }
+
+    //To update selected record
+    public function updateRecord($id) {
+        $updateRecord = records::find($id);
+        $updateRecord->type = $request->input('type');
+        $updateRecord->score = $request->input('score');
+        $updateRecord->over_all = $request->input('over_all');
+        $updateRecord->remarks = $request->input('remarks');
+        $updateRecord->save();
+
+        return $updateRecord;
+    }
+
+    //To delete selected record
+    public function students(){
+        return $this->hasMany('App\Models\students');
+    }
+    
+    public function deleteRecord($id) {
+        $deleteRecord = records::find($id);
+        $deleteRecord->students()->delete();
+        $deleteRecord->delete();
+    }
+
+    //To delete selected student
+    public function deleteStudent($id) {
+        records::where('students_id', $id)->delete();
+        students::find($id)->delete();
+    }
+
+
 }
+

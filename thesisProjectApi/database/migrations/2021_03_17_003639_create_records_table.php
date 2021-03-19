@@ -20,7 +20,7 @@ class CreateRecordsTable extends Migration
             $table->unsignedBigInteger('students_id');
             $table->foreign('trainings_id')->references('id')->on('trainings');
             $table->foreign('classes_id')->references('id')->on('classes');
-            $table->foreign('students_id')->references('id')->on('students');
+            $table->foreign('students_id')->references('id')->on('students')->onDelete('cascade');
             $table->string('type');
             $table->integer('score');
             $table->integer('over_all');
