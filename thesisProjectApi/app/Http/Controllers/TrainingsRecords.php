@@ -10,13 +10,17 @@ use App\Models\cms_users;
 class TrainingsRecords extends Controller
 {
     public function addStudentToRecords(Request $request) {
+        $studentsRecordOfTrainings = records::select('*')
+        ->where('students_id', $request->input('students'))
+        ->where('trainings_id', $request->input('trainings'))
+        ->get();
+
         $newStudent = new students;
         $newRecord = new records;
-        $searchIfExist = students::where('user_id', $request->input('students'))->get();
         $newStudent->user_id = $request->input('students');
         $newStudent->level = $request->input('level');
         $newStudent->isAttended = $request->input('isAttended');
-        if (count($searchIfExist) == 0) {   
+        if (count($studentsRecordOfTrainings) == 0) {   
             $newStudent->save();
 
             $newRecord->trainings_id = $request->input('trainings');
@@ -29,7 +33,7 @@ class TrainingsRecords extends Controller
             $newRecord->save();
             return $newRecord;
         }else {
-            $recordExist = records::where('students_id', $searchIfExist[0]->id)->get();
+            $recordExist = records::where('students_id', $studentsRecordOfTrainings[0]->id)->get();
             
             if($request->input('classes') == null) {
                 $recordExist[0]->trainings_id = $request->input('trainings');
