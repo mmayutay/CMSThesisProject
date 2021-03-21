@@ -21,6 +21,14 @@ class trainingsAndClasses extends Controller
         return $trainAndClass;
     }
 
+    // This function will return the class and trainings posted by the current user
+    public function trainingsAndClassesPosted($id) {
+        $arrayClassAndTrainings = array();
+        $trainingsPosted = trainings::where('instructor', $id)->get();
+        $classesPosted = classes::where('instructor', $id)->get();
+
+        return array('trainings' => $trainingsPosted, 'classes' => $classesPosted);
+    }
 
     // This function will add a class if the user want to add a class but trainings if want to add trainings
     public function addATrainingOrClass(Request $request) {

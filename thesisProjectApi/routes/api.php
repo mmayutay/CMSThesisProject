@@ -122,6 +122,8 @@ Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
 
 
 // This routes is for the trainings and classes
+Route::get('trainings-by-instructor/return-by-current-user/{id}', 'trainingsAndClasses@trainingsAndClassesPosted');
+
 Route::get('trainings-by-instructor/{id}', 'trainingsAndClasses@returnTrainingsLeader');
 
 Route::post('trainings-by-instructor/get-selected-class', 'trainingsAndClasses@getSelectedClassOrTrainings');
