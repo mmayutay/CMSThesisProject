@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\trainings;
 use App\Models\classes;
 use App\Models\records;
+use App\Models\students;
 
 class trainingsAndClasses extends Controller
 {
@@ -13,13 +14,21 @@ class trainingsAndClasses extends Controller
     // This function is to return the trainings made by a certain leader 
     public function returnTrainingsLeader($id) {
         $arrayClassAndTrainings = array();
-        $trainingsByInstructor = trainings::where('instructor', $id)->get();
-        $classByInstructor = classes::where('instructor', $id)->get();
+        $trainingsByInstructor = trainings::all();
+        $classByInstructor = classes::all();
         $trainAndClass = array('trainings' => $trainingsByInstructor, 'classes' => $classByInstructor);
 
         return $trainAndClass;
     }
 
+    // This function will return the class and trainings posted by the current user
+    public function trainingsAndClassesPosted($id) {
+        $arrayClassAndTrainings = array();
+        $trainingsPosted = trainings::where('instructor', $id)->get();
+        $classesPosted = classes::where('instructor', $id)->get();
+
+        return array('trainings' => $trainingsPosted, 'classes' => $classesPosted);
+    }
 
     // This function will add a class if the user want to add a class but trainings if want to add trainings
     public function addATrainingOrClass(Request $request) {
@@ -58,7 +67,7 @@ class trainingsAndClasses extends Controller
     }
 
     public function getStudentsOfACertainClassOrTrainings(Request $request) {
-        if($request->input('typeSelected') == 'Training') {
+        if($request->input('typeSelected') == 'Trainings') {
             $studentForTrainings = records::select('*')
             ->where('trainings_id', $request->input('training'))
             ->get();
@@ -70,4 +79,65 @@ class trainingsAndClasses extends Controller
             return $studentForClass;
         }
     }
+//To update the selected Training or Class
+    public function updateSelectedClassOrTrainings(Request $request, $id) {
+        if($request->input('typeSelected') == 'Trainings') {
+            $updateTraining = trainings::find($id);
+            $updateTraining->instructor = $request->input("Instructor");
+            $updateTraining->name = $request->input("Name");
+            $updateTraining->lesson = $request->input("Lesson");
+            $updateTraining->title = $request->input("Title");
+            $updateTraining->description = $request->input("Description");
+            $updateTraining->total = $request->input("Total");
+            $updateTraining->save();
+
+            return $updateTraining;
+        }else {
+            $updateClass = classes::find($id);
+            $updateClass->instructor = $request->input("Instructor");
+            $updateClass->name = $request->input("Name");
+            $updateClass->lesson = $request->input("Lesson");
+            $updateClass->title = $request->input("Title");
+            $updateClass->description = $request->input("Description");
+            $updateClass->total = $request->input("Total");
+            $updateClass->save();
+
+            return $updateClass;
+        }
+    }
+//To delete the selected Training or Class
+    public function deleteSelectedClassOrTraining(Request $request, $id) {
+        if($request->input('typeSelected') == 'Trainings') {
+            $searchStudents = records::where('trainings_id', $id)->get();
+            foreach ($searchStudents as $key => $value) {
+                if($value->classes_id == null) {
+                    records::where('id', $value->id)->delete();
+                    students::where('id', $value->students_id)->delete();
+                    trainings::where('id', $id)->delete();
+                }else {
+                    $findTheStudent = records::where('trainings_id', $id)->get();
+                    $findTheStudent[0]->trainings_id = null;
+                    $findTheStudent[0]->save();
+                }
+            }
+            return $searchStudents;
+        }else{
+            $searchStudents = records::where('classes_id', $id)->get();
+            foreach ($searchStudents as $key => $value) {
+                if($value->trainings_id == null) {
+                    records::where('id', $value->id)->delete();
+                    students::where('id', $value->students_id)->delete();
+                    classes::where('id', $id)->delete();
+                }else {
+                    $findTheStudent = records::where('classes_id', $id)->get();
+                    $findTheStudent[0]->classes_id = null;
+                    $findTheStudent[0]->save();
+                }
+            }
+            return $searchStudents;
+        }
+    }
 }
+
+
+    

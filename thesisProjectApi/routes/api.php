@@ -122,6 +122,8 @@ Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
 
 
 // This routes is for the trainings and classes
+Route::get('trainings-by-instructor/return-by-current-user/{id}', 'trainingsAndClasses@trainingsAndClassesPosted');
+
 Route::get('trainings-by-instructor/{id}', 'trainingsAndClasses@returnTrainingsLeader');
 
 Route::post('trainings-by-instructor/get-selected-class', 'trainingsAndClasses@getSelectedClassOrTrainings');
@@ -129,3 +131,14 @@ Route::post('trainings-by-instructor/get-selected-class', 'trainingsAndClasses@g
 Route::post('trainings-by-instructor/get-student-of-a-class-training', 'trainingsAndClasses@getStudentsOfACertainClassOrTrainings');
 
 Route::post('trainings-by-instructor/add', 'trainingsAndClasses@addATrainingOrClass');
+
+Route::post('trainings-by-instructor/update-training-or-class/{id}', 'trainingsAndClasses@updateSelectedClassOrTrainings');
+
+Route::post('trainings-by-instructor/delete-training-or-class/{id}', 'trainingsAndClasses@deleteSelectedClassOrTraining');
+
+// This routes are for adding students to records
+Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStudentToRecords');
+
+Route::get('student-trainings-or-class/get-student/{id}', 'TrainingsRecords@getStudentFromCMS_UserTable');
+
+Route::post('student-trainings-or-class/delete-multiple-students', 'TrainingsRecords@multipleStudentDelete');
