@@ -10,6 +10,11 @@ use App\Models\students;
 
 class trainingsAndClasses extends Controller
 {
+    // This function is to return all the trainings and classes
+    public function returnAllTrainingsAndClasses() {
+        $trainingsAndClasses = array('trainings'  => trainings::all(), 'classes' => classes::all());
+        return $trainingsAndClasses;
+    }
 
     // This function is to return the trainings made by a certain leader 
     public function returnTrainingsLeader($id) {

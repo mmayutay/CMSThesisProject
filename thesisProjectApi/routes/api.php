@@ -48,6 +48,9 @@ Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurr
 
 Route::get('edit', 'UserDisplayController@edit');
 
+// This route is to get the account of a certain user
+Route::get('user-account/{id}', 'UserDisplayController@getUserAccount');
+
 Route::post('updateUser', 'UserDisplayController@update');
 
 // Route::post('member', 'UserDisplayController@insert');
@@ -118,12 +121,17 @@ Route::post('add-event-announcement/update/{id}', 'eventAndAnnouncementControl@u
 
 Route::delete('add-event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
 
+// This route is to return all students of a specific events or announcements
+Route::get('add-event-announcement/return-all-students/{id}', 'eventAndAnnouncementControl@returnAllStudents');
+
 Route::get('event-owner/{id}','eventAndAnnouncementControl@eventOwner');
 
 Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
 
 
 // This routes is for the trainings and classes
+Route::get('trainings-and-classes/return-all', 'trainingsAndClasses@returnAllTrainingsAndClasses');
+
 Route::get('trainings-by-instructor/return-by-current-user/{id}', 'trainingsAndClasses@trainingsAndClassesPosted');
 
 Route::get('trainings-by-instructor/{id}', 'trainingsAndClasses@returnTrainingsLeader');

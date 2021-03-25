@@ -50,6 +50,10 @@ class Controls extends Controller
         return $memberUsers;
     }
 
+
+    public function allAccount() {
+        return cms_accounts::all();
+    }
     
                              
 }
