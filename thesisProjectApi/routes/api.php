@@ -149,6 +149,12 @@ Route::post('trainings-by-instructor/delete-training-or-class/{id}', 'trainingsA
 // This routes are for adding students to records
 Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStudentToRecords');
 
+Route::get('student-trainings-or-class/get-student-using-cms-ID/{id}', 'TrainingsRecords@getStudentFromStudentTable');
+
 Route::get('student-trainings-or-class/get-student/{id}', 'TrainingsRecords@getStudentFromCMS_UserTable');
 
 Route::post('student-trainings-or-class/delete-multiple-students', 'TrainingsRecords@multipleStudentDelete');
+
+Route::post('student-trainings-or-class/delete-record/{id}', 'TrainingsRecords@deleteRecord');
+
+Route::get('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@deleteStudent');
