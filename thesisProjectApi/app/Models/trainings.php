@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class trainings extends Model
 {
     use HasFactory;
+
+    
 }

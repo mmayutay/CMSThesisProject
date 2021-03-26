@@ -142,3 +142,5 @@ Route::get('student-trainings-or-class/get-student/{id}', 'TrainingsRecords@getS
 Route::post('student-trainings-or-class/delete-record/{id}', 'TrainingsRecords@deleteRecord');
 
 Route::post('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@deleteStudent');
+
+Route::post('student-trainings-or-class/delete-training/{id}', 'trainingsAndClasses@deleteSelectedClassOrTraining');

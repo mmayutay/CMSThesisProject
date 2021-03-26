@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\cms_users;
 use App\Http\Controllers\UserDisplayController;
-
 class UserDisplayController extends Controller
 {
     

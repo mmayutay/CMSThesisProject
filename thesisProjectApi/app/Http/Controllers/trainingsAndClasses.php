@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\trainings;
 use App\Models\classes;
 use App\Models\records;
+use App\Models\students;
+use App\Http\Controllers\TrainingsRecords;
 
 class trainingsAndClasses extends Controller
 {
@@ -97,6 +99,11 @@ class trainingsAndClasses extends Controller
         }
     }
 //To delete the selected Training or Class
+
+    public function students(){
+        return $this->hasMany('App\Models\students');
+    }
+
     public function deleteSelectedClassOrTraining(Request $request, $id) {
         // if($request->input('typeSelected') == 'Trainings') {
         //     return trainings::where('id',$id)->delete();
@@ -104,8 +111,40 @@ class trainingsAndClasses extends Controller
         //     return classes::where('id',$id)->delete();
         // }
         $deleteTraining = records::where('trainings_id', $id)->get();
+        
 
-        return $deleteTraining;
+        foreach($deleteTraining as $training) {
+            // return $training;
+            // array_push($collection, $training);
+            if($training->classes_id != null) {
+                $newTraining = records::find($training)->first();
+                $newTraining->trainings_id = null;
+                // $newTraining->classes_id = $training->classes_id;
+                // $newTraining->students_id = $training->students_id;
+                // $newTraining->type = $training->type;
+                // $newTraining->score = $training->score;
+                // $newTraining->over_all = $training->over_all;
+                // $newTraining->remarks = $training->remarks;
+                $newTraining->save();
+
+                // return response()->json($newTraining);
+
+            } else {
+                $deleteRecord = records::find($training->id);
+                $deleteRecord->students()->delete();
+                $deleteRecord->delete();
+            }
+            trainings::find($id)->delete();
+        }
+        // return $collection;
+        // for($i=0; $i < $collection; $i++) {
+        //     return $collection[$i]->id;
+        // }
+        // foreach($collection as $collect) {
+        //     array_push($ids, $collect->type);
+        // }
+        // return $ids;
+
     }
 }
 
