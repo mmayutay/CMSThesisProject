@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\eventsAndAnnouncements;
 use App\Models\cms_accounts;
+use App\Models\records;
+use App\Models\students;
 
 class eventAndAnnouncementControl extends Controller
 {
@@ -59,5 +61,16 @@ class eventAndAnnouncementControl extends Controller
         $returnEventsById = eventsAndAnnouncements::find($id);
 
         return $returnEventsById;
+    }
+
+
+    public function returnAllStudents($id) {
+        $arrayOfStudents = array();
+        $students = records::where('trainings_id', $id)->get()->pluck('students_id');
+        foreach ($students as $key => $value) {
+            $studentsID = students::where('id', $value)->get()->pluck('user_id');
+            array_push($arrayOfStudents, $studentsID[0]);
+        }
+        return $arrayOfStudents;
     }
 }

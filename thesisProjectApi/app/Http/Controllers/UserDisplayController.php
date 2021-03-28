@@ -61,6 +61,10 @@ class UserDisplayController extends Controller
 
     }
 
+    public function getUserAccount($id) {
+        return cms_accounts::where('userid', $id)->get()[0];
+    }
+
     // public function insert(Request $request)
     // {
     //     $id = $request->newUser['id'];

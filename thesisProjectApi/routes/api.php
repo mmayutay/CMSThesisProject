@@ -48,6 +48,9 @@ Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurr
 
 Route::get('edit', 'UserDisplayController@edit');
 
+// This route is to get the account of a certain user
+Route::get('user-account/{id}', 'UserDisplayController@getUserAccount');
+
 Route::post('updateUser', 'UserDisplayController@update');
 
 // Route::post('member', 'UserDisplayController@insert');
@@ -118,12 +121,17 @@ Route::post('add-event-announcement/update/{id}', 'eventAndAnnouncementControl@u
 
 Route::delete('add-event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
 
+// This route is to return all students of a specific events or announcements
+Route::get('add-event-announcement/return-all-students/{id}', 'eventAndAnnouncementControl@returnAllStudents');
+
 Route::get('event-owner/{id}','eventAndAnnouncementControl@eventOwner');
 
 Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
 
 
 // This routes is for the trainings and classes
+Route::get('trainings-and-classes/return-all', 'trainingsAndClasses@returnAllTrainingsAndClasses');
+
 Route::get('trainings-by-instructor/return-by-current-user/{id}', 'trainingsAndClasses@trainingsAndClassesPosted');
 
 Route::get('trainings-by-instructor/{id}', 'trainingsAndClasses@returnTrainingsLeader');
@@ -141,6 +149,12 @@ Route::post('trainings-by-instructor/delete-training-or-class/{id}', 'trainingsA
 // This routes are for adding students to records
 Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStudentToRecords');
 
+Route::get('student-trainings-or-class/get-student-using-cms-ID/{id}', 'TrainingsRecords@getStudentFromStudentTable');
+
 Route::get('student-trainings-or-class/get-student/{id}', 'TrainingsRecords@getStudentFromCMS_UserTable');
 
 Route::post('student-trainings-or-class/delete-multiple-students', 'TrainingsRecords@multipleStudentDelete');
+
+Route::post('student-trainings-or-class/delete-record/{id}', 'TrainingsRecords@deleteRecord');
+
+Route::get('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@deleteStudent');
