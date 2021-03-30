@@ -51,19 +51,46 @@ class TrainingsRecords extends Controller
         }
     }
 
-    public function getStudentFromCMS_UserTable($id) {
+    public function getStudentFromCMS_UserTable(Request $request, $id) {
         $studentsData = students::where('id', $id)->get();
         $studentInCMS_Users = cms_users::where('id', $studentsData[0]->user_id)->get();
         return $studentInCMS_Users;
     }
 
-    // This is a function to delete multiple student
-    public function multipleStudentDelete(Request $request) {
-        foreach ($request->input('studentsId') as $key => $value) {
-            $studentsData = students::where('user_id', $value)->get();
-            records::where('students_id', $studentsData[0]->id)->delete();
-            students::where('user_id', $value)->delete();
-        }
-        return 'true';
+    // This function is to get the student using the ID of the user
+    public function getStudentFromStudentTable($id) {
+        return students::where('user_id', $id)->get();
     }
+
+    //To update selected record
+    public function updateRecord($id) {
+        $updateRecord = records::find($id);
+        $updateRecord->type = $request->input('type');
+        $updateRecord->score = $request->input('score');
+        $updateRecord->over_all = $request->input('over_all');
+        $updateRecord->remarks = $request->input('remarks');
+        $updateRecord->save();
+
+        return $updateRecord;
+    }
+
+    //To delete selected record
+    public function students(){
+        return $this->hasMany('App\Models\students');
+    }
+    
+    public function deleteRecord($id) {
+        $deleteRecord = records::find($id);
+        $deleteRecord->students()->delete();
+        $deleteRecord->delete();
+    }
+
+    //To delete selected student
+    public function deleteStudent($id) {
+        $deletedData = array('record' => records::where('students_id', $id)->delete(), 'member' => students::find($id)->delete());
+        return $deletedData;
+    }
+
+
 }
+
