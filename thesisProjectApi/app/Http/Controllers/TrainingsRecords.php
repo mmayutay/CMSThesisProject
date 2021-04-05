@@ -91,6 +91,15 @@ class TrainingsRecords extends Controller
         return $deletedData;
     }
 
+    public function multipleStudentDelete(Request $request) {
+        foreach ($request->input('studentsId') as $key => $value) {
+            records::select('*')
+                    ->where('trainings_id', $request->selectedTraining)
+                    ->where('students_id', students::where('user_id', $value)->get()[0]->id)->delete();
+        }
+        // return $request;
+    }
+
 
 }
 
