@@ -22,6 +22,10 @@ class AttendanceEventAndSunday extends Controller
     public function allEventsDates() {
         return eventsAndAnnouncements::all();
     }
+
+    public function attendanceForTheSelectedEvent($id) {
+        return eventsAndAnnouncements::where('id', $id)->get();
+    }
 }
 
 // $table->string('leader');

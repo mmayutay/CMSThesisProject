@@ -163,3 +163,5 @@ Route::get('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@d
 Route::post('add-attendance/today-has-event', 'AttendanceEventAndSunday@addAttendanceInSCorEvents');
 
 Route::get('add-attendance/get-all-events-dates', 'AttendanceEventAndSunday@allEventsDates');
+
+Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
