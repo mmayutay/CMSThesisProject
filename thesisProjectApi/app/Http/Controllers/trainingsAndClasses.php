@@ -7,6 +7,7 @@ use App\Models\records;
 use App\Models\students;
 use App\Models\trainings;
 use Illuminate\Http\Request;
+use App\Models\Lessons;
 
 class trainingsAndClasses extends Controller
 {
@@ -38,6 +39,32 @@ class trainingsAndClasses extends Controller
         return array('trainings' => $trainingsPosted, 'classes' => $classesPosted);
     }
 
+
+    // Kini nga function kay ang pag add sa lesson 
+    public function addLesson(Request $request) {
+        $lessons = new Lessons;
+        if($request->input('type') == 'Trainings') {
+            $lessons->lesson_title = $request->input('Lesson');
+            $lessons->type = "Trainings";
+            $lessons->trainings_or_class_id = $request->input('trainingID');
+            $lessons->save();
+        }else {
+            $lessons->lesson_title = $request->input('Lesson');
+            $lessons->type = "Classes";
+            $lessons->trainings_or_class_id = $request->input('trainingID');
+            $lessons->save();
+        }
+        return $lessons;
+    }
+
+    // Kini nga function kay kuhaon ang tanan nga mga lessons sa certain class or trainings 
+    public function getLesson($id, $type) {
+        $allLessons = Lessons::select('*')
+                            ->where('type', $type)
+                            ->where('trainings_or_class_id', $id)->get();
+        return $allLessons;
+    }
+
     // This function will add a class if the user want to add a class but trainings if want to add trainings
     public function addATrainingOrClass(Request $request)
     {
@@ -46,7 +73,6 @@ class trainingsAndClasses extends Controller
         if ($request->input('typeOfAdd') === 'Trainings') {
             $trainings->instructor = $request->newTrainings["Instructor"];
             $trainings->name = $request->newTrainings["Name"];
-            $trainings->lesson = $request->newTrainings["Lesson"];
             $trainings->title = $request->newTrainings["Title"];
             $trainings->description = $request->newTrainings["Description"];
             $trainings->total = 10;
@@ -55,7 +81,6 @@ class trainingsAndClasses extends Controller
         } else {
             $class->instructor = $request->newClasses["Instructor"];
             $class->name = $request->newClasses["Name"];
-            $class->lesson = $request->newClasses["Lesson"];
             $class->title = $request->newClasses["Title"];
             $class->description = $request->newClasses["Description"];
             $class->total = 10;

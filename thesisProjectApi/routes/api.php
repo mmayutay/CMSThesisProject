@@ -142,6 +142,10 @@ Route::post('trainings-by-instructor/get-student-of-a-class-training', 'training
 
 Route::post('trainings-by-instructor/add', 'trainingsAndClasses@addATrainingOrClass');
 
+Route::post('trainings-by-instructor/add/lessons', 'trainingsAndClasses@addLesson');
+
+Route::get('trainings-by-instructor/get/lessons/{id}/{type}', 'trainingsAndClasses@getLesson');
+
 Route::post('trainings-by-instructor/update-training-or-class/{id}', 'trainingsAndClasses@updateSelectedClassOrTrainings');
 
 Route::post('trainings-by-instructor/delete-training-or-class/{id}', 'trainingsAndClasses@deleteSelectedClassOrTraining');
