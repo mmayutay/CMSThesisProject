@@ -142,6 +142,10 @@ Route::post('trainings-by-instructor/get-student-of-a-class-training', 'training
 
 Route::post('trainings-by-instructor/add', 'trainingsAndClasses@addATrainingOrClass');
 
+Route::post('trainings-by-instructor/add/lessons', 'trainingsAndClasses@addLesson');
+
+Route::get('trainings-by-instructor/get/lessons/{id}/{type}', 'trainingsAndClasses@getLesson');
+
 Route::post('trainings-by-instructor/update-training-or-class/{id}', 'trainingsAndClasses@updateSelectedClassOrTrainings');
 
 Route::post('trainings-by-instructor/delete-training-or-class/{id}', 'trainingsAndClasses@deleteSelectedClassOrTraining');
@@ -158,3 +162,10 @@ Route::post('student-trainings-or-class/delete-multiple-students', 'TrainingsRec
 Route::post('student-trainings-or-class/delete-record/{id}', 'TrainingsRecords@deleteRecord');
 
 Route::get('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@deleteStudent');
+
+// This route is for the adding an attendance of a member in sunday celebration or adding an attendance in events 
+Route::post('add-attendance/today-has-event', 'AttendanceEventAndSunday@addAttendanceInSCorEvents');
+
+Route::get('add-attendance/get-all-events-dates', 'AttendanceEventAndSunday@allEventsDates');
+
+Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
