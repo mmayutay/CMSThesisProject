@@ -127,7 +127,32 @@ class TrainingsRecords extends Controller
                 ->where('trainings_id', $request->selectedTraining)
                 ->where('students_id', students::where('user_id', $request->input('studentsId'))->get()[0]->user_id)->delete();
         }
-        // return $request;
+    }
+    
+    // This function is to get the students of a certain class or a certain trainings 
+    public function getStudentsOfClassOrTraining($id,  $type) {
+        if($type == 'trainings') {
+            $arrayOfStudents = array();
+            foreach (records::where('trainings_id', $id)->get()->pluck('students_id') as $key => $value) {
+                $studentRecord = array(
+                    'students' => cms_users::where('id', $value)->get()[0], 
+                    'records' => records::where('students_id', $value)->get()[0]
+                );
+                array_push($arrayOfStudents, $studentRecord);
+            }
+            return $arrayOfStudents;
+        }else {
+            $arrayStudentsClass = array();
+            foreach (records::where('classes_id', $id)->get()->pluck('students_id') as $key => $value) {
+                $studentRecord = array(
+                    'students' => cms_users::where('id', $value)->get()[0], 
+                    'records' => records::where('students_id', $value)->get()[0]
+                );
+                array_push($arrayStudentsClass, $studentRecord);
+            }
+            return $arrayStudentsClass;
+        }
     }
 
 }
+// array_push($array, array('leader' => $leader[0], 'member' => $vipUser[0]))
