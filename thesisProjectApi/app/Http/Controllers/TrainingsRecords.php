@@ -154,5 +154,15 @@ class TrainingsRecords extends Controller
         }
     }
 
+    // This function is to update the score of a student 
+    public function updateScoreOfStudent(Request $request) {
+        if($request->input('type') == 'trainings') {
+            $updateScore = records::where('classes_id', $request->input('studentID'))->get()[0];
+            $updateScore->score = $request->input('newScore');
+            $updateScore->save();
+            return $updateScore;
+        }
+    }
+
 }
 // array_push($array, array('leader' => $leader[0], 'member' => $vipUser[0]))

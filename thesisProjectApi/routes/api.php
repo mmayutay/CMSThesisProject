@@ -155,6 +155,8 @@ Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStud
 
 Route::get('student-trainings-or-class/get-student-using-cms-ID/{id}', 'TrainingsRecords@getStudentFromStudentTable');
 
+Route::post('student-trainings-or-class/update-students-score', 'TrainingsRecords@updateScoreOfStudent');
+
 Route::get('student-trainings-or-class/get-students-trainings-classes/{id}/{type}', 'TrainingsRecords@getStudentsOfClassOrTraining');
 
 Route::get('student-trainings-or-class/get-student/{id}', 'TrainingsRecords@getStudentFromCMS_UserTable');
