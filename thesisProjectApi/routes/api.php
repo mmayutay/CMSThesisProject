@@ -128,27 +128,14 @@ Route::get('event-owner/{id}','eventAndAnnouncementControl@eventOwner');
 
 Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
 
+// This routes is the responsible in adding trainings and also lessons 
+Route::post('trainings-and-classes/add-trainings-with-lessons', 'trainingsAndClasses@addTrainingsAndLessons');
 
-// This routes is for the trainings and classes
-Route::get('trainings-and-classes/return-all', 'trainingsAndClasses@returnAllTrainingsAndClasses');
+Route::get('trainings-and-classes/get-all-trainings/{id}', 'trainingsAndClasses@returnTrainingByUser');
 
-Route::get('trainings-by-instructor/return-by-current-user/{id}', 'trainingsAndClasses@trainingsAndClassesPosted');
+Route::post('trainings-and-classes/add-lesson-of-training', 'trainingsAndClasses@addLessonOfTraining');
 
-Route::get('trainings-by-instructor/{id}', 'trainingsAndClasses@returnTrainingsLeader');
-
-Route::post('trainings-by-instructor/get-selected-class', 'trainingsAndClasses@getSelectedClassOrTrainings');
-
-Route::post('trainings-by-instructor/get-student-of-a-class-training', 'trainingsAndClasses@getStudentsOfACertainClassOrTrainings');
-
-Route::post('trainings-by-instructor/add', 'trainingsAndClasses@addATrainingOrClass');
-
-Route::post('trainings-by-instructor/add/lessons', 'trainingsAndClasses@addLesson');
-
-Route::get('trainings-by-instructor/get/lessons/{id}/{type}', 'trainingsAndClasses@getLesson');
-
-Route::post('trainings-by-instructor/update-training-or-class/{id}', 'trainingsAndClasses@updateSelectedClassOrTrainings');
-
-Route::post('trainings-by-instructor/delete-training-or-class/{id}', 'trainingsAndClasses@deleteSelectedClassOrTraining');
+Route::get('trainings-and-classes/return-lesson-of-selected-training/{id}', 'trainingsAndClasses@returnLessonsOfTraining');
 
 // This routes are for adding students to records
 Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStudentToRecords');
