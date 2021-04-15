@@ -15,11 +15,11 @@ class CreateTrainingsTable extends Migration
     {
         Schema::create('trainings', function (Blueprint $table) {
             $table->id()->autoIncrement();
+            $table->string('code');
             $table->string('instructor');
-            $table->string('name');
             $table->string('title');
             $table->string('description');
-            $table->integer('total');
+            $table->string('level');
             $table->timestamps();
         });
     }
