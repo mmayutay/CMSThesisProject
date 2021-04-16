@@ -27,9 +27,9 @@ class trainingsAndClasses extends Controller
     }
 
     // Kini siya nga function kay ang pag add ug lessons sa certain trainings 
-    public function addLessonOfTraining(Request $request) {
+    public function addLessonOfTraining(Request $request, $trainingsID) {
         $lessons = new lessons;
-        $lessons->training_id  = $request->input('trainingsID');
+        $lessons->training_id  = $trainingsID;
         $lessons->name  = $request->input('name');
         $lessons->lesson  = $request->input('lesson');
         $lessons->title  = $request->input('title');
