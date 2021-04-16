@@ -60,4 +60,10 @@ class eventAndAnnouncementControl extends Controller
 
         return $returnEventsById;
     }
+
+    public function deleteMultipleEventsAndAnnouncement(Request $request) {
+        $ids = $request->ids;
+        deleteEventsAndAnnouncement::whereInt('id', explode(",", $ids))->delete();
+        return response()->json(['success' => "Deleted successfull!"]);
+    }
 }

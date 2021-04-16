@@ -112,9 +112,9 @@ Route::post('add-event-announcement', 'eventAndAnnouncementControl@addEventOrAnn
 
 Route::get('add-event-announcement/display', 'eventAndAnnouncementControl@returnAllEventsAndAnnouncement');
 
-Route::post('add-event-announcement/update/{id}', 'eventAndAnnouncementControl@updateEventsAndAnnouncement');
+Route::post('event-announcement/update/{id}', 'eventAndAnnouncementControl@updateEventsAndAnnouncement');
 
-Route::delete('add-event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
+Route::delete('event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
 
 Route::get('event-owner/{id}','eventAndAnnouncementControl@eventOwner');
 
