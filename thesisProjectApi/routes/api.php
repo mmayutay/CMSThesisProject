@@ -130,28 +130,23 @@ Route::get('event-owner/{id}','eventAndAnnouncementControl@eventOwner');
 
 Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
 
+// This routes is the responsible in adding trainings and also lessons 
+Route::post('trainings-and-classes/add-trainings-with-lessons', 'trainingsAndClasses@addTrainingsAndLessons');
 
-// This routes is for the trainings and classes
-Route::get('trainings-and-classes/return-all', 'trainingsAndClasses@returnAllTrainingsAndClasses');
+Route::get('trainings-and-classes/get-all-trainings/{id}', 'trainingsAndClasses@returnTrainingByUser');
 
-Route::get('trainings-by-instructor/return-by-current-user/{id}', 'trainingsAndClasses@trainingsAndClassesPosted');
+Route::post('trainings-and-classes/add-lesson-of-training/{trainingsID}', 'trainingsAndClasses@addLessonOfTraining');
 
-Route::get('trainings-by-instructor/{id}', 'trainingsAndClasses@returnTrainingsLeader');
-
-Route::post('trainings-by-instructor/get-selected-class', 'trainingsAndClasses@getSelectedClassOrTrainings');
-
-Route::post('trainings-by-instructor/get-student-of-a-class-training', 'trainingsAndClasses@getStudentsOfACertainClassOrTrainings');
-
-Route::post('trainings-by-instructor/add', 'trainingsAndClasses@addATrainingOrClass');
-
-Route::post('trainings-by-instructor/update-training-or-class/{id}', 'trainingsAndClasses@updateSelectedClassOrTrainings');
-
-Route::post('trainings-by-instructor/delete-training-or-class/{id}', 'trainingsAndClasses@deleteSelectedClassOrTraining');
+Route::get('trainings-and-classes/return-lesson-of-selected-training/{id}', 'trainingsAndClasses@returnLessonsOfTraining');
 
 // This routes are for adding students to records
 Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStudentToRecords');
 
 Route::get('student-trainings-or-class/get-student-using-cms-ID/{id}', 'TrainingsRecords@getStudentFromStudentTable');
+
+Route::post('student-trainings-or-class/update-students-score', 'TrainingsRecords@updateScoreOfStudent');
+
+Route::get('student-trainings-or-class/get-students-trainings-classes/{id}/{type}', 'TrainingsRecords@getStudentsOfClassOrTraining');
 
 Route::get('student-trainings-or-class/get-student/{id}', 'TrainingsRecords@getStudentFromCMS_UserTable');
 
@@ -160,3 +155,10 @@ Route::post('student-trainings-or-class/delete-multiple-students', 'TrainingsRec
 Route::post('student-trainings-or-class/delete-record/{id}', 'TrainingsRecords@deleteRecord');
 
 Route::get('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@deleteStudent');
+
+// This route is for the adding an attendance of a member in sunday celebration or adding an attendance in events 
+Route::post('add-attendance/today-has-event', 'AttendanceEventAndSunday@addAttendanceInSCorEvents');
+
+Route::get('add-attendance/get-all-events-dates', 'AttendanceEventAndSunday@allEventsDates');
+
+Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
