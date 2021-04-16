@@ -133,7 +133,7 @@ Route::post('trainings-and-classes/add-trainings-with-lessons', 'trainingsAndCla
 
 Route::get('trainings-and-classes/get-all-trainings/{id}', 'trainingsAndClasses@returnTrainingByUser');
 
-Route::post('trainings-and-classes/add-lesson-of-training', 'trainingsAndClasses@addLessonOfTraining');
+Route::post('trainings-and-classes/add-lesson-of-training/{trainingsID}', 'trainingsAndClasses@addLessonOfTraining');
 
 Route::get('trainings-and-classes/return-lesson-of-selected-training/{id}', 'trainingsAndClasses@returnLessonsOfTraining');
 
