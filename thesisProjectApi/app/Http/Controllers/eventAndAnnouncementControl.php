@@ -47,7 +47,8 @@ class eventAndAnnouncementControl extends Controller
 
     public function deleteEventsAndAnnouncement($id) {
 
-        return eventsAndAnnouncements::where('id', $id)->delete();
+        eventsAndAnnouncements::where('id', $id)->delete();
+        return response()->json(['success' => "Deleted successfully!"]);
     }
 
     public function eventOwner($eventOwnerId) {
@@ -66,9 +67,9 @@ class eventAndAnnouncementControl extends Controller
     public function deleteMultipleEventsAndAnnouncement(Request $request) {
         $ids = $request->ids;
         deleteEventsAndAnnouncement::whereInt('id', explode(",", $ids))->delete();
-        return response()->json(['success' => "Deleted successfull!"]);
+        return response()->json(['success' => "Deleted successfully!"]);
     }
-    
+
     public function returnAllStudents($id) {
         $arrayOfStudents = array();
         $students = records::where('trainings_id', $id)->get()->pluck('students_id');

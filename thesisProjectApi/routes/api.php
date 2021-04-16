@@ -152,11 +152,6 @@ Route::post('student-trainings-or-class/delete-multiple-students', 'TrainingsRec
 
 Route::post('student-trainings-or-class/delete-record/{id}', 'TrainingsRecords@deleteRecord');
 
-<<<<<<< HEAD
-Route::post('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@deleteStudent');
-
-Route::post('student-trainings-or-class/delete-training/{id}', 'trainingsAndClasses@deleteSelectedClassOrTraining');
-=======
 Route::get('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@deleteStudent');
 
 // This route is for the adding an attendance of a member in sunday celebration or adding an attendance in events 
@@ -165,4 +160,5 @@ Route::post('add-attendance/today-has-event', 'AttendanceEventAndSunday@addAtten
 Route::get('add-attendance/get-all-events-dates', 'AttendanceEventAndSunday@allEventsDates');
 
 Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
->>>>>>> 4cacd9c0eedae0ce9cc63bf9c92ca298c99db29a
+
+Route::post('lesson/update/{id}', 'trainingsAndClasses@updateLessonOfTraining');
