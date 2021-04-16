@@ -137,6 +137,10 @@ Route::post('trainings-and-classes/add-lesson-of-training/{trainingsID}', 'train
 
 Route::get('trainings-and-classes/return-lesson-of-selected-training/{id}', 'trainingsAndClasses@returnLessonsOfTraining');
 
+Route::get('trainings-and-classes/return-classes-of-selected-lesson/{id}', 'trainingsAndClasses@returnClasses');
+
+Route::post('trainings-and-classes/add-classes-with-students', 'trainingsAndClasses@addClasses');
+
 // This routes are for adding students to records
 Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStudentToRecords');
 
