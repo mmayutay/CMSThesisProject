@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\cms_users;
+use App\Models\cms_accounts;
 use App\Http\Controllers\UserDisplayController;
 class UserDisplayController extends Controller
 {
@@ -47,6 +48,20 @@ class UserDisplayController extends Controller
         $info->save();
 
         return $info;
+    }
+
+    public function getAllLeaders() {
+        $arrayOfLeaders = array();
+        $getAllLeaders = cms_accounts::where('roles', 3)->get()->pluck('userid');
+        foreach ($getAllLeaders as $key => $value) {
+            array_push($arrayOfLeaders, cms_users::where('id', $value)->get()[0]);
+        }
+        return $arrayOfLeaders;
+
+    }
+
+    public function getUserAccount($id) {
+        return cms_accounts::where('userid', $id)->get()[0];
     }
 
     // public function insert(Request $request)

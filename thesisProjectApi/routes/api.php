@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('get-leaders', 'UserDisplayController@getAllLeaders');
+
 //This is for looking who is active and inactive users
 Route::get('allMemberUsers', 'findActiveAndInactiveUsers@returnAllMembers');
 
@@ -45,6 +47,9 @@ Route::post('/info','UserDisplayController@getUsers');
 Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser');
 
 Route::get('edit', 'UserDisplayController@edit');
+
+// This route is to get the account of a certain user
+Route::get('user-account/{id}', 'UserDisplayController@getUserAccount');
 
 Route::post('updateUser', 'UserDisplayController@update');
 
@@ -116,31 +121,48 @@ Route::post('event-announcement/update/{id}', 'eventAndAnnouncementControl@updat
 
 Route::delete('event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
 
+// This route is to return all students of a specific events or announcements
+Route::get('add-event-announcement/return-all-students/{id}', 'eventAndAnnouncementControl@returnAllStudents');
+
 Route::get('event-owner/{id}','eventAndAnnouncementControl@eventOwner');
 
 Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
 
+// This routes is the responsible in adding trainings and also lessons 
+Route::post('trainings-and-classes/add-trainings-with-lessons', 'trainingsAndClasses@addTrainingsAndLessons');
 
-// This routes is for the trainings and classes
-Route::get('trainings-by-instructor/{id}', 'trainingsAndClasses@returnTrainingsLeader');
+Route::get('trainings-and-classes/get-all-trainings/{id}', 'trainingsAndClasses@returnTrainingByUser');
 
-Route::post('trainings-by-instructor/get-selected-class', 'trainingsAndClasses@getSelectedClassOrTrainings');
+Route::post('trainings-and-classes/add-lesson-of-training', 'trainingsAndClasses@addLessonOfTraining');
 
-Route::post('trainings-by-instructor/get-student-of-a-class-training', 'trainingsAndClasses@getStudentsOfACertainClassOrTrainings');
-
-Route::post('trainings-by-instructor/add', 'trainingsAndClasses@addATrainingOrClass');
-
-Route::post('trainings-by-instructor/update-training-or-class/{id}', 'trainingsAndClasses@updateSelectedClassOrTrainings');
-
-Route::post('trainings-by-instructor/delete-training-or-class/{id}', 'trainingsAndClasses@deleteSelectedClassOrTraining');
+Route::get('trainings-and-classes/return-lesson-of-selected-training/{id}', 'trainingsAndClasses@returnLessonsOfTraining');
 
 // This routes are for adding students to records
 Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStudentToRecords');
 
+Route::get('student-trainings-or-class/get-student-using-cms-ID/{id}', 'TrainingsRecords@getStudentFromStudentTable');
+
+Route::post('student-trainings-or-class/update-students-score', 'TrainingsRecords@updateScoreOfStudent');
+
+Route::get('student-trainings-or-class/get-students-trainings-classes/{id}/{type}', 'TrainingsRecords@getStudentsOfClassOrTraining');
+
 Route::get('student-trainings-or-class/get-student/{id}', 'TrainingsRecords@getStudentFromCMS_UserTable');
+
+Route::post('student-trainings-or-class/delete-multiple-students', 'TrainingsRecords@multipleStudentDelete');
 
 Route::post('student-trainings-or-class/delete-record/{id}', 'TrainingsRecords@deleteRecord');
 
+<<<<<<< HEAD
 Route::post('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@deleteStudent');
 
 Route::post('student-trainings-or-class/delete-training/{id}', 'trainingsAndClasses@deleteSelectedClassOrTraining');
+=======
+Route::get('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@deleteStudent');
+
+// This route is for the adding an attendance of a member in sunday celebration or adding an attendance in events 
+Route::post('add-attendance/today-has-event', 'AttendanceEventAndSunday@addAttendanceInSCorEvents');
+
+Route::get('add-attendance/get-all-events-dates', 'AttendanceEventAndSunday@allEventsDates');
+
+Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
+>>>>>>> 4cacd9c0eedae0ce9cc63bf9c92ca298c99db29a
