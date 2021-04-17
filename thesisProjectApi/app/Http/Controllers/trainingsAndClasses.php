@@ -49,6 +49,18 @@ class trainingsAndClasses extends Controller
         return lessons::where('training_id', $id)->get();
     }
 
+    // Kini siya nga function kay i return ang selected class 
+    public function returnSelectedClass($id) 
+    {
+        return classes::where('id', $id)->get();
+    }
+
+    // Kini siya nga function kay i return ang selected Training 
+    public function returnSelectedTraining($id) 
+    {   
+        return trainings::where('id', $id)->get();
+    }
+
     // Kini siya nga function kay i return ang tanan nga classes sa selected lesson sa usa ka training
     public function returnClasses($id)
     {
@@ -74,6 +86,7 @@ class trainingsAndClasses extends Controller
         $student->level = '';
         $student->remarks = '';
         $student->save();
+        return $student;
     }
 
     // Kini siya nga function kay ang pag add ug records sa student
@@ -87,22 +100,8 @@ class trainingsAndClasses extends Controller
         $records->overall = 0;
         $records->remarks = '';
         $records->save();
+        return $records;
     }
 
 }
 
-// foreach ($request->input('students') as $key => $value) {
-//     $student->user_id = $value;
-//     $student->level = '';
-//     $student->remarks = '';
-//     $student->save();
-
-    // $records->lessons_id = $request->className['selectedTrainingID'];
-    // $records->classes_id = $classes->id;
-    // $records->students_id = $student->id;
-    // $records->type = '';
-    // $records->score = 0;
-    // $records->overall = 0;
-    // $records->remarks = '';
-    // $records->save();
-// }
