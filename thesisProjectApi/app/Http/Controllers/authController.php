@@ -66,7 +66,7 @@ class authController extends Controller
         $userRole->roles = $request->role["code"];
         $userRole->firstname = $request->newUser["Firstname"];
         $userRole->lastname = $request->newUser["Lastname"];
-        $userRole->description = $request->newUser["Description"];
+        $userRole->description = $request->newUser["description"];
 
         $userRole->save();
 

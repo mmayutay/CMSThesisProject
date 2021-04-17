@@ -103,5 +103,22 @@ class trainingsAndClasses extends Controller
         return $records;
     }
 
+    //Kini siya nga function kay mu update sa selected lesson
+    public function updateLessonOfTraining(Request $request, $id) {
+            $lesson = lessons::find($id);
+            $lesson->name = $request->input('Name');
+            $lesson->lesson = $request->input('Lesson');
+            $lesson->title = $request->input('Title');
+            $lesson->description = $request->input('Description');
+            $lesson->save();
+        return response()->json(['success' => 'Updated successfully!']);
+    }
+
+    //Kini siya nga function kay mudelete sa selected nga lesson
+    public function deleteLessonsOfTraining($id) {
+
+        lessons::where('id', $id)->delete();
+        return response()->json(['success' => 'Deleted successfully!']);
+    }
 }
 

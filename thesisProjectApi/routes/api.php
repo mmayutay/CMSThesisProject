@@ -117,9 +117,9 @@ Route::post('add-event-announcement', 'eventAndAnnouncementControl@addEventOrAnn
 
 Route::get('add-event-announcement/display', 'eventAndAnnouncementControl@returnAllEventsAndAnnouncement');
 
-Route::post('add-event-announcement/update/{id}', 'eventAndAnnouncementControl@updateEventsAndAnnouncement');
+Route::post('event-announcement/update/{id}', 'eventAndAnnouncementControl@updateEventsAndAnnouncement');
 
-Route::delete('add-event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
+Route::delete('event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
 
 // This route is to return all students of a specific events or announcements
 Route::get('add-event-announcement/return-all-students/{id}', 'eventAndAnnouncementControl@returnAllStudents');
@@ -172,3 +172,5 @@ Route::post('add-attendance/today-has-event', 'AttendanceEventAndSunday@addAtten
 Route::get('add-attendance/get-all-events-dates', 'AttendanceEventAndSunday@allEventsDates');
 
 Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
+
+Route::post('lesson/update/{id}', 'trainingsAndClasses@updateLessonOfTraining');
