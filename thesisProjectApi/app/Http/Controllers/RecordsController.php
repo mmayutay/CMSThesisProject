@@ -19,6 +19,14 @@ class RecordsController extends Controller
         $record->save();
         return $record;
     }
+
+    // Kini siya nga function kay kuhaon niya ang tanan nga students gikan sa selected lesson and classes 
+    public function getAllStudentsFromRecords($lessonID, $classID) {
+        return records::select('*')
+                        ->where('lessons_id', $lessonID)
+                        ->where('classes_id', $classID)
+                        ->get();
+    }
 }
 
 

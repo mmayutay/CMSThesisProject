@@ -148,6 +148,8 @@ Route::get('trainings-and-classes/return-selected-training/{id}', 'trainingsAndC
 // This routes are for adding students to records
 Route::post('class-records/add-student', 'RecordsController@addNewRecord');
 
+Route::get('class-records/get-students/{lessonID}/{classID}', 'RecordsController@getAllStudentsFromRecords');
+
 // Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStudentToRecords');
 
 // Route::get('student-trainings-or-class/get-student-using-cms-ID/{id}', 'TrainingsRecords@getStudentFromStudentTable');
