@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\cms_users;
 use App\Models\cms_accounts;
 use App\Http\Controllers\UserDisplayController;
-
 class UserDisplayController extends Controller
 {
     
