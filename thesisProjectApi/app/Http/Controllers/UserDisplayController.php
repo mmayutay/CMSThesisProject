@@ -29,7 +29,7 @@ class UserDisplayController extends Controller
         //
     }
  
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $id = $request->newUser['id'];
 
@@ -48,7 +48,7 @@ class UserDisplayController extends Controller
         $info->twitter = $request->input('Twitter');
         $info->save();
 
-        return $info;
+        // return $info;
     }
 
     public function getAllLeaders() {

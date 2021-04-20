@@ -42,7 +42,7 @@ Route::post('/info','UserDisplayController@getUsers');
 
 // Route::get('/info/edit', 'UserDisplayController@editUserInfo');
 
-// Route::post('/info/update', 'UserDisplayController@updateUserInfo');
+Route::post('/info/update', 'UserDisplayController@updateUserInfo');
 
 Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser');
 
