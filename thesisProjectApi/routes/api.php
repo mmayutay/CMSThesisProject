@@ -117,9 +117,9 @@ Route::post('add-event-announcement', 'eventAndAnnouncementControl@addEventOrAnn
 
 Route::get('add-event-announcement/display', 'eventAndAnnouncementControl@returnAllEventsAndAnnouncement');
 
-Route::post('add-event-announcement/update/{id}', 'eventAndAnnouncementControl@updateEventsAndAnnouncement');
+Route::post('event-announcement/update/{id}', 'eventAndAnnouncementControl@updateEventsAndAnnouncement');
 
-Route::delete('add-event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
+Route::delete('event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
 
 // This route is to return all students of a specific events or announcements
 Route::get('add-event-announcement/return-all-students/{id}', 'eventAndAnnouncementControl@returnAllStudents');
@@ -148,6 +148,8 @@ Route::get('trainings-and-classes/return-selected-training/{id}', 'trainingsAndC
 // This routes are for adding students to records
 Route::post('class-records/add-student', 'RecordsController@addNewRecord');
 
+Route::get('class-records/get-students/{lessonID}/{classID}', 'RecordsController@getAllStudentsFromRecords');
+
 // Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStudentToRecords');
 
 // Route::get('student-trainings-or-class/get-student-using-cms-ID/{id}', 'TrainingsRecords@getStudentFromStudentTable');
@@ -170,3 +172,5 @@ Route::post('add-attendance/today-has-event', 'AttendanceEventAndSunday@addAtten
 Route::get('add-attendance/get-all-events-dates', 'AttendanceEventAndSunday@allEventsDates');
 
 Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
+
+Route::post('lesson/update/{id}', 'trainingsAndClasses@updateLessonOfTraining');
