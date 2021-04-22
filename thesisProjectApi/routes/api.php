@@ -145,10 +145,20 @@ Route::get('trainings-and-classes/return-selected-class/{id}', 'trainingsAndClas
 
 Route::get('trainings-and-classes/return-selected-training/{id}', 'trainingsAndClasses@returnSelectedTraining');
 
-// This routes are for adding students to records
-Route::post('class-records/add-student', 'RecordsController@addNewRecord');
+Route::get('trainings-and-classes/return-selected-lesson/{lessonID}', 'trainingsAndClasses@returnLessonDetails');
 
-Route::get('class-records/get-students/{lessonID}/{classID}', 'RecordsController@getAllStudentsFromRecords');
+Route::post('trainings-and-classes/add-students-to-class', 'trainingsAndClasses@addStudentToAClass');
+
+Route::post('trainings-and-classes/add-students-records', 'trainingsAndClasses@addStudentRecord');
+
+Route::get('trainings-and-classes/get-students-of-selected-class/{classID}', 'trainingsAndClasses@returnStudentsID');
+
+Route::get('trainings-and-classes/students-of-the-class/{classID}', 'trainingsAndClasses@getStudentOfSelectedClass');
+
+// This routes are for adding students to records
+// Route::post('class-records/add-student', 'RecordsController@addNewRecord');
+
+// Route::get('class-records/get-students/{lessonID}/{classID}', 'RecordsController@getAllStudentsFromRecords');
 
 // Route::post('student-trainings-or-class/addToRecords', 'TrainingsRecords@addStudentToRecords');
 
