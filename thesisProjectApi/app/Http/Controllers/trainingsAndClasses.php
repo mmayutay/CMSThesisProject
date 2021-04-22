@@ -7,6 +7,7 @@ use App\Models\lessons;
 use App\Models\records;
 use App\Models\students;
 use App\Models\trainings;
+use App\Models\cms_users;
 use Illuminate\Http\Request;
 
 class trainingsAndClasses extends Controller
@@ -49,6 +50,11 @@ class trainingsAndClasses extends Controller
         return lessons::where('training_id', $id)->get();
     }
 
+    // Kini siya nga function kay i return ang details sa selected lesson using an ID 
+    public function returnLessonDetails($lessonID) {
+        return lessons::where('id', $lessonID)->get();
+    }
+
     // Kini siya nga function kay i return ang selected class 
     public function returnSelectedClass($id) 
     {
@@ -67,6 +73,17 @@ class trainingsAndClasses extends Controller
         return classes::where('training_id', $id)->get();
     }
 
+    // Kini siya nga function kay kuhaon ang mga id sa mga students nga connected ra sad sa users nga collection
+    public function returnStudentsID($classID) {
+        $arrayOfStudentsID = array();
+        $studentsID = records::where('classes_id', $classID)->get()->pluck('students_id');
+        foreach ($studentsID as $key => $value) {
+            $student = students::where('id', $value)->get()[0]->user_id;
+            array_push($arrayOfStudentsID, $student);
+        }
+        return $arrayOfStudentsID;
+    }  
+
     // Kini siya nga function kay mag add ug students class
     public function addClasses(Request $request)
     {
@@ -82,12 +99,17 @@ class trainingsAndClasses extends Controller
     public function addStudentToAClass(Request $request)
     {
         $student = new students;
-        $student->user_id = $request->input('studentID');
+        $student->user_id = $request->input('userID');
         $student->level = '';
         $student->remarks = '';
         $student->save();
         return $student;
     }
+
+    // Kini siya nga function kay kuhaon ang tanan nga students_id sa selected class 
+    public function getStudentOfSelectedClass($classID) {
+        return records::where('classes_id', $classID)->get();
+    } 
 
     // Kini siya nga function kay ang pag add ug records sa student
     public function addStudentRecord(Request $request) {
