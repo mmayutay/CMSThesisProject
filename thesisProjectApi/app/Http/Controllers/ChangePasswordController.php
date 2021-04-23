@@ -18,11 +18,26 @@ class ChangePasswordController extends Controller
 
 
     //Verify if code is valid
-    private function updatePasswordRow($request) {
+    private function updatePasswordRow(Request $request) {
         return DB::table('recover_password')->where([
             'username' => $request->email,
             'code' => $request->passCode
         ]);
+        // $data = $request->validate([
+        //     'username' => 'requiresd|string',
+        //     'code'=> 'required|string',
+        // ]);
+
+        // $holder = DB::table('recover_password')->where([
+        //         'username' => $request->email,
+        //         'code' => $request->passCode
+        //     ]);
+
+        // $count = count($holder);
+
+        // if() {
+
+        // }
     }
 
     //Token not found response

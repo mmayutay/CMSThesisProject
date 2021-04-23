@@ -32,7 +32,7 @@ class SendCode
                 $code = rand(1111,9999);
                 $message = $client->message()->send([
                     'to' => "+63".$receiverNumber,
-                    'from' => 'Vonage APIs',
+                    'from' => 'BHCF',
                     'text' => "Verificaion Code: ". $code
                 ]);
       

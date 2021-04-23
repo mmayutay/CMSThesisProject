@@ -22,21 +22,8 @@ class ForgotPassword extends Controller
     
 
     public function sendForgotPasswordCode(Request $request) {
-        $request = 'BHCFMNiere4';
+        $request = 'BHCFMGamboa3';
         $value = $request;
-        // try
-        // {
-        //     $username = cms_accounts::where('username', $value)->get();
-        //     $username->userid;
-
-        //     $verCode = cms_users::find($username);
-            
-        //     $verCode->code = \App\SendCode::sendCode($verCode->contact_number);
-        //     $verCode->save();
-
-        // } catch (Illuminate\Database\QueryException $e) {
-        //     dd($e);
-        // }
 
         if(!$this->validUsername($value)) {
             error_log($value);
@@ -59,7 +46,7 @@ class ForgotPassword extends Controller
    public function verifyCode($username) {
        $userId = cms_accounts::where('username', $username)->first();
     //    error_log($userId->userid);
-       $userId->userid;
+    //    $userId->userid;
 
        $contact = cms_users::where('id', $userId->userid)->first();
        $number = $contact->contact_number;
