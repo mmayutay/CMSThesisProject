@@ -33,18 +33,20 @@ class UserDisplayController extends Controller
         $id = $request->newUser['id'];
 
         $info = cms_users::find($id);
-        $info->lastname = $request->input('Lastname');
-        $info->firstname = $request->input('Firstname');
-        $info->birthday = $request->input('Birthday');
-        $info->age = $request->input('Age');
-        $info->gender = $request->input('Gender');
-        $info->address = $request->input('Address');
-        $info->marital_status = $request->input('Marital_status');
-        $info->email = $request->input('Email');
-        $info->contact_number = $request->input('Contact_number');
-        $info->facebook = $request->input('Facebook');
-        $info->instagram = $request->input('Instagram');
-        $info->twitter = $request->input('Twitter');
+
+        // return $info;
+        $info->lastname = $request->newUser['Lastname'];
+        $info->firstname = $request->newUser['Firstname'];
+        $info->birthday = $request->newUser['Birthday'];
+        $info->age = $request->newUser['Age'];
+        $info->gender = $request->newUser['Gender'];
+        $info->address = $request->newUser['Address'];
+        $info->marital_status = $request->newUser['Marital_status'];
+        $info->email = $request->newUser['Email'];
+        $info->contact_number = $request->newUser['Contact_number'];
+        $info->facebook = $request->newUser['Facebook'];
+        $info->instagram = $request->newUser['Instagram'];
+        $info->twitter = $request->newUser['Twitter'];
         $info->save();
 
         // return $info;

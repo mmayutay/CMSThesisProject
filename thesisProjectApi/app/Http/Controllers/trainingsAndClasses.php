@@ -125,6 +125,14 @@ class trainingsAndClasses extends Controller
         return $records;
     }
 
+    // Kini siya nga function kay iyang i update ang score sa student sa certain records 
+    public function updateStudentsScore($studentId, $score) {
+        $records = records::where('students_id', $studentId)->get()[0];
+        $records->score = $score;
+        $records->save();
+        return $records;
+    }
+
     //Kini siya nga function kay mu update sa selected lesson
     public function updateLessonOfTraining(Request $request, $id) {
             $lesson = lessons::find($id);
