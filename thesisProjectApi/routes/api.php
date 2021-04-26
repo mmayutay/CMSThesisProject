@@ -129,6 +129,8 @@ Route::get('event-owner/{id}','eventAndAnnouncementControl@eventOwner');
 Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
 
 // This routes is the responsible in adding trainings and also lessons 
+Route::get('trainings-and-classes/return-all-traininings', 'trainingsAndClasses@returnAllTrainings');
+
 Route::post('trainings-and-classes/add-trainings-with-lessons', 'trainingsAndClasses@addTrainingsAndLessons');
 
 Route::get('trainings-and-classes/get-all-trainings/{id}', 'trainingsAndClasses@returnTrainingByUser');
