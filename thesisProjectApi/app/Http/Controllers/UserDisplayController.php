@@ -23,6 +23,17 @@ class UserDisplayController extends Controller
         return $userRequest;
     }
 
+    public function returnAllPastorsWithItsLeaders() {
+        $arrayOfPastors = array();
+        $pastors = cms_accounts::where('roles', 2)->get();
+        foreach ($pastors as $key => $value) {
+            $user = cms_users::where('id', $value->userid)->get()[0];
+            $allPastorsMember = cms_users::where('leader', $user->id)->get();
+            array_push($arrayOfPastors, array("pastor" => $user, "leaders" => $allPastorsMember));
+        }
+        return $arrayOfPastors;
+    }
+
     public function create()
     {
         //

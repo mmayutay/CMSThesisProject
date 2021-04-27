@@ -29,6 +29,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('get-leaders', 'UserDisplayController@getAllLeaders');
 
+// Kini siya nga function kay i return niya ang tanan nga pastors 
+Route::get('get-pastors', 'UserDisplayController@returnAllPastorsWithItsLeaders');
+
 //This is for looking who is active and inactive users
 Route::get('allMemberUsers', 'findActiveAndInactiveUsers@returnAllMembers');
 
