@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 
 class trainingsAndClasses extends Controller
 {
+    // Kini siya nga function kay i return ang tanan nga trainings 
+    public function returnAllTrainings() {
+        return trainings::all();
+    }
     // Kini siya nga function kay ang pag add ug trainings with it's lessons
     public function addTrainingsAndLessons(Request $request)
     {
@@ -132,7 +136,6 @@ class trainingsAndClasses extends Controller
         $records->save();
         return $records;
     }
-
     //Kini siya nga function kay mu update sa selected lesson
     public function updateLessonOfTraining(Request $request, $id) {
             $lesson = lessons::find($id);
