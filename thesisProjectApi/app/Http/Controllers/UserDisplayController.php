@@ -25,7 +25,7 @@ class UserDisplayController extends Controller
 
     public function returnAllPastorsWithItsLeaders() {
         $arrayOfPastors = array();
-        $pastors = cms_accounts::where('roles', 2)->get();
+        $pastors = cms_accounts::where('roles', 1)->get();
         foreach ($pastors as $key => $value) {
             $user = cms_users::where('id', $value->userid)->get()[0];
             $allPastorsMember = cms_users::where('leader', $user->id)->get();
@@ -65,7 +65,7 @@ class UserDisplayController extends Controller
 
     public function getAllLeaders() {
         $arrayOfLeaders = array();
-        $getAllLeaders = cms_accounts::where('roles', 3)->get()->pluck('userid');
+        $getAllLeaders = cms_accounts::where('roles', 12)->get()->pluck('userid');
         foreach ($getAllLeaders as $key => $value) {
             array_push($arrayOfLeaders, cms_users::where('id', $value)->get()[0]);
         }
@@ -75,6 +75,18 @@ class UserDisplayController extends Controller
 
     public function getUserAccount($id) {
         return cms_accounts::where('userid', $id)->get()[0];
+    }
+
+
+    // Kini siya nga function kay kuhaon ang tanan nga code 1 
+    public function getAllPastorCode1($code) {
+        $pastorsArray = array();
+        $usersIDs = cms_accounts::where("roles", $code)->get()->pluck("userid");
+        foreach ($usersIDs as $key => $value) {
+            $userData = cms_users::where('id', $value)->get()[0];
+            array_push($pastorsArray, $userData);
+        }
+        return $pastorsArray;
     }
 
     // public function insert(Request $request)

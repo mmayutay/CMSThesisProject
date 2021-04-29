@@ -65,6 +65,7 @@ Route::get('user-account/{id}', 'UserDisplayController@getUserAccount');
 
 Route::post('updateUser', 'UserDisplayController@update');
 
+Route::get('return-all-pastors/{code}', 'UserDisplayController@getAllPastorCode1');
 // Route::post('member', 'UserDisplayController@insert');
 
 Route::post('leader', 'Controls@getCell');
@@ -97,7 +98,7 @@ Route::post('viewAttendancesOfSCandEvents', 'attendanceController@viewAttendance
 
 Route::post('viewAttendancesOfCellGroup', 'attendanceController@viewCellAttendance');
 
-Route::get('regular-members', 'attendanceController@returnRegularMembers');
+Route::get('regular-members/{code}', 'attendanceController@returnRegularMembers');
 
 Route::post('leader-sc-cg', 'attendanceController@returnEventsandSC');
 
