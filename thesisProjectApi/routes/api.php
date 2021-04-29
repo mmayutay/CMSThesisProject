@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ForgotPassword;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,11 +16,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group */
+Route::get('forgot-password', [ForgotPassword::class, 'sendForgotPasswordCode']);
+
+Route::post('reset-password', [ChangePasswordController::class, 'passwordResetProcess']);
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::get('get-leaders', 'UserDisplayController@getAllLeaders');
+
+// Kini siya nga function kay i return niya ang tanan nga pastors 
+Route::get('get-pastors', 'UserDisplayController@returnAllPastorsWithItsLeaders');
 
 //This is for looking who is active and inactive users
 Route::get('allMemberUsers', 'findActiveAndInactiveUsers@returnAllMembers');
