@@ -89,6 +89,17 @@ class UserDisplayController extends Controller
         return $pastorsArray;
     }
 
+    // Kini siya nga function kay kuhaon niya ang iyang cellgroup, ang kapareho niya ug role 
+    public function returnCellGroup($role) {
+        $arrayOfUsers = array();
+        $sameRoles = cms_accounts::where("roles", $role)->get();
+        foreach ($sameRoles as $key => $value) {
+            $userData = cms_users::where("id", $value->userid)->get()[0];
+            array_push($arrayOfUsers, $userData);
+        }
+        return $arrayOfUsers;
+    }
+
     // public function insert(Request $request)
     // {
     //     $id = $request->newUser['id'];
