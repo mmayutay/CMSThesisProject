@@ -34,8 +34,6 @@ class authController extends Controller
     }
     
     public function signUp(Request $request) {
-        $leader = new cms_leaders;
-        $member = new cms_members;
         $user = new cms_users;
         $newAccountCreate = new cms_accounts;
         $userRole = new cms_userroles;
@@ -56,8 +54,8 @@ class authController extends Controller
         $user->twitter = $request->newUser["Twitter"];
         $user->leader = $request->groupBelong["Leader"];
         $user->category = "Asian";
-        $user->isCGVIP = true;
-        $user->isSCVIP = true;
+        $user->isCGVIP = $request->newUser["isCGVIP"];
+        $user->isSCVIP = $request->newUser["isSCVIP"];
         $user->auxilliary = "Romeo's Group";
         $user->ministries = "Romeo's Ministry";
         $user->save();
@@ -82,10 +80,12 @@ class authController extends Controller
             }
         }
 
-        $vipUsers->leaderId = $request->groupBelong["Leader"];
-        $vipUsers->userId = $user->id;
-        $vipUsers->attendanceCounter = 0;
-        $vipUsers->save();
+        if($request->newUser["isCGVIP"] == "true" && $request->newUser["isSCVIP"] == "true") {
+            $vipUsers->leaderId = $request->groupBelong["Leader"];
+            $vipUsers->userId = $user->id;
+            $vipUsers->attendanceCounter = 0;
+            $vipUsers->save();
+        }
 
         $newAccountCreate->userid = $user->id;
         $newAccountCreate->username = 'BHCF'. $request->newUser["Firstname"][0] . $request->newUser["Lastname"] . $user->id;
