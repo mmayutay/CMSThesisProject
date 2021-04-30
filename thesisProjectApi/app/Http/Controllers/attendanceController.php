@@ -106,11 +106,11 @@ class attendanceController extends Controller
         }
     }
 
-    public function returnRegularMembers()
+    public function returnRegularMembers($code)
     {
         $arrayOfRegularUsers = array();
 
-        $roles = cms_accounts::where('roles', 4)->get()->pluck('userid');
+        $roles = cms_accounts::where('roles', $code)->get()->pluck('userid');
         foreach ($roles as $key => $value) {
             $member = cms_users::select('*')
                 ->where("id", $value)
