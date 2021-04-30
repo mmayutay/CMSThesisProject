@@ -60,6 +60,9 @@ Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurr
 
 Route::get('edit', 'UserDisplayController@edit');
 
+// Kini siya nga function kay iyang kuhaon ang kapareho niya sa cell group 
+Route::get('get-the-same-role/{role}', 'UserDisplayController@returnCellGroup');
+
 // This route is to get the account of a certain user
 Route::get('user-account/{id}', 'UserDisplayController@getUserAccount');
 
