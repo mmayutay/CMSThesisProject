@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        // Nexmo\Laravel\NexmoServiceProvider::class,
         // Illuminate\Html\HtmlServiceProvider::class,
         'Collective\Html\HtmlServiceProvider',
 
@@ -232,6 +233,7 @@ return [
         'Form' => 'Collective\Html\FormFacade',
         'HTML' => 'Collective\Html\HtmlFacade',
         'DB' => Illuminate\Support\Facades\DB::class,
+        'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
         // 'Form' => Illuminate\Html\FormFacade::class,
         // 'Html' => Illuminate\Html\HtmlFacade::class,
  

@@ -19,7 +19,7 @@ use App\Http\Controllers\ForgotPassword;
 /*These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group */
-Route::get('forgot-password', [ForgotPassword::class, 'sendForgotPasswordCode']);
+Route::get('send-code/{username}', [ForgotPassword::class, 'sendForgotPasswordCode']);
 
 Route::post('reset-password', [ChangePasswordController::class, 'passwordResetProcess']);
 
@@ -173,3 +173,5 @@ Route::get('add-attendance/get-all-events-dates', 'AttendanceEventAndSunday@allE
 Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
 
 Route::post('lesson/update/{id}', 'trainingsAndClasses@updateLessonOfTraining');
+
+Route::post('reset-pass/update/{id}', 'resetpassword@resetpassword');
