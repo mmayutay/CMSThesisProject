@@ -177,6 +177,8 @@ Route::get('trainings-and-classes/update-students-score/{studentId}/{score}', 't
 
 Route::get('trainings-and-classes/deleteLessonOfTraining/{id}', 'trainingsAndClasses@deleteLessonsOfTraining');
 
+Route::get('trainings-and-classes/get-certain-student-collection-student/{usersID}', 'trainingsAndClasses@returnStudentFromStudentCollection');
+
 // This routes are for adding students to records
 // Route::post('class-records/add-student', 'RecordsController@addNewRecord');
 

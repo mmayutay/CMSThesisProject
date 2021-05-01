@@ -153,5 +153,10 @@ class trainingsAndClasses extends Controller
         lessons::where('id', $id)->delete();
         return response()->json(['success' => 'Deleted successfully!']);
     }
+
+    // Kini siya nga function kay i return ang id sa student sa student nga collection 
+    public function returnStudentFromStudentCollection($usersID) {
+        return students::where("user_id", $usersID)->get()[0];
+    }
 }
 
