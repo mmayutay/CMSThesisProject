@@ -79,13 +79,8 @@ class trainingsAndClasses extends Controller
 
     // Kini siya nga function kay kuhaon ang mga id sa mga students nga connected ra sad sa users nga collection
     public function returnStudentsID($classID) {
-        $arrayOfStudentsID = array();
         $studentsID = records::where('classes_id', $classID)->get()->pluck('students_id');
-        foreach ($studentsID as $key => $value) {
-            $student = students::where('id', $value)->get()[0]->user_id;
-            array_push($arrayOfStudentsID, $student);
-        }
-        return $arrayOfStudentsID;
+        return $studentsID;
     }  
 
     // Kini siya nga function kay mag add ug students class
