@@ -21,9 +21,9 @@ class ForgotPassword extends Controller
     //
     
 
-    public function sendForgotPasswordCode(Request $request) {
-        $request = 'BHCFMGamboa3';
-        $value = $request;
+    public function sendForgotPasswordCode($username, Request $request) {
+        $request = 'BHCFMNiere4';
+        $value = $username;
 
         if(!$this->validUsername($value)) {
             error_log($value);

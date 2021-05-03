@@ -12,10 +12,11 @@ class UpdatePasswordRequest extends FormRequest {
     }
 
     public function rules() {
-
+        error_log("Password Request");
         return [
-            'username' => 'required|string',
-            'code' => 'required|string'
+            'passUsername' => 'required|string',
+            'newPassword' => 'required|string',
+            'confirmPassword' => 'required|string'
         ];
     }
 }

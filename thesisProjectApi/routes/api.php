@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ForgotPassword;
+use App\Http\Controllers\ChangePasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,10 @@ use App\Http\Controllers\ForgotPassword;
 /*These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group */
-Route::get('forgot-password', [ForgotPassword::class, 'sendForgotPasswordCode']);
+
+Route::get('send-code/{username}', [ForgotPassword::class, 'sendForgotPasswordCode']);
+
+Route::get('verify-code/{codeInput}', 'ChangePasswordController@confirmCode');
 
 Route::post('reset-password', [ChangePasswordController::class, 'passwordResetProcess']);
 
