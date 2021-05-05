@@ -21,9 +21,9 @@ class ChangePasswordController extends Controller
 
             $user = cms_accounts::where( 'username', $request->username)->first();
 
-            $val =Crypt::decryptString($user->password);                            
-
             if(!is_null($user)) {
+
+                $val =Crypt::decryptString($user->password);
 
                 if($request->currpassword === $val) {
                         $user->password = Crypt::encryptString($request->newPassword);
@@ -32,7 +32,6 @@ class ChangePasswordController extends Controller
                         return $user;
                 }
             }
-            
 
         }catch(Exception $e) {
 
