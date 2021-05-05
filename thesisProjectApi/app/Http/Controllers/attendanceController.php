@@ -85,6 +85,32 @@ class attendanceController extends Controller
         return $arrayForaSelectedYearAttendance;
     }
 
+    // public function viewCellAttendance(Request $request) {
+
+    //     $dateSelect = $request->input("dateOption");
+
+    //     $arrayCellAttendance = array();
+    //     $cellMember = cms_users::where('leader', $request->input('currentUserId'))->get()->count();
+    //     // $cellAttendance = cms_attendance::select(*)
+    //     //                                     ->where('leader', $request->input('currentUserId'))
+    //     //                                     ->where('date',  )
+    //     //                                     ->get();
+        
+    //     $dateAttendance = cms_attendance::pluck('date');
+    //     // foreach ($dateAttendance as $key => $value) {
+    //     //     if(){
+    //     //     }
+    //     }
+
+
+        
+
+        // foreach ($variable as $key => $value) {
+        //     if()
+        // }
+        // return $cellAttendance;
+        // return $cellMember;
+        // $cellAttendanceCount = $totalCellAttendance/$cellAttendance;
     public function viewCellAttendance(Request $request)
     {
         $selectDate = $request->input('dateOption');
@@ -106,11 +132,11 @@ class attendanceController extends Controller
         }
     }
 
-    public function returnRegularMembers()
+    public function returnRegularMembers($code)
     {
         $arrayOfRegularUsers = array();
 
-        $roles = cms_accounts::where('roles', 4)->get()->pluck('userid');
+        $roles = cms_accounts::where('roles', $code)->get()->pluck('userid');
         foreach ($roles as $key => $value) {
             $member = cms_users::select('*')
                 ->where("id", $value)
@@ -124,8 +150,25 @@ class attendanceController extends Controller
             }
 
         }
-        return $arrayOfRegularUsers;
     }
+
+    public function attendanceCellGroup(Request $request) {
+        $attendaceArray = array();
+
+        $cellAttendance = cms_attendance::where('member', $request->input('currentUserId'))->get();
+
+        for ($i=0; $i < count($cellAttendance); $i++) { 
+            array_push($attendaceArray, $i);
+        }
+
+        return $attendaceArray;
+    return $arrayOfRegularUsers;
+
+    }
+
+        
+        
+
 
     public function returnEventsandSC(Request $request){
         
@@ -138,68 +181,68 @@ class attendanceController extends Controller
         return $arrayOfSCandEvents;
     }
 
-    public function returnWeeklyAttendance(Request $request) {
-        $arrayWeeklyAttendance = array();
-        $arrayYearlyAttendance = array();
-        $arrayCGandSC = array();
-        $arrayQuarterlyAttendance = array();
+    // public function returnWeeklyAttendance(Request $request) {
+    //     $arrayWeeklyAttendance = array();
+    //     $arrayYearlyAttendance = array();
+    //     $arrayCGandSC = array();
+    //     $arrayQuarterlyAttendance = array();
 
-        $sundayAttendance = cms_attendance::where('leader', $request->input('currentUserId'))->get();
-        $eventsAttendance = eventsAttendance::where('leader', $request->input('currentUserId'))->get();
+    //     $sundayAttendance = cms_attendance::where('leader', $request->input('currentUserId'))->get();
+    //     $eventsAttendance = eventsAttendance::where('leader', $request->input('currentUserId'))->get();
 
 
-        //Sunday Celebration
-        foreach ($sundayAttendance->pluck('date') as $key => $value) {
-            // if ($today == 'Sunday'){
-                $choice = $request->input("choice");
-                if($choice == "monthly") {
-                    if (\str_contains($value, $request->input('month'))) {
-                    array_push($arrayWeeklyAttendance, $value);
-                    return $arrayWeeklyAttendance;
-                    }
-                }
+    //     //Sunday Celebration
+    //     foreach ($sundayAttendance->pluck('date') as $key => $value) {
+    //         // if ($today == 'Sunday'){
+    //             $choice = $request->input("choice");
+    //             if($choice == "monthly") {
+    //                 if (\str_contains($value, $request->input('month'))) {
+    //                 array_push($arrayWeeklyAttendance, $value);
+    //                 return $arrayWeeklyAttendance;
+    //                 }
+    //             }
             
-                if($choice == "yearly") {
-                    if (\str_contains($value, $request->input('year'))) {
-                        array_push($arrayYearlyAttendance, $value);
-                        return $arrayYearlyAttendance;
-                    }
-                }
+    //             if($choice == "yearly") {
+    //                 if (\str_contains($value, $request->input('year'))) {
+    //                     array_push($arrayYearlyAttendance, $value);
+    //                     return $arrayYearlyAttendance;
+    //                 }
+    //             }
 
-                if($choice == "quarterly") {
-                    if(\str_contains($value, $request->input('1','2','3','4'))) {
-                        array_push($arrayQuarterlyAttendance, $value);
-                        return $arrayQuarterlyAttendance;
-                    }
-                } 
-            // }
-        }
+    //             if($choice == "quarterly") {
+    //                 if(\str_contains($value, $request->input('1','2','3','4'))) {
+    //                     array_push($arrayQuarterlyAttendance, $value);
+    //                     return $arrayQuarterlyAttendance;
+    //                 }
+    //             } 
+    //         // }
+    //     }
          
-        //Events Attendance
-        foreach ($eventsAttendance->pluck('date') as $key => $value) {
-                $choice = $request->input("choice");
-                if($choice == "monthly") {
-                    if (\str_contains($value, $request->input('month'))) {
-                        array_push($arrayWeeklyAttendance, $value);
-                        return $arrayWeeklyAttendance;
-                    }
-                }
+    //     //Events Attendance
+    //     foreach ($eventsAttendance->pluck('date') as $key => $value) {
+    //             $choice = $request->input("choice");
+    //             if($choice == "monthly") {
+    //                 if (\str_contains($value, $request->input('month'))) {
+    //                     array_push($arrayWeeklyAttendance, $value);
+    //                     return $arrayWeeklyAttendance;
+    //                 }
+    //             }
                 
-                if($choice == "yearly") {
-                    if (\str_contains($value, $request->input('year'))) {
-                        array_push($arrayYearlyAttendance, $value);
-                        return $arrayYearlyAttendance;
-                    }
-                }
+    //             if($choice == "yearly") {
+    //                 if (\str_contains($value, $request->input('year'))) {
+    //                     array_push($arrayYearlyAttendance, $value);
+    //                     return $arrayYearlyAttendance;
+    //                 }
+    //             }
 
-                if($choice == "quarterly") {
-                    if(\str_contains($value, $request->input('1','2','3','4'))) {
-                        array_push($arrayQuarterlyAttendance, $value);
-                        return $arrayQuarterlyAttendance;
-                    }
-                }
-        }  
-        // array_push($arrayCGandSC, array('SundayCelebration' => $sundayAttendance, 'EventsAttendance' => $eventsAttendance));
-        // return $arrayCGandSC;
-    }
+    //             if($choice == "quarterly") {
+    //                 if(\str_contains($value, $request->input('1','2','3','4'))) {
+    //                     array_push($arrayQuarterlyAttendance, $value);
+    //                     return $arrayQuarterlyAttendance;
+    //                 }
+    //             }
+    //     }  
+    //     // array_push($arrayCGandSC, array('SundayCelebration' => $sundayAttendance, 'EventsAttendance' => $eventsAttendance));
+    //     // return $arrayCGandSC;
+    // }
 }

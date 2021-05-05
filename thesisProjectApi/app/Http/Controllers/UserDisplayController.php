@@ -23,6 +23,17 @@ class UserDisplayController extends Controller
         return $userRequest;
     }
 
+    public function returnAllPastorsWithItsLeaders() {
+        $arrayOfPastors = array();
+        $pastors = cms_accounts::where('roles', 1)->get();
+        foreach ($pastors as $key => $value) {
+            $user = cms_users::where('id', $value->userid)->get()[0];
+            $allPastorsMember = cms_users::where('leader', $user->id)->get();
+            array_push($arrayOfPastors, array("pastor" => $user, "leaders" => $allPastorsMember));
+        }
+        return $arrayOfPastors;
+    }
+
     public function create()
     {
         //
@@ -33,18 +44,19 @@ class UserDisplayController extends Controller
         $id = $request->newUser['id'];
 
         $info = cms_users::find($id);
-        $info->lastname = $request->input('Lastname');
-        $info->firstname = $request->input('Firstname');
-        $info->birthday = $request->input('Birthday');
-        $info->age = $request->input('Age');
-        $info->gender = $request->input('Gender');
-        $info->address = $request->input('Address');
-        $info->marital_status = $request->input('Marital_status');
-        $info->email = $request->input('Email');
-        $info->contact_number = $request->input('Contact_number');
-        $info->facebook = $request->input('Facebook');
-        $info->instagram = $request->input('Instagram');
-        $info->twitter = $request->input('Twitter');
+
+        $info->lastname = $request->newUser['Lastname'];
+        $info->firstname = $request->newUser['Firstname'];
+        $info->birthday = $request->newUser['Birthday'];
+        $info->age = $request->newUser['Age'];
+        $info->gender = $request->newUser['Gender'];
+        $info->address = $request->newUser['Address'];
+        $info->marital_status = $request->newUser['Marital_status'];
+        $info->email = $request->newUser['Email'];
+        $info->contact_number = $request->newUser['Contact_number'];
+        $info->facebook = $request->newUser['Facebook'];
+        $info->instagram = $request->newUser['Instagram'];
+        $info->twitter = $request->newUser['Twitter'];
         $info->save();
 
         return $info;
@@ -52,7 +64,7 @@ class UserDisplayController extends Controller
 
     public function getAllLeaders() {
         $arrayOfLeaders = array();
-        $getAllLeaders = cms_accounts::where('roles', 3)->get()->pluck('userid');
+        $getAllLeaders = cms_accounts::where('roles', 12)->get()->pluck('userid');
         foreach ($getAllLeaders as $key => $value) {
             array_push($arrayOfLeaders, cms_users::where('id', $value)->get()[0]);
         }
@@ -62,6 +74,29 @@ class UserDisplayController extends Controller
 
     public function getUserAccount($id) {
         return cms_accounts::where('userid', $id)->get()[0];
+    }
+
+
+    // Kini siya nga function kay kuhaon ang tanan nga code 1 
+    public function getAllPastorCode1($code) {
+        $pastorsArray = array();
+        $usersIDs = cms_accounts::where("roles", $code)->get()->pluck("userid");
+        foreach ($usersIDs as $key => $value) {
+            $userData = cms_users::where('id', $value)->get()[0];
+            array_push($pastorsArray, $userData);
+        }
+        return $pastorsArray;
+    }
+
+    // Kini siya nga function kay kuhaon niya ang iyang cellgroup, ang kapareho niya ug role 
+    public function returnCellGroup($role) {
+        $arrayOfUsers = array();
+        $sameRoles = cms_accounts::where("roles", $role)->get();
+        foreach ($sameRoles as $key => $value) {
+            $userData = cms_users::where("id", $value->userid)->get()[0];
+            array_push($arrayOfUsers, $userData);
+        }
+        return $arrayOfUsers;
     }
 
     // public function insert(Request $request)
