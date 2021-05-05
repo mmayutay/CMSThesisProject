@@ -159,6 +159,8 @@ Route::get('trainings-and-classes/return-classes-of-selected-training/{id}', 'tr
 
 Route::post('trainings-and-classes/add-classes-with-students', 'trainingsAndClasses@addClasses');
 
+Route::post('trainings-and-classes/update-class-of-training/{classID}', 'trainingsAndClasses@updateClass');
+
 Route::get('trainings-and-classes/return-selected-class/{id}', 'trainingsAndClasses@returnSelectedClass');
 
 Route::get('trainings-and-classes/return-selected-training/{id}', 'trainingsAndClasses@returnSelectedTraining');
