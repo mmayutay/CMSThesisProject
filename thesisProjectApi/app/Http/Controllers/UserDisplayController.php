@@ -63,9 +63,9 @@ class UserDisplayController extends Controller
         // return $info;
     }
 
-    public function getAllLeaders() {
+    public function getAllLeaders($role) {
         $arrayOfLeaders = array();
-        $getAllLeaders = cms_accounts::where('roles', 12)->get()->pluck('userid');
+        $getAllLeaders = cms_accounts::where('roles', $role)->get()->pluck('userid');
         foreach ($getAllLeaders as $key => $value) {
             array_push($arrayOfLeaders, cms_users::where('id', $value)->get()[0]);
         }

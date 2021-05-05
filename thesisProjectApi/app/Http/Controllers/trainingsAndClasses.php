@@ -110,13 +110,32 @@ class trainingsAndClasses extends Controller
         return records::where('classes_id', $classID)->get();
     } 
 
+
+    // Kini siya nga function kay iyang i check kung ang selected student kay ni exist na sa records sa certain sad nga class 
+    public function checkStudentIfAlreadyExist($studentID,  $classID) {
+        $studentsRecord = records::select('*')
+                            ->where('classes_id', $classID)
+                            ->where('students_id', $studentID)
+                            ->get();
+        return $studentsRecord;
+    }
+
+    // Kini siya nga function kay iyang i remove ang certain student sa selected class 
+    public function removeStudentOfCertainClass($studentID, $classID) {
+        $studentRecord = records::select('*')
+                        ->where('classes_id', $classID)
+                        ->where('students_id', $studentID)
+                        ->delete();
+        return $studentRecord;
+    }
+
     // Kini siya nga function kay ang pag add ug records sa student
     public function addStudentRecord(Request $request) {
         $records = new records;
-        $records->lessons_id = $request->input('selectedTrainingID');
-        $records->classes_id = $request->input('classesID');
-        $records->students_id = $request->input('studentID');
-        $records->type = '';
+        $records->lessons_id = $request->input('lessons_id');
+        $records->classes_id = $request->input('classes_id');
+        $records->students_id = $request->input('students_id');
+        $records->type = $request->input('type');
         $records->score = 0;
         $records->overall = 0;
         $records->remarks = '';
@@ -125,8 +144,11 @@ class trainingsAndClasses extends Controller
     }
 
     // Kini siya nga function kay iyang i update ang score sa student sa certain records 
-    public function updateStudentsScore($studentId, $score) {
-        $records = records::where('students_id', $studentId)->get()[0];
+    public function updateStudentsScore($studentId, $score, $classID) {
+        $records = records::select('*')
+                        ->where('students_id', $studentId)
+                        ->where('classes_id', $classID)
+                        ->get()[0];
         $records->score = $score;
         $records->save();
         return $records;

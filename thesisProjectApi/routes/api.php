@@ -27,7 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('get-leaders', 'UserDisplayController@getAllLeaders');
+Route::get('get-leaders/{role}', 'UserDisplayController@getAllLeaders');
 
 // Kini siya nga function kay i return niya ang tanan nga pastors 
 Route::get('get-pastors', 'UserDisplayController@returnAllPastorsWithItsLeaders');
@@ -173,12 +173,15 @@ Route::get('trainings-and-classes/get-students-of-selected-class/{classID}', 'tr
 
 Route::get('trainings-and-classes/students-of-the-class/{classID}', 'trainingsAndClasses@getStudentOfSelectedClass');
 
-Route::get('trainings-and-classes/update-students-score/{studentId}/{score}', 'trainingsAndClasses@updateStudentsScore');
+Route::get('trainings-and-classes/update-students-score/{studentId}/{score}/{classID}', 'trainingsAndClasses@updateStudentsScore');
 
 Route::get('trainings-and-classes/deleteLessonOfTraining/{id}', 'trainingsAndClasses@deleteLessonsOfTraining');
 
 Route::get('trainings-and-classes/get-certain-student-collection-student/{usersID}', 'trainingsAndClasses@returnStudentFromStudentCollection');
 
+Route::get('trainings-and-classes/check-student-already-exist/{studentID}/{classID}', 'trainingsAndClasses@checkStudentIfAlreadyExist');
+
+Route::delete('trainings-and-classes/remove-student-from-class/{studentID}/{classID}', 'trainingsAndClasses@removeStudentOfCertainClass');
 // This routes are for adding students to records
 // Route::post('class-records/add-student', 'RecordsController@addNewRecord');
 
