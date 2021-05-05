@@ -94,6 +94,16 @@ class trainingsAndClasses extends Controller
         return $classes;
     }
 
+    // Kini siya nga function kay mag update sa class 
+    public function updateClass($classID, Request $request) 
+    {
+        $currentClassDetails = classes::find($classID);
+        $currentClassDetails->name = $request->input('name');
+        $currentClassDetails->remarks = $request->input('remarks');
+        $currentClassDetails->save();
+        return $currentClassDetails;
+    }
+
     // Kini siya nga function kay mag ug student sa class
     public function addStudentToAClass(Request $request)
     {
@@ -132,9 +142,9 @@ class trainingsAndClasses extends Controller
     // Kini siya nga function kay ang pag add ug records sa student
     public function addStudentRecord(Request $request) {
         $records = new records;
-        $records->lessons_id = $request->input('lessons_id');
-        $records->classes_id = $request->input('classes_id');
-        $records->students_id = $request->input('students_id');
+        $records->lessons_id = $request->input('selectedTrainingID');
+        $records->classes_id = $request->input('classesID');
+        $records->students_id = $request->input('studentID');
         $records->type = $request->input('type');
         $records->score = 0;
         $records->overall = 0;
@@ -156,10 +166,9 @@ class trainingsAndClasses extends Controller
     //Kini siya nga function kay mu update sa selected lesson
     public function updateLessonOfTraining(Request $request, $id) {
             $lesson = lessons::find($id);
-            $lesson->name = $request->input('Name');
-            $lesson->lesson = $request->input('Lesson');
-            $lesson->title = $request->input('Title');
-            $lesson->description = $request->input('Description');
+            $lesson->name = $request->input('name');
+            $lesson->title = $request->input('title');
+            $lesson->description = $request->input('description');
             $lesson->save();
         return response()->json(['success' => 'Updated successfully!']);
     }
