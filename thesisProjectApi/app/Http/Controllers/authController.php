@@ -17,19 +17,40 @@ class authController extends Controller
 {
     public function login(Request $request)
     {
-        \Log::debug('Test!');
-        $email = $request->input('username');
-        $pass = $request->input('password');
+        // \Log::debug('Test!');
+        // $email = $request->input('username');
+        // $pass = $request->input('password');
 
-        $userRequest = cms_accounts::where('username', $email)->get();
-        if (count($userRequest) == 0) {
+        // $userRequest = cms_accounts::where('username', $email)->get();
+        // if (count($userRequest) == 0) {
+        //     return $userRequest;
+        // } else {
+        //     $partialPassword = $userRequest->pluck('password');
+        //     //ipausab gamit hash nga laravel
+        //     $password = Crypt::decryptString($partialPassword[0]);
+        //     if ($password == $pass) {
+        //         return $userRequest;
+        //     }
+        //     return false;
+        // }
+        $email=$request->input('username');
+        $pass=$request->input('password');
+
+        $userRequest=cms_accounts::where('username', $email)
+        ->get();
+        if(count($userRequest) == 0) {
+            return 'test';
             return $userRequest;
-        } else {
-            $partialPassword = $userRequest->pluck('password');
-            $password = Crypt::decryptString($partialPassword[0]);
-            if ($password == $pass) {
-                return $userRequest;
-            }
+        }else {
+            $partialPassword=$userRequest->pluck('password');
+            // $password=Crypt::decryptString($partialPassword[0]);
+            $password = \Hash::check($pass, $userRequest[0]->password);
+            if($password) {
+                    return $userRequest;
+            }  
+            // if($password == $pass) {
+            //     return $userRequest;
+            // }   
             return false;
         }
     }
