@@ -39,7 +39,6 @@ class authController extends Controller
         $userRequest=cms_accounts::where('username', $email)
         ->get();
         if(count($userRequest) == 0) {
-            return 'test';
             return $userRequest;
         }else {
             $partialPassword=$userRequest->pluck('password');
