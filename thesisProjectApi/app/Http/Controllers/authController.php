@@ -103,7 +103,7 @@ class authController extends Controller
             $request->newUser['Firstname'][0] .
             $request->newUser['Lastname'] .
             $user->id;
-        $newAccountCreate->password = Crypt::encryptString(
+        $newAccountCreate->password = \Hash::make(
             $request->newUser['Lastname'] . 'Member' . $user->id
         );
         $newAccountCreate->roles = $userRole->roles;
