@@ -79,13 +79,8 @@ class trainingsAndClasses extends Controller
 
     // Kini siya nga function kay kuhaon ang mga id sa mga students nga connected ra sad sa users nga collection
     public function returnStudentsID($classID) {
-        $arrayOfStudentsID = array();
         $studentsID = records::where('classes_id', $classID)->get()->pluck('students_id');
-        foreach ($studentsID as $key => $value) {
-            $student = students::where('id', $value)->get()[0]->user_id;
-            array_push($arrayOfStudentsID, $student);
-        }
-        return $arrayOfStudentsID;
+        return $studentsID;
     }  
 
     // Kini siya nga function kay mag add ug students class
@@ -97,6 +92,16 @@ class trainingsAndClasses extends Controller
         $classes->remarks = $request->className['Description'];
         $classes->save();
         return $classes;
+    }
+
+    // Kini siya nga function kay mag update sa class 
+    public function updateClass($classID, Request $request) 
+    {
+        $currentClassDetails = classes::find($classID);
+        $currentClassDetails->name = $request->input('name');
+        $currentClassDetails->remarks = $request->input('remarks');
+        $currentClassDetails->save();
+        return $currentClassDetails;
     }
 
     // Kini siya nga function kay mag ug student sa class
@@ -115,13 +120,32 @@ class trainingsAndClasses extends Controller
         return records::where('classes_id', $classID)->get();
     } 
 
+
+    // Kini siya nga function kay iyang i check kung ang selected student kay ni exist na sa records sa certain sad nga class 
+    public function checkStudentIfAlreadyExist($studentID,  $classID) {
+        $studentsRecord = records::select('*')
+                            ->where('classes_id', $classID)
+                            ->where('students_id', $studentID)
+                            ->get();
+        return $studentsRecord;
+    }
+
+    // Kini siya nga function kay iyang i remove ang certain student sa selected class 
+    public function removeStudentOfCertainClass($studentID, $classID) {
+        $studentRecord = records::select('*')
+                        ->where('classes_id', $classID)
+                        ->where('students_id', $studentID)
+                        ->delete();
+        return $studentRecord;
+    }
+
     // Kini siya nga function kay ang pag add ug records sa student
     public function addStudentRecord(Request $request) {
         $records = new records;
         $records->lessons_id = $request->input('selectedTrainingID');
         $records->classes_id = $request->input('classesID');
         $records->students_id = $request->input('studentID');
-        $records->type = '';
+        $records->type = $request->input('type');
         $records->score = 0;
         $records->overall = 0;
         $records->remarks = '';
@@ -130,8 +154,11 @@ class trainingsAndClasses extends Controller
     }
 
     // Kini siya nga function kay iyang i update ang score sa student sa certain records 
-    public function updateStudentsScore($studentId, $score) {
-        $records = records::where('students_id', $studentId)->get()[0];
+    public function updateStudentsScore($studentId, $score, $classID) {
+        $records = records::select('*')
+                        ->where('students_id', $studentId)
+                        ->where('classes_id', $classID)
+                        ->get()[0];
         $records->score = $score;
         $records->save();
         return $records;
@@ -139,10 +166,9 @@ class trainingsAndClasses extends Controller
     //Kini siya nga function kay mu update sa selected lesson
     public function updateLessonOfTraining(Request $request, $id) {
             $lesson = lessons::find($id);
-            $lesson->name = $request->input('Name');
-            $lesson->lesson = $request->input('Lesson');
-            $lesson->title = $request->input('Title');
-            $lesson->description = $request->input('Description');
+            $lesson->name = $request->input('name');
+            $lesson->title = $request->input('title');
+            $lesson->description = $request->input('description');
             $lesson->save();
         return response()->json(['success' => 'Updated successfully!']);
     }
@@ -152,6 +178,11 @@ class trainingsAndClasses extends Controller
 
         lessons::where('id', $id)->delete();
         return response()->json(['success' => 'Deleted successfully!']);
+    }
+
+    // Kini siya nga function kay i return ang id sa student sa student nga collection 
+    public function returnStudentFromStudentCollection($usersID) {
+        return students::where("user_id", $usersID)->get()[0];
     }
 }
 
