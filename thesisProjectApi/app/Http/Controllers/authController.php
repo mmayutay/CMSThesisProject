@@ -104,4 +104,4 @@ class authController extends Controller
         $newAccountCreate->save();
         return $newAccountCreate;
     }
-}
+}   
