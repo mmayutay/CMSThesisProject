@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return 'Hello worldasfsafA';
+    return 'Hello worldasfsafAsadfsadgsadg ';
+});
+Route::get('/test', function () {
+    return 'test  ';
 });
 // Route::get('/info','UserDisplayController@index');
 
