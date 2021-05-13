@@ -86,7 +86,10 @@ class DatabaseSeeder extends Seeder
                 ));
             
             $this->call(CMSAccountsSeeder::class);
+<<<<<<< HEAD
             
+=======
+>>>>>>> c3f5e9c8aa8803155db92c504423345785609694
 
     }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ForgotPassword;
 
+//test
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,7 +27,7 @@ Route::get('forgot-password', [
 
 Route::post('reset-password', [
     ChangePasswordController::class,
-    'resetPassword',
+    'passwordResetProcess',
 ]);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -57,7 +58,7 @@ Route::post('sign-up', 'authController@signUp');
 
 Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
 
-//This is for the logged users   matter
+//This is for the logged users matter
 Route::post('/info', 'UserDisplayController@getUsers');
 
 // Route::get('/info/edit', 'UserDisplayController@editUserInfo');
