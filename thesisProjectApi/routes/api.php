@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ForgotPassword;
 
+//test
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,7 +20,6 @@ use App\Http\Controllers\ForgotPassword;
 /*These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group */
-<<<<<<< HEAD
 Route::get('forgot-password', [
     ForgotPassword::class,
     'sendForgotPasswordCode',
@@ -27,13 +27,8 @@ Route::get('forgot-password', [
 
 Route::post('reset-password', [
     ChangePasswordController::class,
-    'resetPassword',
+    'passwordResetProcess',
 ]);
-=======
-Route::get('forgot-password', [ForgotPassword::class, 'sendForgotPasswordCode']);
-
-Route::post('reset-password', [ChangePasswordController::class, 'passwordResetProcess']);
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -41,16 +36,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('get-leaders/{role}', 'UserDisplayController@getAllLeaders');
 
-<<<<<<< HEAD
 // Kini siya nga function kay i return niya ang tanan nga pastors
 Route::get(
     'get-pastors',
     'UserDisplayController@returnAllPastorsWithItsLeaders'
 );
-=======
-// Kini siya nga function kay i return niya ang tanan nga pastors 
-Route::get('get-pastors', 'UserDisplayController@returnAllPastorsWithItsLeaders');
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
 
 //This is for looking who is active and inactive users
 Route::get('allMemberUsers', 'findActiveAndInactiveUsers@returnAllMembers');
@@ -68,20 +58,13 @@ Route::post('sign-up', 'authController@signUp');
 
 Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
 
-<<<<<<< HEAD
-//This is for the logged users   matter
-Route::post('/info', 'UserDisplayController@getUsers');
-=======
-
 //This is for the logged users matter
-Route::post('/info','UserDisplayController@getUsers');
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
+Route::post('/info', 'UserDisplayController@getUsers');
 
 // Route::get('/info/edit', 'UserDisplayController@editUserInfo');
 
 // Route::post('/info/update', 'UserDisplayController@updateUserInfo');
 
-<<<<<<< HEAD
 Route::post(
     'getCurrentUser',
     'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser'
@@ -90,13 +73,6 @@ Route::post(
 Route::get('edit', 'UserDisplayController@edit');
 
 // Kini siya nga function kay iyang kuhaon ang kapareho niya sa cell group
-=======
-Route::post('getCurrentUser', 'App\Http\Controllers\LoggedUserMatters@getTheCurrentUser');
-
-Route::get('edit', 'UserDisplayController@edit');
-
-// Kini siya nga function kay iyang kuhaon ang kapareho niya sa cell group 
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
 Route::get('get-the-same-role/{role}', 'UserDisplayController@returnCellGroup');
 
 // This route is to get the account of a certain user
@@ -104,14 +80,10 @@ Route::get('user-account/{id}', 'UserDisplayController@getUserAccount');
 
 Route::post('updateUser', 'UserDisplayController@update');
 
-<<<<<<< HEAD
 Route::get(
     'return-all-pastors/{code}',
     'UserDisplayController@getAllPastorCode1'
 );
-=======
-Route::get('return-all-pastors/{code}', 'UserDisplayController@getAllPastorCode1');
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
 // Route::post('member', 'UserDisplayController@insert');
 
 Route::post('leader', 'Controls@getCell');
@@ -136,7 +108,6 @@ Route::get('all-new-unvip-members', 'returnVipUsers@allRecordedNewMember');
 
 Route::post('get-user-attendance', 'attendanceController@viewAttendance');
 
-<<<<<<< HEAD
 Route::post(
     'current-user-attendance',
     'attendanceController@returnCurrentUserAttendance'
@@ -166,24 +137,6 @@ Route::post('leader-sc-cg', 'attendanceController@returnEventsandSC');
 
 // Auth::routes();
 
-=======
-Route::post('current-user-attendance', 'attendanceController@returnCurrentUserAttendance');
-
-Route::post('user-attendance-year-selected', 'attendanceController@currentUsersAttendanceYear');
-
-Route::post('viewAttendancesOfSCandEvents', 'attendanceController@viewAttendanceSCandEvents');
-
-Route::post('viewAttendancesOfCellGroup', 'attendanceController@viewCellAttendance');
-
-Route::get('regular-members/{code}', 'attendanceController@returnRegularMembers');
-
-Route::post('leader-sc-cg', 'attendanceController@returnEventsandSC');
-
-
-// Auth::routes();
-
-
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
 //This is for Auxiliary
 Route::post('profile/auxiliary', 'AuxiliaryController@index');
 
@@ -196,14 +149,10 @@ Route::get('ministries/list', 'MinistriesController@ministryList');
 
 Route::post('ministries/add/{id}', 'MinistriesController@store');
 
-<<<<<<< HEAD
 Route::post(
     'return-weekly-attendance',
     'attendanceController@returnWeeklyAttendance'
 );
-=======
-Route::post('return-weekly-attendance', 'attendanceController@returnWeeklyAttendance');
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
 
 //This function will return all the members of a certain group by the ID of a leader
 Route::post('return-members-group', 'Controls@returnMembersOfAGroup');
@@ -211,7 +160,6 @@ Route::post('return-members-group', 'Controls@returnMembersOfAGroup');
 // Route::get('add-role-to-collection', 'findActiveAndInactiveUsers@insertDataForUserRoles');
 
 //This function is for the user to add an event and announcement
-<<<<<<< HEAD
 Route::post(
     'add-event-announcement',
     'eventAndAnnouncementControl@addEventOrAnnouncement'
@@ -342,63 +290,6 @@ Route::delete(
     'trainings-and-classes/remove-student-from-class/{studentID}/{classID}',
     'trainingsAndClasses@removeStudentOfCertainClass'
 );
-=======
-Route::post('add-event-announcement', 'eventAndAnnouncementControl@addEventOrAnnouncement');
-
-Route::get('add-event-announcement/display', 'eventAndAnnouncementControl@returnAllEventsAndAnnouncement');
-
-Route::post('event-announcement/update/{id}', 'eventAndAnnouncementControl@updateEventsAndAnnouncement');
-
-Route::delete('event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
-
-// This route is to return all students of a specific events or announcements
-Route::get('add-event-announcement/return-all-students/{id}', 'eventAndAnnouncementControl@returnAllStudents');
-
-Route::get('event-owner/{id}','eventAndAnnouncementControl@eventOwner');
-
-Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
-
-// This routes is the responsible in adding trainings and also lessons 
-Route::get('trainings-and-classes/return-all-traininings', 'trainingsAndClasses@returnAllTrainings');
-
-Route::post('trainings-and-classes/add-trainings-with-lessons', 'trainingsAndClasses@addTrainingsAndLessons');
-
-Route::get('trainings-and-classes/get-all-trainings/{id}', 'trainingsAndClasses@returnTrainingByUser');
-
-Route::post('trainings-and-classes/add-lesson-of-training/{trainingsID}', 'trainingsAndClasses@addLessonOfTraining');
-
-Route::get('trainings-and-classes/return-lesson-of-selected-training/{id}', 'trainingsAndClasses@returnLessonsOfTraining');
-
-Route::get('trainings-and-classes/return-classes-of-selected-training/{id}', 'trainingsAndClasses@returnClasses');
-
-Route::post('trainings-and-classes/add-classes-with-students', 'trainingsAndClasses@addClasses');
-
-Route::post('trainings-and-classes/update-class-of-training/{classID}', 'trainingsAndClasses@updateClass');
-
-Route::get('trainings-and-classes/return-selected-class/{id}', 'trainingsAndClasses@returnSelectedClass');
-
-Route::get('trainings-and-classes/return-selected-training/{id}', 'trainingsAndClasses@returnSelectedTraining');
-
-Route::get('trainings-and-classes/return-selected-lesson/{lessonID}', 'trainingsAndClasses@returnLessonDetails');
-
-Route::post('trainings-and-classes/add-students-to-class', 'trainingsAndClasses@addStudentToAClass');
-
-Route::post('trainings-and-classes/add-students-records', 'trainingsAndClasses@addStudentRecord');
-
-Route::get('trainings-and-classes/get-students-of-selected-class/{classID}', 'trainingsAndClasses@returnStudentsID');
-
-Route::get('trainings-and-classes/students-of-the-class/{classID}', 'trainingsAndClasses@getStudentOfSelectedClass');
-
-Route::get('trainings-and-classes/update-students-score/{studentId}/{score}/{classID}', 'trainingsAndClasses@updateStudentsScore');
-
-Route::get('trainings-and-classes/deleteLessonOfTraining/{id}', 'trainingsAndClasses@deleteLessonsOfTraining');
-
-Route::get('trainings-and-classes/get-certain-student-collection-student/{usersID}', 'trainingsAndClasses@returnStudentFromStudentCollection');
-
-Route::get('trainings-and-classes/check-student-already-exist/{studentID}/{classID}', 'trainingsAndClasses@checkStudentIfAlreadyExist');
-
-Route::delete('trainings-and-classes/remove-student-from-class/{studentID}/{classID}', 'trainingsAndClasses@removeStudentOfCertainClass');
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
 // This routes are for adding students to records
 // Route::post('class-records/add-student', 'RecordsController@addNewRecord');
 
@@ -420,7 +311,6 @@ Route::delete('trainings-and-classes/remove-student-from-class/{studentID}/{clas
 
 // Route::get('student-trainings-or-class/delete-student/{id}', 'TrainingsRecords@deleteStudent');
 
-<<<<<<< HEAD
 // This route is for the adding an attendance of a member in sunday celebration or adding an attendance in events
 Route::post(
     'add-attendance/today-has-event',
@@ -438,13 +328,3 @@ Route::get(
 );
 
 Route::post('lesson/update/{id}', 'trainingsAndClasses@updateLessonOfTraining');
-=======
-// This route is for the adding an attendance of a member in sunday celebration or adding an attendance in events 
-Route::post('add-attendance/today-has-event', 'AttendanceEventAndSunday@addAttendanceInSCorEvents');
-
-Route::get('add-attendance/get-all-events-dates', 'AttendanceEventAndSunday@allEventsDates');
-
-Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
-
-Route::post('lesson/update/{id}', 'trainingsAndClasses@updateLessonOfTraining');
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
