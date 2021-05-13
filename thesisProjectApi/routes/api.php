@@ -149,6 +149,8 @@ Route::get('trainings-and-classes/return-all-traininings', 'trainingsAndClasses@
 
 Route::post('trainings-and-classes/add-trainings-with-lessons', 'trainingsAndClasses@addTrainingsAndLessons');
 
+Route::delete('trainings-and-classes/delete-selected-training/{trainingID}', 'trainingsAndClasses@deleteTrainingAndLessons');
+
 Route::get('trainings-and-classes/get-all-trainings/{id}', 'trainingsAndClasses@returnTrainingByUser');
 
 Route::post('trainings-and-classes/add-lesson-of-training/{trainingsID}', 'trainingsAndClasses@addLessonOfTraining');
