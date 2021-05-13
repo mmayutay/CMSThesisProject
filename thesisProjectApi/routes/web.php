@@ -15,16 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-<<<<<<< HEAD
-    return 'hello world';
+    return 'Hello world';
 });
 // Route::get('/info','UserDisplayController@index');
 
 // Route::get('profile/auxiliary', 'AuxiliaryController@index');
-=======
-    return "welcome";
-});
-// Route::get('/info','UserDisplayController@index');
-
-// Route::get('profile/auxiliary', 'AuxiliaryController@index');
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
