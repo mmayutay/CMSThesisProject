@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return "welcome";
+    return 'hello world';
 });
 // Route::get('/info','UserDisplayController@index');
 
