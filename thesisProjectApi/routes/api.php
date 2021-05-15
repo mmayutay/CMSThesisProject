@@ -19,7 +19,7 @@ use App\Http\Controllers\ForgotPassword;
 /*These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group */
-Route::get('forgot-password', [ForgotPassword::class, 'sendForgotPasswordCode']);
+Route::get('send-code/{username}', [ForgotPassword::class, 'sendForgotPasswordCode']);
 
 Route::post('reset-password', [ChangePasswordController::class, 'passwordResetProcess']);
 
@@ -36,6 +36,8 @@ Route::get('get-pastors', 'UserDisplayController@returnAllPastorsWithItsLeaders'
 Route::get('allMemberUsers', 'findActiveAndInactiveUsers@returnAllMembers');
 
 Route::post('addInactiveUser', 'findActiveAndInactiveUsers@userInactive');
+
+Route::get('get-active-or-inactive-users/{boolean}', 'findActiveAndInactiveUsers@getInactiveUsers');
 
 //This is for creating account and for logging in
 Route::get('list', 'Controls@allUsersFromAdminToMember');
@@ -99,6 +101,8 @@ Route::post('user-attendance-year-selected', 'attendanceController@currentUsersA
 
 Route::post('viewAttendancesOfSCandEvents', 'attendanceController@viewAttendanceSCandEvents');
 
+Route::post('get-attendance', 'attendanceController@attendanceCellGroup');
+
 Route::post('viewAttendancesOfCellGroup', 'attendanceController@viewCellAttendance');
 
 Route::get('regular-members/{code}', 'attendanceController@returnRegularMembers');
@@ -121,7 +125,7 @@ Route::get('ministries/list', 'MinistriesController@ministryList');
 
 Route::post('ministries/add/{id}', 'MinistriesController@store');
 
-Route::post('return-weekly-attendance', 'attendanceController@returnWeeklyAttendance');
+// Route::post('return-weekly-attendance', 'attendanceController@returnWeeklyAttendance');
 
 //This function will return all the members of a certain group by the ID of a leader
 Route::post('return-members-group', 'Controls@returnMembersOfAGroup');
@@ -158,6 +162,8 @@ Route::post('trainings-and-classes/add-lesson-of-training/{trainingsID}', 'train
 Route::get('trainings-and-classes/return-lesson-of-selected-training/{id}', 'trainingsAndClasses@returnLessonsOfTraining');
 
 Route::get('trainings-and-classes/return-classes-of-selected-training/{id}', 'trainingsAndClasses@returnClasses');
+
+Route::delete('trainings-and-classes/delete-selected-class/{classID}', 'trainingsAndClasses@deleteSelectedClass');
 
 Route::post('trainings-and-classes/add-classes-with-students', 'trainingsAndClasses@addClasses');
 
@@ -212,6 +218,12 @@ Route::post('add-attendance/today-has-event', 'AttendanceEventAndSunday@addAtten
 
 Route::get('add-attendance/get-all-events-dates', 'AttendanceEventAndSunday@allEventsDates');
 
+Route::get('add-attendance/get-all-sunday-attendance', 'AttendanceEventAndSunday@allSundaysAttendance');
+
+Route::get('add-attendance/get-all-cell-group-attendance',  'AttendanceEventAndSunday@allEventsAttendance');
+
 Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
 
 Route::post('lesson/update/{id}', 'trainingsAndClasses@updateLessonOfTraining');
+
+Route::post('reset-pass/update/{id}', 'resetpassword@resetpassword');

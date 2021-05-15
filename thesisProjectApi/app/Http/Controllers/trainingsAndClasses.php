@@ -111,6 +111,12 @@ class trainingsAndClasses extends Controller
         return $currentClassDetails;
     }
 
+    // Kini siya nga function kay i delete ang selected class 
+    public function deleteSelectedClass($classID) {
+        classes::where('id', $classID)->delete();
+        return records::where('classes_id', $classID)->delete();
+    }
+
     // Kini siya nga function kay mag ug student sa class
     public function addStudentToAClass(Request $request)
     {

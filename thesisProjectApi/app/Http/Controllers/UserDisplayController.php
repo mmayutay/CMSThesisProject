@@ -45,7 +45,6 @@ class UserDisplayController extends Controller
 
         $info = cms_users::find($id);
 
-        // return $info;
         $info->lastname = $request->newUser['Lastname'];
         $info->firstname = $request->newUser['Firstname'];
         $info->birthday = $request->newUser['Birthday'];

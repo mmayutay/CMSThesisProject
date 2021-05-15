@@ -25,11 +25,24 @@ class findActiveAndInactiveUsers extends Controller
             $userInactive->save();
             return $userInactive;
         }else {
-            $findMemberExist->active = $request->input('active');
+            $findMemberExist[0]->active = $request->input('active');
+            $findMemberExist[0]->save();
             return $findMemberExist;
         }
 
     } 
+
+    public function getInactiveUsers($boolean) {
+        $arrayOfUsers = array();
+        $getAllUsers = activeOrInactiveUsers::where('active', $boolean)->get();
+        if(count($getAllUsers) != 0) {
+            foreach ($getAllUsers->pluck('userId') as $key => $value) {
+                array_push($arrayOfUsers, cms_users::where('id', $value)->get()[0]);
+            }
+            return $arrayOfUsers;
+        }
+        return $arrayOfUsers;
+    }
 
     // public function insertDataForUserRoles() {
     //     $useRoles = new userrolesIDs;

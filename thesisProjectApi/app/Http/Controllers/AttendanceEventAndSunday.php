@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\eventsAndAnnouncements;
 use App\Models\eventsAttendance;
+use App\Models\cms_attendance;
 
 class AttendanceEventAndSunday extends Controller
 {
@@ -21,6 +22,14 @@ class AttendanceEventAndSunday extends Controller
 
     public function allEventsDates() {
         return eventsAndAnnouncements::all();
+    }
+
+    public function allSundaysAttendance() {
+        return cms_attendance::all();
+    }
+
+    public function allEventsAttendance() {
+        return eventsAttendance::all();
     }
 
     public function attendanceForTheSelectedEvent($id) {
