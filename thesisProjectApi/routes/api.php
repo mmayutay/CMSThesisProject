@@ -59,6 +59,9 @@ Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
 //This is for the logged users   matter
 Route::post('/info', 'UserDisplayController@getUsers');
 
+// Kini siya nga function kay kuhaon ang tanan nga members ana nga selected lesson and i check sad if iyang member kay naa say member 
+Route::get('certain-leader/{leaderID}', 'UserDisplayController@returnMembersOfCertainLeader');
+
 // Route::get('/info/edit', 'UserDisplayController@editUserInfo');
 
 // Route::post('/info/update', 'UserDisplayController@updateUserInfo');
