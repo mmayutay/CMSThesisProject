@@ -106,29 +106,17 @@ Route::get('all-new-unvip-members', 'returnVipUsers@allRecordedNewMember');
 
 Route::post('get-user-attendance', 'attendanceController@viewAttendance');
 
-Route::post(
-    'current-user-attendance',
-    'attendanceController@returnCurrentUserAttendance'
-);
+Route::post('current-user-attendance', 'attendanceController@returnCurrentUserAttendance');
 
-Route::post(
-    'user-attendance-year-selected',
-    'attendanceController@currentUsersAttendanceYear'
-);
+Route::post('user-attendance-year-selected','attendanceController@currentUsersAttendanceYear');
 
-Route::post(
-    'viewAttendancesOfSCandEvents',
-    'attendanceController@viewAttendanceSCandEvents'
-);
+Route::post('viewAttendancesOfSCandEvents', 'attendanceController@viewAttendanceSCandEvents');
 
 Route::post('get-attendance', 'attendanceController@attendanceCellGroup');
 
 Route::post('viewAttendancesOfCellGroup', 'attendanceController@viewCellAttendance');
 
-Route::get(
-    'regular-members/{code}',
-    'attendanceController@returnRegularMembers'
-);
+Route::get('regular-members/{code}', 'attendanceController@returnRegularMembers');
 
 Route::post('leader-sc-cg', 'attendanceController@returnEventsandSC');
 
@@ -255,10 +243,7 @@ Route::post(
     'AttendanceEventAndSunday@addAttendanceInSCorEvents'
 );
 
-Route::get(
-    'add-attendance/get-all-events-dates',
-    'AttendanceEventAndSunday@allEventsDates'
-);
+Route::get('add-attendance/get-all-events-dates','AttendanceEventAndSunday@allEventsDates');
 
 Route::get('add-attendance/get-all-sunday-attendance', 'AttendanceEventAndSunday@allSundaysAttendance');
 

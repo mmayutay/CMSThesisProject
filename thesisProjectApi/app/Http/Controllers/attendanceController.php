@@ -148,8 +148,8 @@ class attendanceController extends Controller
             if(count($member) != 0) {
                 array_push($arrayOfRegularUsers, $member[0]);
             }
-
         }
+        return $arrayOfRegularUsers;
     }
 
     public function attendanceCellGroup(Request $request) {
