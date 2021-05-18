@@ -17,36 +17,14 @@ class authController extends Controller
 {
     public function login(Request $request)
     {
-<<<<<<< HEAD
-        // \Log::debug('Test!');
-        // $email = $request->input('username');
-        // $pass = $request->input('password');
-
-        // $userRequest = cms_accounts::where('username', $email)->get();
-        // if (count($userRequest) == 0) {
-        //     return $userRequest;
-        // } else {
-        //     $partialPassword = $userRequest->pluck('password');
-        //     //ipausab gamit hash nga laravel
-        //     $password = Crypt::decryptString($partialPassword[0]);
-        //     if ($password == $pass) {
-        //         return $userRequest;
-        //     }
-        //     return false;
-        // }
-=======
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
         $email=$request->input('username');
         $pass=$request->input('password');
 
         $userRequest=cms_accounts::where('username', $email)
         ->get();
         if(count($userRequest) == 0) {
-<<<<<<< HEAD
-=======
             // return 'test';
             //
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
             return $userRequest;
         }else {
             $partialPassword=$userRequest->pluck('password');
@@ -125,11 +103,7 @@ class authController extends Controller
             $request->newUser['Firstname'][0] .
             $request->newUser['Lastname'] .
             $user->id;
-<<<<<<< HEAD
-        $newAccountCreate->password = Crypt::encryptString(
-=======
         $newAccountCreate->password = \Hash::make(
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
             $request->newUser['Lastname'] . 'Member' . $user->id
         );
         $newAccountCreate->roles = $userRole->roles;
