@@ -29,6 +29,13 @@ class trainingsAndClasses extends Controller
         return $trainings;
     }
 
+    // Kini siya nga function kay i delete ang certain training at the same time ang lessons under ana nga certain training
+    public function deleteTrainingAndLessons($trainingID) {
+        trainings::where('id', $trainingID)->delete();
+        $lessons = lessons::where('training_id', $trainingID)->delete();
+        return $lessons;
+    }
+
     // Kini siya nga function kay kuhaon niya ang tanan nga trainings nga gihimo sa certain user
     public function returnTrainingByUser($id)
     {
@@ -102,6 +109,12 @@ class trainingsAndClasses extends Controller
         $currentClassDetails->remarks = $request->input('remarks');
         $currentClassDetails->save();
         return $currentClassDetails;
+    }
+
+    // Kini siya nga function kay i delete ang selected class 
+    public function deleteSelectedClass($classID) {
+        classes::where('id', $classID)->delete();
+        return records::where('classes_id', $classID)->delete();
     }
 
     // Kini siya nga function kay mag ug student sa class

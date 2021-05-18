@@ -20,10 +20,7 @@ use App\Http\Controllers\ForgotPassword;
 /*These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group */
-Route::get('forgot-password', [
-    ForgotPassword::class,
-    'sendForgotPasswordCode',
-]);
+Route::get('send-code/{username}', [ForgotPassword::class, 'sendForgotPasswordCode']);
 
 Route::post('reset-password', [
     ChangePasswordController::class,
@@ -47,6 +44,8 @@ Route::get('allMemberUsers', 'findActiveAndInactiveUsers@returnAllMembers');
 
 Route::post('addInactiveUser', 'findActiveAndInactiveUsers@userInactive');
 
+Route::get('get-active-or-inactive-users/{boolean}', 'findActiveAndInactiveUsers@getInactiveUsers');
+
 //This is for creating account and for logging in
 Route::get('list', 'Controls@allUsersFromAdminToMember');
 
@@ -60,6 +59,9 @@ Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
 
 //This is for the logged users matter
 Route::post('/info', 'UserDisplayController@getUsers');
+
+// Kini siya nga function kay kuhaon ang tanan nga members ana nga selected lesson and i check sad if iyang member kay naa say member 
+Route::get('certain-leader/{leaderID}', 'UserDisplayController@returnMembersOfCertainLeader');
 
 // Route::get('/info/edit', 'UserDisplayController@editUserInfo');
 
@@ -108,30 +110,17 @@ Route::get('all-new-unvip-members', 'returnVipUsers@allRecordedNewMember');
 
 Route::post('get-user-attendance', 'attendanceController@viewAttendance');
 
-Route::post(
-    'current-user-attendance',
-    'attendanceController@returnCurrentUserAttendance'
-);
+Route::post('current-user-attendance', 'attendanceController@returnCurrentUserAttendance');
 
-Route::post(
-    'user-attendance-year-selected',
-    'attendanceController@currentUsersAttendanceYear'
-);
+Route::post('user-attendance-year-selected','attendanceController@currentUsersAttendanceYear');
 
-Route::post(
-    'viewAttendancesOfSCandEvents',
-    'attendanceController@viewAttendanceSCandEvents'
-);
+Route::post('viewAttendancesOfSCandEvents', 'attendanceController@viewAttendanceSCandEvents');
 
-Route::post(
-    'viewAttendancesOfCellGroup',
-    'attendanceController@viewCellAttendance'
-);
+Route::post('get-attendance', 'attendanceController@attendanceCellGroup');
 
-Route::get(
-    'regular-members/{code}',
-    'attendanceController@returnRegularMembers'
-);
+Route::post('viewAttendancesOfCellGroup', 'attendanceController@viewCellAttendance');
+
+Route::get('regular-members/{code}', 'attendanceController@returnRegularMembers');
 
 Route::post('leader-sc-cg', 'attendanceController@returnEventsandSC');
 
@@ -149,10 +138,7 @@ Route::get('ministries/list', 'MinistriesController@ministryList');
 
 Route::post('ministries/add/{id}', 'MinistriesController@store');
 
-Route::post(
-    'return-weekly-attendance',
-    'attendanceController@returnWeeklyAttendance'
-);
+// Route::post('return-weekly-attendance', 'attendanceController@returnWeeklyAttendance');
 
 //This function will return all the members of a certain group by the ID of a leader
 Route::post('return-members-group', 'Controls@returnMembersOfAGroup');
@@ -190,106 +176,50 @@ Route::get('event-owner/{id}', 'eventAndAnnouncementControl@eventOwner');
 
 Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
 
-// This routes is the responsible in adding trainings and also lessons
-Route::get(
-    'trainings-and-classes/return-all-traininings',
-    'trainingsAndClasses@returnAllTrainings'
-);
+// This routes is the responsible in adding trainings and also lessons 
+Route::get('trainings-and-classes/return-all-traininings', 'trainingsAndClasses@returnAllTrainings');
 
-Route::post(
-    'trainings-and-classes/add-trainings-with-lessons',
-    'trainingsAndClasses@addTrainingsAndLessons'
-);
+Route::post('trainings-and-classes/add-trainings-with-lessons', 'trainingsAndClasses@addTrainingsAndLessons');
 
-Route::get(
-    'trainings-and-classes/get-all-trainings/{id}',
-    'trainingsAndClasses@returnTrainingByUser'
-);
+Route::delete('trainings-and-classes/delete-selected-training/{trainingID}', 'trainingsAndClasses@deleteTrainingAndLessons');
 
-Route::post(
-    'trainings-and-classes/add-lesson-of-training/{trainingsID}',
-    'trainingsAndClasses@addLessonOfTraining'
-);
+Route::get('trainings-and-classes/get-all-trainings/{id}', 'trainingsAndClasses@returnTrainingByUser');
 
-Route::get(
-    'trainings-and-classes/return-lesson-of-selected-training/{id}',
-    'trainingsAndClasses@returnLessonsOfTraining'
-);
+Route::post('trainings-and-classes/add-lesson-of-training/{trainingsID}', 'trainingsAndClasses@addLessonOfTraining');
 
-Route::get(
-    'trainings-and-classes/return-classes-of-selected-training/{id}',
-    'trainingsAndClasses@returnClasses'
-);
+Route::get('trainings-and-classes/return-lesson-of-selected-training/{id}', 'trainingsAndClasses@returnLessonsOfTraining');
 
-Route::post(
-    'trainings-and-classes/add-classes-with-students',
-    'trainingsAndClasses@addClasses'
-);
+Route::get('trainings-and-classes/return-classes-of-selected-training/{id}', 'trainingsAndClasses@returnClasses');
 
-Route::post(
-    'trainings-and-classes/update-class-of-training/{classID}',
-    'trainingsAndClasses@updateClass'
-);
+Route::delete('trainings-and-classes/delete-selected-class/{classID}', 'trainingsAndClasses@deleteSelectedClass');
 
-Route::get(
-    'trainings-and-classes/return-selected-class/{id}',
-    'trainingsAndClasses@returnSelectedClass'
-);
+Route::post('trainings-and-classes/add-classes-with-students', 'trainingsAndClasses@addClasses');
 
-Route::get(
-    'trainings-and-classes/return-selected-training/{id}',
-    'trainingsAndClasses@returnSelectedTraining'
-);
+Route::post('trainings-and-classes/update-class-of-training/{classID}', 'trainingsAndClasses@updateClass');
 
-Route::get(
-    'trainings-and-classes/return-selected-lesson/{lessonID}',
-    'trainingsAndClasses@returnLessonDetails'
-);
+Route::get('trainings-and-classes/return-selected-class/{id}', 'trainingsAndClasses@returnSelectedClass');
 
-Route::post(
-    'trainings-and-classes/add-students-to-class',
-    'trainingsAndClasses@addStudentToAClass'
-);
+Route::get('trainings-and-classes/return-selected-training/{id}', 'trainingsAndClasses@returnSelectedTraining');
 
-Route::post(
-    'trainings-and-classes/add-students-records',
-    'trainingsAndClasses@addStudentRecord'
-);
+Route::get('trainings-and-classes/return-selected-lesson/{lessonID}', 'trainingsAndClasses@returnLessonDetails');
 
-Route::get(
-    'trainings-and-classes/get-students-of-selected-class/{classID}',
-    'trainingsAndClasses@returnStudentsID'
-);
+Route::post('trainings-and-classes/add-students-to-class', 'trainingsAndClasses@addStudentToAClass');
 
-Route::get(
-    'trainings-and-classes/students-of-the-class/{classID}',
-    'trainingsAndClasses@getStudentOfSelectedClass'
-);
+Route::post('trainings-and-classes/add-students-records', 'trainingsAndClasses@addStudentRecord');
 
-Route::get(
-    'trainings-and-classes/update-students-score/{studentId}/{score}/{classID}',
-    'trainingsAndClasses@updateStudentsScore'
-);
+Route::get('trainings-and-classes/get-students-of-selected-class/{classID}', 'trainingsAndClasses@returnStudentsID');
 
-Route::get(
-    'trainings-and-classes/deleteLessonOfTraining/{id}',
-    'trainingsAndClasses@deleteLessonsOfTraining'
-);
+Route::get('trainings-and-classes/students-of-the-class/{classID}', 'trainingsAndClasses@getStudentOfSelectedClass');
 
-Route::get(
-    'trainings-and-classes/get-certain-student-collection-student/{usersID}',
-    'trainingsAndClasses@returnStudentFromStudentCollection'
-);
+Route::get('trainings-and-classes/update-students-score/{studentId}/{score}/{classID}', 'trainingsAndClasses@updateStudentsScore');
 
-Route::get(
-    'trainings-and-classes/check-student-already-exist/{studentID}/{classID}',
-    'trainingsAndClasses@checkStudentIfAlreadyExist'
-);
+Route::get('trainings-and-classes/deleteLessonOfTraining/{id}', 'trainingsAndClasses@deleteLessonsOfTraining');
 
-Route::delete(
-    'trainings-and-classes/remove-student-from-class/{studentID}/{classID}',
-    'trainingsAndClasses@removeStudentOfCertainClass'
-);
+Route::get('trainings-and-classes/get-certain-student-collection-student/{usersID}', 'trainingsAndClasses@returnStudentFromStudentCollection');
+
+Route::get('trainings-and-classes/check-student-already-exist/{studentID}/{classID}', 'trainingsAndClasses@checkStudentIfAlreadyExist');
+
+Route::delete('trainings-and-classes/remove-student-from-class/{studentID}/{classID}', 'trainingsAndClasses@removeStudentOfCertainClass');
 // This routes are for adding students to records
 // Route::post('class-records/add-student', 'RecordsController@addNewRecord');
 
@@ -317,14 +247,14 @@ Route::post(
     'AttendanceEventAndSunday@addAttendanceInSCorEvents'
 );
 
-Route::get(
-    'add-attendance/get-all-events-dates',
-    'AttendanceEventAndSunday@allEventsDates'
-);
+Route::get('add-attendance/get-all-events-dates','AttendanceEventAndSunday@allEventsDates');
 
-Route::get(
-    'add-attendance/get-event-details/{id}',
-    'AttendanceEventAndSunday@attendanceForTheSelectedEvent'
-);
+Route::get('add-attendance/get-all-sunday-attendance', 'AttendanceEventAndSunday@allSundaysAttendance');
+
+Route::get('add-attendance/get-all-cell-group-attendance',  'AttendanceEventAndSunday@allEventsAttendance');
+
+Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
 
 Route::post('lesson/update/{id}', 'trainingsAndClasses@updateLessonOfTraining');
+
+Route::post('reset-pass/update/{id}', 'resetpassword@resetpassword');

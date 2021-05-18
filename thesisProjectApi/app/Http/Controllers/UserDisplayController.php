@@ -47,7 +47,6 @@ class UserDisplayController extends Controller
 
         $info = cms_users::find($id);
 
-        // return $info;
         $info->lastname = $request->newUser['Lastname'];
         $info->firstname = $request->newUser['Firstname'];
         $info->birthday = $request->newUser['Birthday'];
@@ -111,20 +110,24 @@ class UserDisplayController extends Controller
         return $arrayOfUsers;
     }
 
-    // public function insert(Request $request)
-    // {
-    //     $id = $request->newUser['id'];
 
-    //     $cell = cms_members::find($id);
-    //     $cell->name =  $request->input('Name');
-    //     $cell->email = $request->input('Email');
-    //     $cell->leader = $request->input('Leader');
-    //     $cell->age = $request->input('Age');
-    //     $cell->member_status = $request->input('Member_status');
-    //     $cell->save();
-
-    //     return $cell;
-    // }
+    // Kini siya nga function kay kuhaon ang members sa certain leader and check at the same time kung naa sad siyay member nga naa say member
+    public function returnMembersOfCertainLeader($leaderID) {
+        $leaders = array();
+        $members = cms_users::where('leader', $leaderID)->get();
+        if(count($leaders) == 0) {
+            array_push($leaders, cms_users::where('id', $leaderID)->get()[0]);
+        }else {
+            array_push($leaders, cms_users::where('id', $leaderID)->get()[0]);
+        }
+        foreach ($members as $key => $value) {
+            $leaderMember = cms_users::where('leader', $value->id)->get();
+            if(count($leaderMember) != 0) {
+                array_push($leaders, $value);
+            }
+        }
+        return $leaders;
+    }
 
     /**
      * Remove the specified resource from storage.

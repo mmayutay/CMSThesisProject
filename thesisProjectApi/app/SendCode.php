@@ -4,6 +4,7 @@ namespace App;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
+use Nexmo\Laravel\Facade\Nexmo;
 
 class SendCode
 {
@@ -22,11 +23,13 @@ class SendCode
     }
 
     public static function sendCode($phone) {
+        error_log($phone);
             try {
                 $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
                 $client = new \Nexmo\Client($basic);
       
                 $receiverNumber = $phone;
+                error_log("Number:");
                 error_log($receiverNumber);
 
                 $code = rand(1111,9999);
@@ -45,14 +48,5 @@ class SendCode
                 return response()->json(['success',$e->getMessage()]);
             }
         }
-            // $code = rand(1111,9999);
-            //     $nexmo = app('Nexmo\Client');
-            //         $nexmo->message()->send([
-            //             'to' => '+639659615929',
-            //             'from' => '+639659615929',
-            //             'text' => 'Verification Code: '. $code,
-            //         ]);
-            //         error_log("Send code:",$code);
-            //         return $code;
 
 }

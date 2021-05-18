@@ -21,10 +21,12 @@ class ForgotPassword extends Controller
     //
     
 
-    public function sendForgotPasswordCode(Request $request) {
-        $request = 'BHCFMGamboa3';
-        $value = $request;
-
+    public function sendForgotPasswordCode($username, Request $request) {
+        // $request = 'BHCFMGamboa3';   
+        $value = $username;
+        error_log("Username:");
+        // error_log($request);
+        $this->verifyCode($value);
         if(!$this->validUsername($value)) {
             error_log($value);
             return response()->json([
@@ -45,10 +47,9 @@ class ForgotPassword extends Controller
 
    public function verifyCode($username) {
        $userId = cms_accounts::where('username', $username)->first();
-    //    error_log($userId->userid);
-    //    $userId->userid;
+       $userValue = $userId->userid;
 
-       $contact = cms_users::where('id', $userId->userid)->first();
+       $contact = cms_users::where('id', $userValue)->first();
        $number = $contact->contact_number;
 
        $newCode = new SendCode;
