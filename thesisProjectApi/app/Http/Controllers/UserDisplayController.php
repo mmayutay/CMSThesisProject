@@ -8,28 +8,30 @@ use App\Models\cms_accounts;
 use App\Http\Controllers\UserDisplayController;
 class UserDisplayController extends Controller
 {
-    
     public function index()
     {
-        
         $users = cms_users::all();
-        
-        return view('welcome')->with(compact('users',$users));
+
+        return view('hello world')->with(compact('users', $users));
     }
 
-    public function getUsers(Request $request){
-        $userRequest = cms_users::where('id', $request->input('userID'))
-        ->get();
+    public function getUsers(Request $request)
+    {
+        $userRequest = cms_users::where('id', $request->input('userID'))->get();
         return $userRequest;
     }
 
-    public function returnAllPastorsWithItsLeaders() {
-        $arrayOfPastors = array();
+    public function returnAllPastorsWithItsLeaders()
+    {
+        $arrayOfPastors = [];
         $pastors = cms_accounts::where('roles', 1)->get();
         foreach ($pastors as $key => $value) {
             $user = cms_users::where('id', $value->userid)->get()[0];
             $allPastorsMember = cms_users::where('leader', $user->id)->get();
-            array_push($arrayOfPastors, array("pastor" => $user, "leaders" => $allPastorsMember));
+            array_push($arrayOfPastors, [
+                'pastor' => $user,
+                'leaders' => $allPastorsMember,
+            ]);
         }
         return $arrayOfPastors;
     }
@@ -38,8 +40,8 @@ class UserDisplayController extends Controller
     {
         //
     }
- 
-    public function update(Request $request, $id)
+
+    public function update(Request $request)
     {
         $id = $request->newUser['id'];
 
@@ -63,25 +65,33 @@ class UserDisplayController extends Controller
         // return $info;
     }
 
-    public function getAllLeaders($role) {
-        $arrayOfLeaders = array();
-        $getAllLeaders = cms_accounts::where('roles', $role)->get()->pluck('userid');
+    public function getAllLeaders($role)
+    {
+        $arrayOfLeaders = [];
+        $getAllLeaders = cms_accounts::where('roles', $role)
+            ->get()
+            ->pluck('userid');
         foreach ($getAllLeaders as $key => $value) {
-            array_push($arrayOfLeaders, cms_users::where('id', $value)->get()[0]);
+            array_push(
+                $arrayOfLeaders,
+                cms_users::where('id', $value)->get()[0]
+            );
         }
         return $arrayOfLeaders;
-
     }
 
-    public function getUserAccount($id) {
+    public function getUserAccount($id)
+    {
         return cms_accounts::where('userid', $id)->get()[0];
     }
 
-
-    // Kini siya nga function kay kuhaon ang tanan nga code 1 
-    public function getAllPastorCode1($code) {
-        $pastorsArray = array();
-        $usersIDs = cms_accounts::where("roles", $code)->get()->pluck("userid");
+    // Kini siya nga function kay kuhaon ang tanan nga code 1
+    public function getAllPastorCode1($code)
+    {
+        $pastorsArray = [];
+        $usersIDs = cms_accounts::where('roles', $code)
+            ->get()
+            ->pluck('userid');
         foreach ($usersIDs as $key => $value) {
             $userData = cms_users::where('id', $value)->get()[0];
             array_push($pastorsArray, $userData);
@@ -89,12 +99,13 @@ class UserDisplayController extends Controller
         return $pastorsArray;
     }
 
-    // Kini siya nga function kay kuhaon niya ang iyang cellgroup, ang kapareho niya ug role 
-    public function returnCellGroup($role) {
-        $arrayOfUsers = array();
-        $sameRoles = cms_accounts::where("roles", $role)->get();
+    // Kini siya nga function kay kuhaon niya ang iyang cellgroup, ang kapareho niya ug role
+    public function returnCellGroup($role)
+    {
+        $arrayOfUsers = [];
+        $sameRoles = cms_accounts::where('roles', $role)->get();
         foreach ($sameRoles as $key => $value) {
-            $userData = cms_users::where("id", $value->userid)->get()[0];
+            $userData = cms_users::where('id', $value->userid)->get()[0];
             array_push($arrayOfUsers, $userData);
         }
         return $arrayOfUsers;
@@ -125,6 +136,4 @@ class UserDisplayController extends Controller
     {
         //
     }
-
-    
 }
