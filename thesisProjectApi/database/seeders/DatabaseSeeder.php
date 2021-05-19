@@ -15,10 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
         // \App\Models\User::factory(10)->create();
-        DB::table('cms_users')->insert(array(
-            array(
+        DB::table('cms_users')->insert([
+            [
                 'lastname' => 'Yorong',
                 'firstname' => 'Raymond',
                 'birthday' => '03/12/1999',
@@ -33,12 +32,12 @@ class DatabaseSeeder extends Seeder
                 'twitter' => 'chu@twit.ter',
                 'leader' => '',
                 'category' => 'Professional',
-                'isCGVIP' => 'false',
-                'isSCVIP' => 'false',
+                'isCGVIP' => 'true',
+                'isSCVIP' => 'true',
                 'auxilliary' => 'Blessed Youth',
-                'ministries' => 'PraiseAndWorship'
-            ),
-            array(
+                'ministries' => 'PraiseAndWorship',
+            ],
+            [
                 'lastname' => 'Gamboa',
                 'firstname' => 'Ma. Lyn',
                 'birthday' => '08/06/1999',
@@ -56,26 +55,26 @@ class DatabaseSeeder extends Seeder
                 'isCGVIP' => 'false',
                 'isSCVIP' => 'false',
                 'auxilliary' => 'Blessed Youth',
-                'ministries' => 'Multimedia'
-            )
-            ));
-            DB::table('userroles_i_ds')->insert(array(
-                array(
-                    'id' => '0',
-                    'roles' => 'Admin'
-                ),
-                array(
-                    'id' => '1',
-                    'roles' => 'Pastor'
-                ),
-                array(
-                    'id' => '12',
-                    'roles' => 'Primary Leader'
-                ),
-                array(
-                    'id' => '144',
-                    'roles' => 'Member'
-                ),
+                'ministries' => 'Multimedia',
+            ],
+        ]);
+        DB::table('userroles_i_ds')->insert([
+            [
+                'id' => '0',
+                'roles' => 'Admin',
+            ],
+            [
+                'id' => '1',
+                'roles' => 'Pastor',
+            ],
+            [
+                'id' => '12',
+                'roles' => 'Primary Leader',
+            ],
+            [
+                'id' => '144',
+                'roles' => 'Member',
+            ],
             // DB::table('cms_attendances')->insert(array(
             //     array(
             //         'leader' => 'Mars',
@@ -83,13 +82,8 @@ class DatabaseSeeder extends Seeder
             //         'type' => 'SC',
             //         'date' => 'Sunday February 7, 2021'
             //     )
-                ));
-            
-            $this->call(CMSAccountsSeeder::class);
-<<<<<<< HEAD
-            
-=======
->>>>>>> c3f5e9c8aa8803155db92c504423345785609694
+        ]);
 
+        $this->call(CMSAccountsSeeder::class);
     }
 }
