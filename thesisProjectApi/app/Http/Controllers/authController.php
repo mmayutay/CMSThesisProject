@@ -12,11 +12,13 @@ use App\Models\cms_members;
 use Illuminate\Support\Facades\Auth;
 use App\Models\cmsVipUsers;
 use App\Models\userrolesIDs;
+use Illuminate\Support\Facades\Hash;
 
 class authController extends Controller
 {
     public function login(Request $request)
     {
+        \Log::info(Hash::make('password'));
         \Log::debug('Test!');
         $email = $request->input('username');
         $pass = $request->input('password');
@@ -26,8 +28,11 @@ class authController extends Controller
             return $userRequest;
         } else {
             $partialPassword = $userRequest->pluck('password');
-            $password = Crypt::decryptString($partialPassword[0]);
-            if ($password == $pass) {
+            // $password = Crypt::decryptString($partialPassword[0]);
+            // if ($password == $pass) {
+            //     return $userRequest;
+            // }
+            if(Hash::check($pass, $partialPassword[0])){
                 return $userRequest;
             }
             return false;
@@ -97,9 +102,12 @@ class authController extends Controller
             $request->newUser['Firstname'][0] .
             $request->newUser['Lastname'] .
             $user->id;
-        $newAccountCreate->password = Crypt::encryptString(
-            $request->newUser['Lastname'] . 'Member' . $user->id
-        );
+        // $newAccountCreate->password = Crypt::encryptString(
+        //     $request->newUser['Lastname'] . 'Member' . $user->id
+        // );
+        $newAccountCreate->password = Hash::make($request->newUser['Lastname'] . 'Member' . $user->id);
+        \Log::info(Hash::make($request->newUser['Lastname'] . 'Member' . $user->id));
+        // $newAccountCreate->password = Hash::make('password');
         $newAccountCreate->roles = $userRole->roles;
         $newAccountCreate->save();
         return $newAccountCreate;

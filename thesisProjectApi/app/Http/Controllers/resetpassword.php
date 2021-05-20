@@ -16,12 +16,8 @@ class resetpassword extends Controller
             'confirmPassword' => 'required',
         ]);
 
-        
         $user = cms_accounts::where('passUsername', $request->username)
                             ->update(['newPassword' => bcrypt($request->password)]);
-        // $userData->update([
-        //     'password' => bcrypt($request->password),
-        // ]);
 
         return response()->json([
             'data' => 'Password has been updated'

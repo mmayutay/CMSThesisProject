@@ -69,6 +69,8 @@ Route::get('user-account/{id}', 'UserDisplayController@getUserAccount');
 
 Route::post('updateUser', 'UserDisplayController@update');
 
+Route::delete('user/delete/{id}', 'UserDisplayController@deleteUser');
+
 Route::get('return-all-pastors/{code}', 'UserDisplayController@getAllPastorCode1');
 // Route::post('member', 'UserDisplayController@insert');
 
@@ -217,4 +219,5 @@ Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@at
 
 Route::post('lesson/update/{id}', 'trainingsAndClasses@updateLessonOfTraining');
 
-Route::post('reset-pass/update/{id}', 'resetpassword@resetpassword');
+// Route::post('reset-pass/update/{id}', 'resetpassword@resetpassword');
+

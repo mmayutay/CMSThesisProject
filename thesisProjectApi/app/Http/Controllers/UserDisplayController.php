@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\cms_users;
 use App\Models\cms_accounts;
+use App\Models\eventsAndAnnouncements;
 use App\Http\Controllers\UserDisplayController;
 class UserDisplayController extends Controller
 {
@@ -120,9 +121,32 @@ class UserDisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteUser($id)
     {
         //
+        try{
+            $accountId = cms_accounts::find($id);
+
+            $userId = cms_users::where('id', $accountId->userid)->first();
+            
+            $events = eventsAndAnnouncements::where('eventOwner', $accountId->userid)->first();
+            
+            if($events) {
+                $events->delete();
+                $userId->delete();
+                $accountId->delete();
+            }
+            else{
+                $userId->delete();
+                $accountId->delete();
+            }
+            return response()->json(['success', 'Deleted succesfully']);
+        }
+        catch(Exception $e){
+
+            return response()->json(['error', $e->getmessage()]);
+        }
+       
     }
 
     
