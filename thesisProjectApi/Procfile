@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 web: vendor/bin/heroku-php-apache2 public/
+=======
+web: vendor/bin/heroku-php-apache2 public/
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1

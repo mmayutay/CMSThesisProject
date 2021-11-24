@@ -10,6 +10,7 @@ use App\Models\eventsAndAnnouncements;
 
 class UserDisplayController extends Controller
 {
+<<<<<<< HEAD
 
     public function index()
     {
@@ -17,23 +18,41 @@ class UserDisplayController extends Controller
         $users = cms_users::all();
 
         return view('welcome')->with(compact('users', $users));
+=======
+    public function index()
+    {
+        $users = cms_users::all();
+
+        return view('hello world')->with(compact('users', $users));
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
     }
 
     public function getUsers(Request $request)
     {
+<<<<<<< HEAD
         $userRequest = cms_users::where('id', $request->input('userID'))
             ->get();
+=======
+        $userRequest = cms_users::where('id', $request->input('userID'))->get();
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
         return $userRequest;
     }
 
     public function returnAllPastorsWithItsLeaders()
     {
+<<<<<<< HEAD
         $arrayOfPastors = array();
+=======
+        $arrayOfPastors = [];
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
         $pastors = cms_accounts::where('roles', 1)->get();
         foreach ($pastors as $key => $value) {
             $user = cms_users::where('id', $value->userid)->get()[0];
             $allPastorsMember = cms_users::where('leader', $user->id)->get();
-            array_push($arrayOfPastors, array("pastor" => $user, "leaders" => $allPastorsMember));
+            array_push($arrayOfPastors, [
+                'pastor' => $user,
+                'leaders' => $allPastorsMember,
+            ]);
         }
         return $arrayOfPastors;
     }
@@ -68,10 +87,20 @@ class UserDisplayController extends Controller
 
     public function getAllLeaders($role)
     {
+<<<<<<< HEAD
         $arrayOfLeaders = array();
         $getAllLeaders = cms_accounts::where('roles', $role)->get()->pluck('userid');
+=======
+        $arrayOfLeaders = [];
+        $getAllLeaders = cms_accounts::where('roles', $role)
+            ->get()
+            ->pluck('userid');
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
         foreach ($getAllLeaders as $key => $value) {
-            array_push($arrayOfLeaders, cms_users::where('id', $value)->get()[0]);
+            array_push(
+                $arrayOfLeaders,
+                cms_users::where('id', $value)->get()[0]
+            );
         }
         return $arrayOfLeaders;
     }
@@ -81,12 +110,22 @@ class UserDisplayController extends Controller
         return cms_accounts::where('userid', $id)->get()[0];
     }
 
+<<<<<<< HEAD
 
     // Kini siya nga function kay kuhaon ang tanan nga code 1 
     public function getAllPastorCode1($code)
     {
         $pastorsArray = array();
         $usersIDs = cms_accounts::where("roles", $code)->get()->pluck("userid");
+=======
+    // Kini siya nga function kay kuhaon ang tanan nga code 1
+    public function getAllPastorCode1($code)
+    {
+        $pastorsArray = [];
+        $usersIDs = cms_accounts::where('roles', $code)
+            ->get()
+            ->pluck('userid');
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
         foreach ($usersIDs as $key => $value) {
             $userData = cms_users::where('id', $value)->get()[0];
             array_push($pastorsArray, $userData);
@@ -94,13 +133,21 @@ class UserDisplayController extends Controller
         return $pastorsArray;
     }
 
+<<<<<<< HEAD
     // Kini siya nga function kay kuhaon niya ang iyang cellgroup, ang kapareho niya ug role 
     public function returnCellGroup($role)
     {
         $arrayOfUsers = array();
         $sameRoles = cms_accounts::where("roles", $role)->get();
+=======
+    // Kini siya nga function kay kuhaon niya ang iyang cellgroup, ang kapareho niya ug role
+    public function returnCellGroup($role)
+    {
+        $arrayOfUsers = [];
+        $sameRoles = cms_accounts::where('roles', $role)->get();
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
         foreach ($sameRoles as $key => $value) {
-            $userData = cms_users::where("id", $value->userid)->get()[0];
+            $userData = cms_users::where('id', $value->userid)->get()[0];
             array_push($arrayOfUsers, $userData);
         }
         return $arrayOfUsers;
@@ -136,6 +183,7 @@ class UserDisplayController extends Controller
     {
         //
     }
+<<<<<<< HEAD
 
     public function deleteUser($id)
     {
@@ -171,4 +219,6 @@ class UserDisplayController extends Controller
         $selectedUser[0]->save();
         return $selectedUser[0];
     }
+=======
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
 }

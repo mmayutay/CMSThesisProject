@@ -16,55 +16,74 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        DB::table('cms_users')->insert(array(
-            array(
-                'lastname' => 'Chu',
-                'firstname' => 'Machuy',
-                'birthday' => '11/03/2004',
-                'age' => '20',
-                'gender' => 'Female',
+        DB::table('cms_users')->insert([
+            [
+                'lastname' => 'Yorong',
+                'firstname' => 'Raymond',
+                'birthday' => '03/12/1999',
+                'age' => '22',
+                'gender' => 'Male',
                 'address' => 'Talamban',
                 'marital_status' => 'Single',
-                'email' => 'goddess@gg.ph',
-                'contact_number' => '09110101110',
-                'facebook' => 'chu@face.book',
-                'instagram' => 'chu@insta.gram',
+                'email' => 'raymond@gmail.com',
+                'contact_number' => '09356472800',
+                'facebook' => 'Raymond Jay Yorong',
+                'instagram' => '@yorong',
                 'twitter' => 'chu@twit.ter',
-                'leader' => 'DU30',
+                'leader' => '',
                 'category' => 'Professional',
-                'isCGVIP' => 'yes',
-                'isSCVIP' => 'no',
-                'auxilliary' => 'gsjgs',
-                'ministries' => 'PraiseAndWorship'
-            ),
-            array(
-                'lastname' => 'Bustamante',
-                'firstname' => 'Cristina',
-                'birthday' => '11/24/1999',
+                'isCGVIP' => 'true',
+                'isSCVIP' => 'true',
+                'auxilliary' => 'Blessed Youth',
+                'ministries' => 'PraiseAndWorship',
+            ],
+            [
+                'lastname' => 'Gamboa',
+                'firstname' => 'Ma. Lyn',
+                'birthday' => '08/06/1999',
                 'age' => '21',
                 'gender' => 'Female',
                 'address' => 'Talamban',
                 'marital_status' => 'Single',
-                'email' => 'pretty@gmail.com',
-                'contact_number' => '09000000001',
-                'facebook' => 'tinay@face.book',
-                'instagram' => 'tinay@insta.gram',
+                'email' => 'carizon.mars@gmail.com',
+                'contact_number' => '09356472800',
+                'facebook' => 'Ma Lyn Gamboa',
+                'instagram' => '@gamboa',
                 'twitter' => 'tinay@twit.ter',
-                'leader' => 'jj',
-                'category' => 'Kpop',
-                'isCGVIP' => 'no',
-                'isSCVIP' => 'yes',
-                'auxilliary' => 'hehehe',
-                'ministries' => 'Multimedia'
-            )
-            ));
-            DB::table('cms_attendances')->insert(array(
-                array(
-                    'leader' => 'Mars',
-                    'member' => 'Lyn',
-                    'type' => 'SC',
-                    'date' => 'Sunday February 7, 2021'
-                )
-                ));
+                'leader' => '',
+                'category' => 'Asian',
+                'isCGVIP' => 'false',
+                'isSCVIP' => 'false',
+                'auxilliary' => 'Blessed Youth',
+                'ministries' => 'Multimedia',
+            ],
+        ]);
+        DB::table('userroles_i_ds')->insert([
+            [
+                'id' => '0',
+                'roles' => 'Admin',
+            ],
+            [
+                'id' => '1',
+                'roles' => 'Pastor',
+            ],
+            [
+                'id' => '12',
+                'roles' => 'Primary Leader',
+            ],
+            [
+                'id' => '144',
+                'roles' => 'Member',
+            ],
+            // DB::table('cms_attendances')->insert(array(
+            //     array(
+            //         'leader' => 'Mars',
+            //         'member' => 'Lyn',
+            //         'type' => 'SC',
+            //         'date' => 'Sunday February 7, 2021'
+            //     )
+        ]);
+
+        $this->call(CMSAccountsSeeder::class);
     }
 }

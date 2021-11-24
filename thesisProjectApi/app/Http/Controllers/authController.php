@@ -29,7 +29,11 @@ class authController extends Controller
         } else {
             $partialPassword = $userRequest->pluck('password');
             // $password = Crypt::decryptString($partialPassword[0]);
+<<<<<<< HEAD
             $password = Hash::check($pass, $userRequest[0]->password);
+=======
+            $password = \Hash::check($pass, $userRequest[0]->password);
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
             if ($password) {
                 return $userRequest;
             }
@@ -98,6 +102,7 @@ class authController extends Controller
                 $vipUsers->save();
             }
 
+<<<<<<< HEAD
             $newAccountCreate->userid = $user->id;
             $newAccountCreate->username =
                 'BHCF' .
@@ -113,5 +118,19 @@ class authController extends Controller
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+=======
+        $newAccountCreate->userid = $user->id;
+        $newAccountCreate->username =
+            'BHCF' .
+            $request->newUser['Firstname'][0] .
+            $request->newUser['Lastname'] .
+            $user->id;
+        $newAccountCreate->password = \Hash::make(
+            $request->newUser['Lastname'] . 'Member' . $user->id
+        );
+        $newAccountCreate->roles = $userRole->roles;
+        $newAccountCreate->save();
+        return $newAccountCreate;
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
     }
 }

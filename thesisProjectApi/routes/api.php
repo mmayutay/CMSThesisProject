@@ -3,6 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\ForgotPassword;
+
+//test
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,6 +24,13 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group */
 
+<<<<<<< HEAD
+=======
+Route::post('reset-password', [
+    ChangePasswordController::class,
+    'passwordResetProcess',
+]);
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -56,9 +69,13 @@ Route::post('sign-up', 'authController@signUp');
 
 Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
 
+<<<<<<< HEAD
 Route::get('switch-vip-to-regular/{userID}', 'UserDisplayController@switchVIPToRegular');
 
 //This is for the logged users   matter
+=======
+//This is for the logged users matter
+>>>>>>> ec34c35767903d7f03eb83f736d6e7aa536880d1
 Route::post('/info', 'UserDisplayController@getUsers');
 
 // Kini siya nga function kay kuhaon ang tanan nga members ana nga selected lesson and i check sad if iyang member kay naa say member 
