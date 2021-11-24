@@ -7,40 +7,46 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use App\Models\cms_accounts;
-use App\Models\recover_passwords;
-use App\Http\Requests\UpdatePasswordRequest;
+use App\Rules\IsValidPassword;
+use Validator;
+use Illuminate\Validation\Rule;
 
 class ChangePasswordController extends Controller
 {
-    //
+
     public function resetPassword(Request $request)
     {
         try {
+            $rules = array(
+                'username' => 'required',
+                'currpassword' => 'required',
+                'newPassword' => [
+                    'required', 'string', 'min:8'
+                ]
+            );
+
+            $request->validate(
+                $rules
+            );
+
             $value = $request->currpassword;
 
-            $user = cms_accounts::where(
-                'username',
-                $request->username
-            )->first();
+            $user = cms_accounts::where('username', $request->username)->first();
 
             if (!is_null($user)) {
-                // $val =Crypt::decryptString($user->password);
-                $password = \Hash::check($value, $user[0]->password);
-                if ($password) {
-                    $user->password = Crypt::encryptString(
-                        $request->newPassword
-                    );
+                error_log($user->password);
+                if (Hash::check($value, $user->password)) {
+                    $user->password = Hash::make($request->newPassword);
                     $user->save();
 
                     return $user;
                 }
             }
-        } catch (Exception $e) {
-            return response()->json([
-                'error',
-                'Username or Password is incorrect ' . $e->getMessage(),
-            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+
+            return null;
         }
     }
 }

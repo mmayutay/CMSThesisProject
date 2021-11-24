@@ -10,7 +10,8 @@ use App\Models\students;
 
 class eventAndAnnouncementControl extends Controller
 {
-    public function addEventOrAnnouncement(Request $request) {
+    public function addEventOrAnnouncement(Request $request)
+    {
         $addedEvent = new eventsAndAnnouncements;
         $addedEvent->title = $request->newEvents['Title'];
         $addedEvent->description = $request->newEvents['Description'];
@@ -24,14 +25,16 @@ class eventAndAnnouncementControl extends Controller
         return $addedEvent;
     }
 
-    public function returnAllEventsAndAnnouncement() {
+    public function returnAllEventsAndAnnouncement()
+    {
         $returnEvents = eventsAndAnnouncements::all();
 
         return $returnEvents;
     }
 
-    public function updateEventsAndAnnouncement(Request $request, $id) {
-        
+    public function updateEventsAndAnnouncement(Request $request, $id)
+    {
+
         $updateEvents = eventsAndAnnouncements::find($id);
         $updateEvents->title = $request->input('title');
         $updateEvents->description = $request->input('description');
@@ -45,32 +48,36 @@ class eventAndAnnouncementControl extends Controller
         return $updateEvents;
     }
 
-    public function deleteEventsAndAnnouncement($id) {
-
-        eventsAndAnnouncements::where('id', $id)->delete();
-        return response()->json(['success' => "Deleted successfully!"]);
+    public function deleteEventsAndAnnouncement($id)
+    {
+        $deletedEvents = eventsAndAnnouncements::where('id', $id)->delete();
+        return $deletedEvents;
     }
 
-    public function eventOwner($eventOwnerId) {
+    public function eventOwner($eventOwnerId)
+    {
         $eventOwnerDisplay = eventsAndAnnouncements::where('eventOwner', $eventOwnerId)->get();
 
         return $eventOwnerDisplay;
     }
 
-    public function returnEvent($id) {
+    public function returnEvent($id)
+    {
 
         $returnEventsById = eventsAndAnnouncements::find($id);
 
         return $returnEventsById;
     }
 
-    public function deleteMultipleEventsAndAnnouncement(Request $request) {
+    public function deleteMultipleEventsAndAnnouncement(Request $request)
+    {
         $ids = $request->ids;
-        deleteEventsAndAnnouncement::whereInt('id', explode(",", $ids))->delete();
+        eventsAndAnnouncements::whereInt('id', explode(",", $ids))->delete();
         return response()->json(['success' => "Deleted successfully!"]);
     }
 
-    public function returnAllStudents($id) {
+    public function returnAllStudents($id)
+    {
         $arrayOfStudents = array();
         $students = records::where('trainings_id', $id)->get()->pluck('students_id');
         foreach ($students as $key => $value) {

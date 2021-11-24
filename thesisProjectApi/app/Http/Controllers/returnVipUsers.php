@@ -9,20 +9,20 @@ use App\Models\cms_users;
 
 class returnVipUsers extends Controller
 {
-    public function retrieveAllVipUsers() {
-        $list = array();
+    public function retrieveAllVipUsers()
+    {
 
-        $allVipUsers = cmsVipUsers::all();
-        foreach ($allVipUsers->pluck('userId') as $key => $value) {
-            $foundUser = cms_users::where('id', $value)->get();
-            array_push($list, $foundUser[0]);
-        }
+        $allVipUsers =
+            cms_users::select('*')
+            ->where('isCGVIP', 'true')
+            ->where('isSCVIP', 'true')
+            ->get();
 
-        return $list;
-
+        return $allVipUsers;
     }
 
-    public function retrieveVipUsersWithLeader() {
+    public function retrieveVipUsersWithLeader()
+    {
         $array = array();
 
         $allVipUsers = cmsVipUsers::all();
@@ -36,12 +36,13 @@ class returnVipUsers extends Controller
         return $array;
     }
 
-    public function allRecordedNewMember() {
+    public function allRecordedNewMember()
+    {
         $array = array();
 
         $allNewConfirmedMember = cmsVipUsers::where('attendanceCounter', '>=', 4)->get();
 
-        if($allNewConfirmedMember->isEmpty()) {
+        if ($allNewConfirmedMember->isEmpty()) {
             return 'false';
         }
         foreach ($allNewConfirmedMember->pluck('userId') as $key => $value) {

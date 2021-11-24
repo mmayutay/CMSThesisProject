@@ -3,8 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\ForgotPassword;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,16 +17,14 @@ use App\Http\Controllers\ForgotPassword;
 /*These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group */
-Route::get('send-code/{username}', [ForgotPassword::class, 'sendForgotPasswordCode']);
 
-Route::post('reset-password', [
-    ChangePasswordController::class,
-    'resetPassword',
-]);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('reset-password', 'ChangePasswordController@resetPassword');
+
 
 Route::get('get-leaders/{role}', 'UserDisplayController@getAllLeaders');
 
@@ -43,6 +39,10 @@ Route::get('allMemberUsers', 'findActiveAndInactiveUsers@returnAllMembers');
 
 Route::post('addInactiveUser', 'findActiveAndInactiveUsers@userInactive');
 
+Route::get('return-users-inactivity', 'findActiveAndInactiveUsers@returnAllInactivityOfUsers');
+
+Route::get('current-vip-to-regular/{userID}', 'findActiveAndInactiveUsers@makeTheSelectedUserRegular');
+
 Route::get('get-active-or-inactive-users/{boolean}', 'findActiveAndInactiveUsers@getInactiveUsers');
 
 //This is for creating account and for logging in
@@ -56,11 +56,17 @@ Route::post('sign-up', 'authController@signUp');
 
 Route::post('userProfile', 'App\Http\Controllers\Controls@getUserInfo');
 
+Route::get('switch-vip-to-regular/{userID}', 'UserDisplayController@switchVIPToRegular');
+
 //This is for the logged users   matter
 Route::post('/info', 'UserDisplayController@getUsers');
 
 // Kini siya nga function kay kuhaon ang tanan nga members ana nga selected lesson and i check sad if iyang member kay naa say member 
 Route::get('certain-leader/{leaderID}', 'UserDisplayController@returnMembersOfCertainLeader');
+
+Route::delete('user/delete/{id}', 'UserDisplayController@deleteUser');
+
+Route::delete('user/delete/account/{id}', 'UserDisplayController@deleteUserAccount');
 
 // Route::get('/info/edit', 'UserDisplayController@editUserInfo');
 
@@ -111,7 +117,7 @@ Route::post('get-user-attendance', 'attendanceController@viewAttendance');
 
 Route::post('current-user-attendance', 'attendanceController@returnCurrentUserAttendance');
 
-Route::post('user-attendance-year-selected','attendanceController@currentUsersAttendanceYear');
+Route::post('user-attendance-year-selected', 'attendanceController@currentUsersAttendanceYear');
 
 Route::post('viewAttendancesOfSCandEvents', 'attendanceController@viewAttendanceSCandEvents');
 
@@ -160,16 +166,10 @@ Route::post(
     'eventAndAnnouncementControl@updateEventsAndAnnouncement'
 );
 
-Route::delete(
-    'event-announcement/delete/{id}',
-    'eventAndAnnouncementControl@deleteEventsAndAnnouncement'
-);
+Route::delete('event-announcement/delete/{id}', 'eventAndAnnouncementControl@deleteEventsAndAnnouncement');
 
 // This route is to return all students of a specific events or announcements
-Route::get(
-    'add-event-announcement/return-all-students/{id}',
-    'eventAndAnnouncementControl@returnAllStudents'
-);
+Route::get('add-event-announcement/return-all-students/{id}', 'eventAndAnnouncementControl@returnAllStudents');
 
 Route::get('event-owner/{id}', 'eventAndAnnouncementControl@eventOwner');
 
@@ -177,6 +177,9 @@ Route::get('event-return/{id}', 'eventAndAnnouncementControl@returnEvent');
 
 // This routes is the responsible in adding trainings and also lessons 
 Route::get('trainings-and-classes/return-all-traininings', 'trainingsAndClasses@returnAllTrainings');
+
+// Kini nga route kay i return ang tanan nga classes 
+Route::get('trainings-and-classes/return-all-classes', 'trainingsAndClasses@returnAllClasses');
 
 Route::post('trainings-and-classes/add-trainings-with-lessons', 'trainingsAndClasses@addTrainingsAndLessons');
 
@@ -214,11 +217,15 @@ Route::get('trainings-and-classes/update-students-score/{studentId}/{score}/{cla
 
 Route::get('trainings-and-classes/deleteLessonOfTraining/{id}', 'trainingsAndClasses@deleteLessonsOfTraining');
 
+Route::get('trainings-and-classes/get-all-records/{id}', 'trainingsAndClasses@getAllRecords');
+
 Route::get('trainings-and-classes/get-certain-student-collection-student/{usersID}', 'trainingsAndClasses@returnStudentFromStudentCollection');
 
 Route::get('trainings-and-classes/check-student-already-exist/{studentID}/{classID}', 'trainingsAndClasses@checkStudentIfAlreadyExist');
 
 Route::delete('trainings-and-classes/remove-student-from-class/{studentID}/{classID}', 'trainingsAndClasses@removeStudentOfCertainClass');
+
+Route::delete('trainings-and-classes/remove-student-from-class/{studentId}', 'trainingsAndClasses@deleteStudentFromRecords');
 // This routes are for adding students to records
 // Route::post('class-records/add-student', 'RecordsController@addNewRecord');
 
@@ -246,7 +253,7 @@ Route::post(
     'AttendanceEventAndSunday@addAttendanceInSCorEvents'
 );
 
-Route::get('add-attendance/get-all-events-dates','AttendanceEventAndSunday@allEventsDates');
+Route::get('add-attendance/get-all-events-dates', 'AttendanceEventAndSunday@allEventsDates');
 
 Route::get('add-attendance/get-all-sunday-attendance', 'AttendanceEventAndSunday@allSundaysAttendance');
 
@@ -255,5 +262,3 @@ Route::get('add-attendance/get-all-cell-group-attendance',  'AttendanceEventAndS
 Route::get('add-attendance/get-event-details/{id}', 'AttendanceEventAndSunday@attendanceForTheSelectedEvent');
 
 Route::post('lesson/update/{id}', 'trainingsAndClasses@updateLessonOfTraining');
-
-Route::post('reset-pass/update/{id}', 'resetpassword@resetpassword');
